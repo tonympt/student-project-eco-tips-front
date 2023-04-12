@@ -1,6 +1,7 @@
-import { createStore, compose } from "redux";
+/* eslint-disable no-undef */
+import { createStore, compose } from 'redux';
 
-import reducer from "src/reducers";
+// import reducer from 'src/routes';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
