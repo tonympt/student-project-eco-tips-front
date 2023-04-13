@@ -38,7 +38,8 @@ function SignIn() {
         <p className="text-sm text-center text-gray-400">
           Vous n&#x27;avez pas encore de compte ?
           {' '}
-          <Link  className="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800"> Inscrivez vous</Link>
+          {/* Penser a mettre le lien */}
+          <Link className="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800"> Inscrivez vous</Link>
           .
         </p>
 
