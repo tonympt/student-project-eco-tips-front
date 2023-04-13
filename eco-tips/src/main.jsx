@@ -10,8 +10,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <React.StrictMode>
       <App />
-      <SignIn />
     </React.StrictMode>
-    ,
   </BrowserRouter>,
 );
