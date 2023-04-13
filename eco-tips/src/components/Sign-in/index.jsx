@@ -1,16 +1,3 @@
-// <!-- component -->
-// <!--
-//     =======================================================================
-//     Name    :   Simple Sign In
-//     Author  :   Surjith S M
-//     Twitter :   @surjithctly
-
-//     Get more components here ? https://web3templates.com/components
-
-//     Copyright © 2021
-//     =======================================================================
-//  -->
-
 import { Link } from 'react-router-dom';
 
 function SignIn() {
