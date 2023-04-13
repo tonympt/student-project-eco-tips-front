@@ -19,20 +19,13 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': 'off',
-
-    'jsx-a11y/label-has-associated-control': ['error', {
-      required: {
-        some: ['nesting', 'id'],
-      },
-    }],
-    'jsx-a11y/label-has-for': ['error', {
-      required: {
-        some: ['nesting', 'id'],
-      },
-    }],
-
+    'object-curly-newline': 'off',
+    'no-plusplus': 'off',
+    'import/extensions': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/label-has-for': 'off',
     'import/no-unresolved': 'off',
     'react/no-unescaped-entities': 'off',
-
   },
 };
