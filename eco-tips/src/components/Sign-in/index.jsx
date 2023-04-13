@@ -20,7 +20,7 @@ function SignIn() {
         <div className="max-w-md mx-auto my-10">
           <div className="text-center">
             <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Connexion</h1>
-            <p className="text-gray-500 dark:text-gray-400">Connectez vous pour acceder a votre compte</p>
+            <p className="text-gray-500 dark:text-gray-400">Connectez vous pour acceder à votre compte</p>
           </div>
           <div className="m-7">
             <form action="">
