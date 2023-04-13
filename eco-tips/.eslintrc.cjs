@@ -19,6 +19,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'no-unused-vars': 'off',
+
     'jsx-a11y/label-has-associated-control': ['error', {
       required: {
         some: ['nesting', 'id'],
@@ -29,5 +30,9 @@ module.exports = {
         some: ['nesting', 'id'],
       },
     }],
+
+    'import/no-unresolved': 'off',
+    'react/no-unescaped-entities': 'off',
+
   },
 };
