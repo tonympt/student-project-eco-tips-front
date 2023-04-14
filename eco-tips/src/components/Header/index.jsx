@@ -66,7 +66,7 @@ function Header() {
       {/* button sign-up sign-in */}
       <div className="flex flex-wrap space-x-2">
         <button type="button" className="text-gray-700 hover:text-green-700">Se connecter</button>
-        <button type="button" className="styleButton styleButton:hover py-1 px-2">S'inscrire</button>
+        <button type="button" className="py-1 px-2 font-bold green-button green-button:hover green-button:active active:animate-buttonAnimation">S'inscrire</button>
       </div>
     </header>
   );
