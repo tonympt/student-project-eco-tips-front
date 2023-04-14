@@ -8,10 +8,6 @@ function App() {
     <div>
       <Header />
       <Footer />
-
-    
-      
-
     </div>
   );
 }
