@@ -1,12 +1,17 @@
-import Header from "@/components/Header"
-
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 
 function App() {
   return (
-    <div className="bg-gray-100">
-      <Header/>
+
+    <div>
+      <Header />
+      <Footer />
+
+    
       
+
     </div>
   );
 }
