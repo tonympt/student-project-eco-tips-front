@@ -20,7 +20,7 @@ export default {
       // expand card
       animation: {
         expand: 'expand 0.5s forwards',
-        buttonAnimation: 'buttonAnimation 150ms cubic-bezier(0.4, 0, 0.2, 1) infinite',
+        buttonAnimation: 'buttonAnimation 10ms cubic-bezier(0.4, 0, 0.2, 1) 1',
       },
     },
   },
