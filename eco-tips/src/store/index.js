@@ -1,11 +1,17 @@
 // exemple to store
-/* eslint-disable no-undef */
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
-import reducer from "@/reducers";
+import reducer from '@/reducers';
+// import middelwares
+import authMiddleware from '@/middelware/authMiddleware';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, composeEnhancers());
+// combine middelwares
+const enhancers = composeEnhancers(
+  applyMiddleware(authMiddleware),
+);
+
+const store = createStore(reducer, enhancers);
 
 export default store;
