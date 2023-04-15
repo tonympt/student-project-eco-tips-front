@@ -1,7 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BodyStyle from '@/components/BodyStyle';
-// import Collection from '@/components/Collection';
+
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       <BodyStyle>
       </BodyStyle>
       <Footer />
+      <DelayButtons />
     </div>
   );
 }
