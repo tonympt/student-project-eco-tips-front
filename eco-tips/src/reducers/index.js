@@ -2,11 +2,11 @@
 import { combineReducers } from 'redux';
 
 // import reducer
-import cardReducer from './card';
+import userReducer from './user';
 
 // combine and name reducer
 const rootReducer = combineReducers({
-  card: cardReducer,
+  user: userReducer,
 });
 
 export default rootReducer;
