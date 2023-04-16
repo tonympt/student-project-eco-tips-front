@@ -45,7 +45,7 @@ function SignUp() {
           />
         </div>
         <button
-          className="w-full font-bold green-button green-button:hover green-button:active active:animate-buttonAnimation"
+          className="w-full py-1 font-bold green-button green-button:hover button-active active:animate-buttonAnimation"
           type="submit"
         >
           S'inscrire
