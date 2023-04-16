@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import icon from '@/assets/images/icon.svg';
 
 function Header() {
@@ -10,8 +10,8 @@ function Header() {
   };
 
   return (
-    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between content-center z-40">
-      <nav className="flex flex-wrap content-center space-x-2">
+    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40">
+      <nav className="flex flex-wrap items-center space-x-2">
         {/* Burger button */}
         <button type="button" className="ml-3" onClick={toggleMenu}>
           {menuOpen ? (
@@ -26,7 +26,7 @@ function Header() {
         </button>
         {/* logo */}
         <NavLink to="/">
-          <div className="flex flex-row content-center items-end">
+          <div className="flex flex-row items-center">
             <img src={icon} alt="Logo" className="w-10 h-10" />
             <h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r to-green-500 from-green-900">eco-tips</h1>
           </div>
@@ -39,12 +39,11 @@ function Header() {
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                   <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
                 </svg>
-
                 Mon Profil
               </NavLink>
             </li>
             <li>
-              <NavLink to="/collection/:id" className="flex flex-row gap-2 text-gray-700 block px-4 py-1 hover:border-l-4  border-green-600 hover:text-green-600">
+              <NavLink to="/collection" className="flex flex-row gap-2 text-gray-700 block px-4 py-1 hover:border-l-4  border-green-600 hover:text-green-600">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                   <path fillRule="evenodd" d="M6 3a3 3 0 00-3 3v12a3 3 0 003 3h12a3 3 0 003-3V6a3 3 0 00-3-3H6zm1.5 1.5a.75.75 0 00-.75.75V16.5a.75.75 0 001.085.67L12 15.089l4.165 2.083a.75.75 0 001.085-.671V5.25a.75.75 0 00-.75-.75h-9z" clipRule="evenodd" />
                 </svg>
@@ -64,9 +63,9 @@ function Header() {
         </div>
       </nav>
       {/* button sign-up sign-in */}
-      <div className="flex flex-wrap space-x-2">
-        <button type="button" className="text-gray-700 hover:text-green-700">Se connecter</button>
-        <button type="button" className="py-1 px-2 font-bold green-button green-button:hover green-button:active active:animate-buttonAnimation">S'inscrire</button>
+      <div className="flex flex-wrap items-center space-x-2">
+        <Link to="/sign-in" className="text-gray-700 hover:text-green-700">Se connecter</Link>
+        <Link to="/sign-up" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">S'inscrire</Link>
       </div>
     </header>
   );

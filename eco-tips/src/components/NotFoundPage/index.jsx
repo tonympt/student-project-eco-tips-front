@@ -11,7 +11,7 @@ function NotFoundPage() {
         <h1 className="text-2xl font-semibold text-gray-700">Page non trouvé</h1>
         <p className="text-gray-500">La page que vous recherchez n'existe pas ou a été déplacée.</p>
       </div>
-      <Link to="/" type="button" className="py-2 px-2 font-bold green-button green-button:hover green-button:active active:animate-buttonAnimation">
+      <Link to="/" type="button" className="py-2 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
         Page d'accueil
       </Link>
     </div>
