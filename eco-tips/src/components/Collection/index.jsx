@@ -8,7 +8,7 @@ function Collection() {
   return (
     <div className="w-full mx-auto bg-white p-8 rounded-md shadow-md">
       <IconsAdd />
-      <div className="flex flex-wrap gap-3 m-6">
+      <div className="relative flex flex-wrap gap-3 m-6">
         {/* //simulate collection
         {cards.map((card) => (
           <div key={card.id}>
