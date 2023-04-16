@@ -1,11 +1,14 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { updateLoginField, submitLogin } from '@/actions/user';
 import Field from '@/components/Authentification/Field';
 
 function SignIn() {
   const { email, password } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { redirectTo } = useSelector((state) => state.ui);
+  const navigate = useNavigate();
 
   const changeField = (newValue, identifier) => {
     const action = updateLoginField(newValue, identifier);
@@ -15,6 +18,11 @@ function SignIn() {
     event.preventDefault();
     dispatch(submitLogin());
   };
+  useEffect(() => {
+    if (redirectTo) {
+      navigate(redirectTo);
+    }
+  }, [redirectTo, navigate]);
 
   return (
     <div className="py-8">
