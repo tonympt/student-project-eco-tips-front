@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
@@ -14,7 +15,14 @@ import CardAuthor from './CardAuthor';
 import CardImg from './CardImg';
 import CheckIcon from './CheckIcon';
 
-function Card({ imageSrc, title, tags, description, author, ratings, validated }) {
+function Card({ image,
+  title,
+  tag,
+  description,
+  author,
+  environmental_rating,
+  economic_rating,
+  state }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
@@ -22,13 +30,12 @@ function Card({ imageSrc, title, tags, description, author, ratings, validated }
   const styleCardExpanded = isExpanded
     ? 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-full md:w-1/4'
     : 'md:w-48 cursor-pointer';
-  const styleValidated = validated && 'border-4 border-green-600';
+  const styleValidated = state && 'border-4 border-green-600';
 
   const handleClick = () => {
     setIsExpanded(true);
     setShowBackground(true);
   };
-
   const handleOutsideClick = (event) => {
     // Check if the clicked element is not a descendant of cardRef and isExpanded=true
     if (!cardRef.current.contains(event.target) && isExpanded) {
@@ -44,7 +51,6 @@ function Card({ imageSrc, title, tags, description, author, ratings, validated }
       window.removeEventListener('click', handleOutsideClick);
     };
   }, [isExpanded]);
-
   return (
     <>
       {showBackground && (
@@ -61,14 +67,14 @@ function Card({ imageSrc, title, tags, description, author, ratings, validated }
           className={`bg-white rounded shadow-md hover:shadow-lg sm:w-full ${styleCardExpanded} ${styleValidated}`}
           onClick={handleClick}
         >
-          <CardImg imageSrc={imageSrc} title={title} />
+          <CardImg imageSrc={image} title={title} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />
-            <CardTags tags={tags} />
-            <CardRating ratings={ratings} />
+            <CardTags tags={tag} />
+            <CardRating environmental={environmental_rating} economic={economic_rating} />
             <CardDescription description={description} isExpanded={isExpanded} />
             <CardAuthor author={author} />
-            {validated && <CheckIcon />}
+            {state && <CheckIcon />}
           </div>
         </div>
       </div>
@@ -77,13 +83,14 @@ function Card({ imageSrc, title, tags, description, author, ratings, validated }
 }
 
 Card.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tag: PropTypes.arrayOf(PropTypes.string).isRequired,
   description: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  ratings: PropTypes.arrayOf(PropTypes.number).isRequired,
-  validated: PropTypes.bool.isRequired,
+  environmental_rating: PropTypes.string.isRequired,
+  economic_rating: PropTypes.string.isRequired,
+  state: PropTypes.bool.isRequired,
 };
 
 export default Card;
