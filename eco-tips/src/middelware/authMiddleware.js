@@ -20,12 +20,11 @@ const authMiddleware = (store) => (next) => (action) => {
     } break;
     case SUBMIT_SIGNUP: {
       const { email, password, confirmpassword, firstname, lastname, birthdate } = store.getState().user;
-      console.log(email, password, confirmpassword, firstname, lastname, birthdate)
+      console.log(email, password, confirmpassword, firstname, lastname, birthdate);
       axios
         .post('http://localhost:XXXX/sign-in', { email, password, confirmpassword, firstname, lastname, birthdate })
         .then((res) => {
-
- store.dispatch(redirect('/'));
+          store.dispatch(redirect('/'));
         })
         .catch((err) => console.log(err))
         .finally();

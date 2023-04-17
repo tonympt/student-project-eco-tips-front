@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import Datepicker from 'react-tailwindcss-datepicker';
+import { useNavigate } from 'react-router-dom';
 import { updateSignupField, submitSignup } from '@/actions/user';
 import Field from '@/components/Authentification/Field';
 
@@ -16,10 +15,7 @@ function SignUp() {
     const action = updateSignupField(newValue, identifier);
     dispatch(action);
   };
-  const changeDateField = (newValue) => {
-    changeField(event.target.value, 'birthdate');
-    console.log(event.target.value);
-  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(submitSignup());
@@ -55,21 +51,13 @@ function SignUp() {
           type="text"
         />
 
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Date de naissance</label>
-        <div className="block text-gray-700 text-sm font-bold mb-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500">
-          <Datepicker
-            primaryColor="green"
-            i18n="fr"
-            displayFormat="DD/MM/YYYY"
-            minDate={new Date('1920-01-01')}
-            useRange={false}
-            asSingle
-            type="date"
-            name="birthdate"
-            value={birthdate}
-            onChange={changeDateField}
-          />
-        </div>
+        <Field
+          name="birthdate"
+          labelName="Date de naissance"
+          onChange={changeField}
+          value={birthdate}
+          type="date"
+        />
 
         <Field
           name="email"
@@ -78,12 +66,14 @@ function SignUp() {
           onChange={changeField}
           value={email}
           type="email"
+          min="1910-01-01"
         />
         <Field
           name="password"
           labelName="Mot de passe"
           placeholder="********"
           onChange={changeField}
+          data-date-format="DD MMMM YYYY"
           value={password}
           type="password"
         />
