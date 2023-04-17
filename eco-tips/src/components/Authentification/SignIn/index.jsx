@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { updateLoginField, submitLogin } from '@/actions/user';
+import { clearRedirectTo } from '@/actions/ui';
 import Field from '@/components/Authentification/Field';
 
 function SignIn() {
@@ -21,6 +22,7 @@ function SignIn() {
   useEffect(() => {
     if (redirectTo) {
       navigate(redirectTo);
+      dispatch(clearRedirectTo());
     }
   }, [redirectTo, navigate]);
 
@@ -35,6 +37,7 @@ function SignIn() {
         <Field
           name="email"
           labelName="Email"
+          type="email"
           placeholder="nom@exemple.com"
           onChange={changeField}
           value={email}
@@ -42,6 +45,7 @@ function SignIn() {
         <Field
           name="password"
           labelName="Mot de passe"
+          type="password"
           placeholder="********"
           onChange={changeField}
           value={password}

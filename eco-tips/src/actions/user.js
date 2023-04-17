@@ -1,5 +1,8 @@
 export const UPDATE_LOGIN_FIELD = 'UPDATE_LOGIN_FIELD';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
+export const SAVE_AUTH_DATA = 'SAVE_AUTH_DATA';
+export const LOGOUT = 'LOGOUT';
+export const STAY_CONNECTED_SESSION = 'STAY_CONNECTED_SESSION';
 
 export const updateLoginField = (newValue, identifier) => ({
   type: UPDATE_LOGIN_FIELD,
@@ -9,4 +12,19 @@ export const updateLoginField = (newValue, identifier) => ({
 
 export const submitLogin = () => ({
   type: SUBMIT_LOGIN,
+});
+
+export const saveAuthData = (firstname, token) => ({
+  type: SAVE_AUTH_DATA,
+  firstname,
+  token,
+});
+
+export const logOut = () => ({
+  type: LOGOUT,
+});
+
+export const setAuthToken = (token) => ({
+  type: STAY_CONNECTED_SESSION,
+  token,
 });

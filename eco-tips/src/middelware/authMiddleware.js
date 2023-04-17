@@ -1,20 +1,18 @@
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { SUBMIT_LOGIN } from '@/actions/user';
+import { SUBMIT_LOGIN, saveAuthData } from '@/actions/user';
 import { redirect } from '@/actions/ui';
 
 const authMiddleware = (store) => (next) => (action) => {
-  const dispatch = useDispatch();
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState().user;
       axios
-        .post('http://localhost:XXXX/sign-in', { email, password })
+        .post('http://pauline-cauty.vpnuser.lan:3000/sign-in', { email, password })
         .then((res) => {
-          const { pseudo, token, logged } = res.data;
-          // // save token on localstorage
-          // window.localStorage.setItem("token", token);
-          dispatch(redirect('/'));
+          const { firstname, accessToken: token } = res.data;
+          window.localStorage.setItem('token', token);
+          store.dispatch(saveAuthData(firstname, token));
+          store.dispatch(redirect('/'));
         })
         .catch((err) => console.log(err))
         .finally();
