@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { updateSignupField, submitSignup } from '@/actions/user';
 import Datepicker from 'react-tailwindcss-datepicker';
+import { updateSignupField, submitSignup } from '@/actions/user';
 import Field from '@/components/Authentification/Field';
 
 function SignUp() {
@@ -14,6 +15,10 @@ function SignUp() {
   const changeField = (newValue, identifier) => {
     const action = updateSignupField(newValue, identifier);
     dispatch(action);
+  };
+  const changeDateField = (newValue) => {
+    changeField(event.target.value, 'birthdate');
+    console.log(event.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,13 +54,22 @@ function SignUp() {
           value={lastname}
           type="text"
         />
-        <Field
-          name="birhtdate"
-          labelName="Année de naissance"
-          onChange={changeField}
-          value={birthdate}
-          type="date"
-        />
+
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Date de naissance</label>
+        <div className="block text-gray-700 text-sm font-bold mb-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500">
+          <Datepicker
+            primaryColor="green"
+            i18n="fr"
+            displayFormat="DD/MM/YYYY"
+            minDate={new Date('1920-01-01')}
+            useRange={false}
+            asSingle
+            type="date"
+            name="birthdate"
+            value={birthdate}
+            onChange={changeDateField}
+          />
+        </div>
 
         <Field
           name="email"
