@@ -1,10 +1,9 @@
+/* eslint-disable max-len */
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { SUBMIT_LOGIN } from '@/actions/user';
+import { SUBMIT_LOGIN, SUBMIT_SIGNUP } from '@/actions/user';
 import { redirect } from '@/actions/ui';
 
 const authMiddleware = (store) => (next) => (action) => {
-  const dispatch = useDispatch();
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState().user;
@@ -14,7 +13,19 @@ const authMiddleware = (store) => (next) => (action) => {
           const { pseudo, token, logged } = res.data;
           // // save token on localstorage
           // window.localStorage.setItem("token", token);
-          dispatch(redirect('/'));
+          store.dispatch(redirect('/'));
+        })
+        .catch((err) => console.log(err))
+        .finally();
+    } break;
+    case SUBMIT_SIGNUP: {
+      const { email, password, confirmpassword, firstname, lastname, birthdate } = store.getState().user;
+      console.log(email, password, confirmpassword, firstname, lastname, birthdate)
+      axios
+        .post('http://localhost:XXXX/sign-in', { email, password, confirmpassword, firstname, lastname, birthdate })
+        .then((res) => {
+
+ store.dispatch(redirect('/'));
         })
         .catch((err) => console.log(err))
         .finally();
