@@ -1,8 +1,11 @@
-import { UPDATE_LOGIN_FIELD } from '@/actions/user';
+import { UPDATE_LOGIN_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION } from '@/actions/user';
 
 export const initialState = {
   email: '',
   password: '',
+  firstname: '',
+  token: '',
+  logged: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -10,6 +13,13 @@ const reducer = (state = initialState, action = {}) => {
     case UPDATE_LOGIN_FIELD:
       // the identifier must be equal to the key of its state
       return { ...state, [action.identifier]: action.newValue };
+    case SAVE_AUTH_DATA: {
+      const { firstname, token } = action;
+      return { ...state, firstname, token, logged: true, email: '', password: '' }; }
+    case LOGOUT:
+      return { ...state, firstname: '', token: '', logged: false };
+    case STAY_CONNECTED_SESSION:
+      return { ...state, token: action.token, logged: true };
     default:
       return state;
   }
