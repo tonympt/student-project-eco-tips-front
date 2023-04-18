@@ -5,6 +5,7 @@ export const SUBMIT_SIGNUP = 'SUBMIT_SIGNUP';
 export const SAVE_AUTH_DATA = 'SAVE_AUTH_DATA';
 export const LOGOUT = 'LOGOUT';
 export const STAY_CONNECTED_SESSION = 'STAY_CONNECTED_SESSION';
+export const RESET_ALL_DATA = 'RESET_ALL_DATA';
 
 export const updateLoginField = (newValue, identifier) => ({
   type: UPDATE_LOGIN_FIELD,
@@ -33,6 +34,10 @@ export const saveAuthData = (firstname, token) => ({
 
 export const logOut = () => ({
   type: LOGOUT,
+});
+
+export const resetAllData = () => ({
+  type: RESET_ALL_DATA,
 });
 
 export const setAuthToken = (token) => ({

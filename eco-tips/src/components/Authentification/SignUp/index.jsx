@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateSignupField, submitSignup } from '@/actions/user';
+import { clearRedirectTo } from '@/actions/ui';
 import Field from '@/components/Authentification/Field';
 
 function SignUp() {
@@ -23,6 +24,7 @@ function SignUp() {
   useEffect(() => {
     if (redirectTo) {
       navigate(redirectTo);
+      dispatch(clearRedirectTo());
     }
   }, [redirectTo, navigate]);
 
@@ -62,7 +64,6 @@ function SignUp() {
         />
 
         <Field
-
           name="email"
           labelName="Email"
           placeholder="nom@exemple.com"
