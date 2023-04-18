@@ -52,14 +52,17 @@ function SignUp() {
         />
 
         <Field
+          className="text-gray-700 text-sm font-bold mb-2"
           name="birthdate"
           labelName="Date de naissance"
           onChange={changeField}
           value={birthdate}
           type="date"
+          placeholder="JJ/MM/AAAA"
         />
 
         <Field
+
           name="email"
           labelName="Email"
           placeholder="nom@exemple.com"
@@ -67,6 +70,7 @@ function SignUp() {
           value={email}
           type="email"
           min="1910-01-01"
+
         />
         <Field
           name="password"

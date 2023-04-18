@@ -24,7 +24,7 @@ export const updateSignupField = (newValue, identifier) => ({
   type: UPDATE_SIGNUP_FIELD,
   newValue,
   identifier,
-
+});
 export const saveAuthData = (firstname, token) => ({
   type: SAVE_AUTH_DATA,
   firstname,
@@ -38,5 +38,5 @@ export const logOut = () => ({
 export const setAuthToken = (token) => ({
   type: STAY_CONNECTED_SESSION,
   token,
-  
+
 });

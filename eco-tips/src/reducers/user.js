@@ -1,6 +1,4 @@
-import { UPDATE_LOGIN_FIELD, UPDATE_SIGNUP_FIELD } from '@/actions/user';
-import { UPDATE_LOGIN_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION } from '@/actions/user';
-
+import { UPDATE_LOGIN_FIELD, UPDATE_SIGNUP_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION } from '@/actions/user';
 
 export const initialState = {
   email: '',

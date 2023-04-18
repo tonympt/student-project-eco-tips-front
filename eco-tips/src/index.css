@@ -28,5 +28,14 @@
     .button-active:active {
       @apply scale-95;
     }
+    input[type="date"]::-webkit-calendar-picker-indicator::before {
+      content: attr(placeholder);
+      @apply text-gray-500; /* Customize the text color here */
+      position: absolute;
+      pointer-events: none;
+    }
+    input[type="date"]:focus::-webkit-calendar-picker-indicator::before {
+      content: "";
+    }
 }
 

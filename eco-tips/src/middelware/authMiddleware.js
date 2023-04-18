@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import { SUBMIT_LOGIN, SUBMIT_SIGNUP } from '@/actions/user';
-import { SUBMIT_LOGIN, saveAuthData } from '@/actions/user';
+import { SUBMIT_LOGIN, SUBMIT_SIGNUP, saveAuthData } from '@/actions/user';
 import { redirect } from '@/actions/ui';
 
 const authMiddleware = (store) => (next) => (action) => {
