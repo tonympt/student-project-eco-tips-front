@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IconsAdd from '@/components/Collection/IconsAdd';
 import { getAllCollection } from '@/actions/collection';
+import DisplayRemainingTime from '@/components/Collection/RemainingTime';
 // card component
 import Card from '@/components/Card';
 import Spinner from '@/components/Spinner';
@@ -22,9 +23,12 @@ function Collection() {
       ) : (
         <div className="flex flex-wrap gap-3 m-6">
           {collection.map((card) => (
+
             <div key={card.id}>
               <Card {...card} />
+              <DisplayRemainingTime />
             </div>
+
           ))}
         </div>
       )}
