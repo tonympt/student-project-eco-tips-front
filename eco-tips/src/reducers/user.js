@@ -1,4 +1,4 @@
-import { UPDATE_LOGIN_FIELD, UPDATE_SIGNUP_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION, RESET_ALL_DATA } from '@/actions/user';
+import { UPDATE_LOGIN_FIELD, UPDATE_SIGNUP_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION, RESET_ALL_DATA, SAVE_PROFILE_DATA } from '@/actions/user';
 
 export const initialState = {
   email: '',
@@ -9,6 +9,8 @@ export const initialState = {
   birthdate: '',
   token: '',
   logged: '',
+  ecocoins: 0,
+  score: 0,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -27,6 +29,9 @@ const reducer = (state = initialState, action = {}) => {
       return { ...state, token: action.token, logged: true };
     case RESET_ALL_DATA:
       return { ...state, firstname: '', lastname: '', email: '', password: '', confirmpassword: '', birthdate: '', token: '', logged: false };
+    case SAVE_PROFILE_DATA: {
+      const { firstname, lastname, birthdate, email, ecocoins, score } = action.profileDatas;
+      return { ...state, firstname, lastname, email, birthdate, ecocoins, score }; }
     default:
       return state;
   }

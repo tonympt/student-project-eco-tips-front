@@ -6,6 +6,8 @@ export const SAVE_AUTH_DATA = 'SAVE_AUTH_DATA';
 export const LOGOUT = 'LOGOUT';
 export const STAY_CONNECTED_SESSION = 'STAY_CONNECTED_SESSION';
 export const RESET_ALL_DATA = 'RESET_ALL_DATA';
+export const FETCH_PROFILE_DATA = 'FETCH_PROFILE_DATA';
+export const SAVE_PROFILE_DATA = 'SAVE_PROFILE_DATA';
 
 export const updateLoginField = (newValue, identifier) => ({
   type: UPDATE_LOGIN_FIELD,
@@ -44,4 +46,13 @@ export const setAuthToken = (token) => ({
   type: STAY_CONNECTED_SESSION,
   token,
 
+});
+
+export const fetchProfileData = () => ({
+  type: FETCH_PROFILE_DATA,
+});
+
+export const saveProfileData = (profileDatas) => ({
+  type: SAVE_PROFILE_DATA,
+  profileDatas,
 });
