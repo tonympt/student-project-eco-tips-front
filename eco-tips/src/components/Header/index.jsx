@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
+import { logOut } from '@/actions/user';
 import icon from '@/assets/images/icon.svg';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { token, logged, firstname } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    dispatch(logOut());
   };
 
   return (
@@ -64,8 +73,28 @@ function Header() {
       </nav>
       {/* button sign-up sign-in */}
       <div className="flex flex-wrap items-center space-x-2">
-        <Link to="/sign-in" className="text-gray-700 hover:text-green-700">Se connecter</Link>
-        <Link to="/sign-up" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">S'inscrire</Link>
+        {!logged && !token ? (
+          <>
+            <Link to="/sign-in" className="text-gray-700 hover:text-green-700">Se connecter</Link>
+            <Link to="/sign-up" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">S'inscrire</Link>
+          </>
+        ) : (
+          <>
+            <p className="text-gray-700">
+              Bonjour
+              {' '}
+              {firstname}
+            </p>
+            <button
+              type="button"
+              to="/logout"
+              className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation"
+              onClick={handleLogout}
+            >
+              Se déconnecter
+            </button>
+          </>
+        )}
       </div>
     </header>
   );
