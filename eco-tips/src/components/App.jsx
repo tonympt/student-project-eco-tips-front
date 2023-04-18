@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // action creator
-import { setAuthToken } from '@/actions/user';
+import { setAuthToken, fetchProfileData } from '@/actions/user';
 // core components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
+import ProfilePage from '@/components/ProfilePage';
 // collection component
 import Collection from '@/components/Collection';
 // authentification component
@@ -22,6 +23,7 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       dispatch(setAuthToken(token));
+      dispatch(fetchProfileData());
     }
   }, []);
 
@@ -31,6 +33,7 @@ function App() {
       <BodyStyle>
         <Routes>
           <Route path="/" />
+          {logged && <Route path="/profile" element={<ProfilePage />} />}
           <Route
             path="/sign-in"
             element={logged ? <Navigate to="/" /> : <SignIn />}
