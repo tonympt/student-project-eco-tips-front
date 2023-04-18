@@ -26,12 +26,10 @@ function Card({ image,
   const [isExpanded, setIsExpanded] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
-
   const styleCardExpanded = isExpanded
     ? 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-full md:w-1/4'
     : 'md:w-48 cursor-pointer';
   const styleValidated = state && 'border-4 border-green-600';
-
   const handleClick = () => {
     setIsExpanded(true);
     setShowBackground(true);
@@ -70,7 +68,7 @@ function Card({ image,
           <CardImg imageSrc={image} title={title} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />
-            <CardTags tags={tag} />
+            <CardTags tags={tag} isExpanded={isExpanded} />
             <CardRating environmental={environmental_rating} economic={economic_rating} />
             <CardDescription description={description} isExpanded={isExpanded} />
             <CardAuthor author={author} />
@@ -85,11 +83,16 @@ function Card({ image,
 Card.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  tag: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tag: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      color: PropTypes.string,
+    }),
+  ).isRequired,
   description: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  environmental_rating: PropTypes.string.isRequired,
-  economic_rating: PropTypes.string.isRequired,
+  environmental_rating: PropTypes.number.isRequired,
+  economic_rating: PropTypes.number.isRequired,
   state: PropTypes.bool.isRequired,
 };
 
