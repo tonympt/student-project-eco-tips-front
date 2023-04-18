@@ -1,4 +1,4 @@
-import { UPDATE_LOGIN_FIELD, UPDATE_SIGNUP_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION } from '@/actions/user';
+import { UPDATE_LOGIN_FIELD, UPDATE_SIGNUP_FIELD, SAVE_AUTH_DATA, LOGOUT, STAY_CONNECTED_SESSION, RESET_ALL_DATA } from '@/actions/user';
 
 export const initialState = {
   email: '',
@@ -25,6 +25,8 @@ const reducer = (state = initialState, action = {}) => {
       return { ...state, firstname: '', token: '', logged: false };
     case STAY_CONNECTED_SESSION:
       return { ...state, token: action.token, logged: true };
+    case RESET_ALL_DATA:
+      return { ...state, firstname: '', lastname: '', email: '', password: '', confirmpassword: '', birthdate: '', token: '', logged: false };
     default:
       return state;
   }
