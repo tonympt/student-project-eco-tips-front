@@ -39,7 +39,7 @@ function App() {
             path="/sign-up"
             element={logged ? <Navigate to="/" /> : <SignUp />}
           />
-          <Route path="/collection" element={<Collection />} />
+          {logged && <Route path="/collection" element={<Collection />} /> }
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BodyStyle>

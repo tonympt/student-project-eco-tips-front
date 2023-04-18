@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function CardRating({ ratings }) {
+function CardRating({ environmental, economic }) {
   // functionality to create notation spans
   const renderRatingSpans = (ratingValue, ratingType) => {
     const spans = [];
@@ -20,13 +20,13 @@ function CardRating({ ratings }) {
       <div className="flex items-center space-x-2">
         <span className="text-xl">💰</span>
         <div className="flex flex-row gap-1">
-          {renderRatingSpans(ratings.economy, 'economy')}
+          {renderRatingSpans(economic, 'economy')}
         </div>
       </div>
       <div className="flex items-center space-x-2">
         <span className="text-xl">🍃</span>
         <div className="flex flex-row gap-1">
-          {renderRatingSpans(ratings.ecology, 'ecology')}
+          {renderRatingSpans(environmental, 'ecology')}
         </div>
       </div>
     </div>
@@ -34,10 +34,8 @@ function CardRating({ ratings }) {
 }
 
 CardRating.propTypes = {
-  ratings: PropTypes.shape({
-    economy: PropTypes.number.isRequired,
-    ecology: PropTypes.number.isRequired,
-  }).isRequired,
+  economic: PropTypes.number.isRequired,
+  environmental: PropTypes.number.isRequired,
 };
 
 export default CardRating;
