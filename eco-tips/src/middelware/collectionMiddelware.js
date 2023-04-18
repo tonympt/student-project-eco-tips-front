@@ -5,7 +5,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
   switch (action.type) {
     case GET_ALL_COLLECTION:
       axios
-        .get('http://paulinecty-server.eddi.cloud:8080/me/collection', {
+        .get('http://pauline-cauty.vpnuser.lan:3000/me/collection', {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {

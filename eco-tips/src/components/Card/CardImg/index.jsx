@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
 
-function CardImg({ imageSrc, title }) {
+function CardImg({ name, data, type }) {
+  const imageUrl = `data:${type};base64,${data}`;
   return (
     <img
       className="w-full h-32 object-cover"
-      src={imageSrc}
-      alt={title}
+      src={imageUrl}
+      alt={name}
     />
   );
 }
 
 CardImg.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default CardImg;

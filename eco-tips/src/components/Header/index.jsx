@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import { logOut } from '@/actions/user';
+import { resetAllData } from '@/actions/user';
 import icon from '@/assets/images/icon.svg';
 
 function Header() {
@@ -15,7 +15,7 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    dispatch(logOut());
+    dispatch(resetAllData());
   };
 
   return (
