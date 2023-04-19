@@ -2,16 +2,14 @@
 
 import dayjs from 'dayjs';
 
-function DisplayRemainingTime() {
+function DisplayRemainingTime({ expirationDate }) {
   // récupèrer la targetDate de la carte
-  const targetDate = '12'; // nombre factice
 
   const timeRemaining = () => {
     const now = dayjs();
-    const futureDate = now.add(targetDate, 'day');
-    const currentDate = dayjs();
-    const remainingDays = futureDate.diff(currentDate, 'day');
-    console.log(futureDate);
+    const expectedDate = expirationDate.split('T')[0];
+    const remainingDays = now.diff(expectedDate, 'day');
+    console.log(remainingDays);
     return remainingDays;
   };
 
