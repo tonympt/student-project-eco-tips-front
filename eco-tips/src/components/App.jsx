@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
+import ProposalForm from '@/components/ProposalForm';
 // collection component
 import Collection from '@/components/Collection';
 // authentification component
@@ -32,7 +33,7 @@ function App() {
       <Header />
       <BodyStyle>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<ProposalForm />} />
           {logged && <Route path="/profile" element={<ProfilePage />} />}
           <Route
             path="/sign-in"
