@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 
-function CardImg({ name, data, type }) {
-  const imageUrl = `data:${type};base64,${data}`;
+function CardImg({ path, title }) {
+  const url = `http://paulinecty-server.eddi.cloud:8080${path}`;
+  console.log(url);
   return (
     <img
       className="w-full h-32 object-cover"
-      src={imageUrl}
-      alt={name}
+      src={url}
+      alt={title}
     />
   );
 }
 
 CardImg.propTypes = {
-  name: PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default CardImg;

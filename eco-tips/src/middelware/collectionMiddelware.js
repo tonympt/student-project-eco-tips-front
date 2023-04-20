@@ -2,7 +2,6 @@ import axios from 'axios';
 import { GET_ALL_COLLECTION, GET_ALL_TAGS, saveCollection, saveAllTags } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
-  console.log(store.getState().user.token);
   switch (action.type) {
     case GET_ALL_COLLECTION:
       axios
@@ -21,6 +20,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
+          console.log(res.data);
           store.dispatch(saveAllTags(res.data));
         })
         .catch((err) => console.log(err))
