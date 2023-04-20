@@ -1,17 +1,20 @@
 /* eslint-disable max-len */
 
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 function DisplayRemainingTime({ expirationDate }) {
   // récupèrer la targetDate de la carte
 
   const timeRemaining = () => {
+    dayjs.extend(relativeTime);
     const now = dayjs();
-    const expectedDate = expirationDate.split('T')[0];
-    const remainingDays = now.diff(expectedDate, 'day');
+    const expectedDate = "2023-04-23";
+    const remainingDays = now.to(expectedDate, 'jours');
     console.log(remainingDays);
-    return remainingDays;
+    return remainingDays.slice(0, -5);
   };
+  
 
   const remainingDays = timeRemaining();
   return (
