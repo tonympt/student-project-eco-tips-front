@@ -8,6 +8,7 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { token, logged, firstname } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
