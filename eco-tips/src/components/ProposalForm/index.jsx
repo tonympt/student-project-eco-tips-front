@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllTags } from '@/actions/collection';
 
 function ProposalForm() {
-  const { firstname, lastname } = useSelector((state) => state.user);
+  const { logged, firstname, lastname } = useSelector((state) => state.user);
   const { tags: allTags } = useSelector((state) => state.collection);
   const dispatch = useDispatch();
   useEffect(() => {
