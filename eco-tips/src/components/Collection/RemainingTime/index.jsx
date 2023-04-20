@@ -9,7 +9,7 @@ function DisplayRemainingTime({ expirationDate }) {
   const timeRemaining = () => {
     dayjs.extend(relativeTime);
     const now = dayjs();
-    const expectedDate = "2023-04-23";
+    const expectedDate = expirationDate;
     const remainingDays = now.to(expectedDate, 'jours');
     console.log(remainingDays);
     return remainingDays.slice(0, -5);
