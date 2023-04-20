@@ -8,7 +8,8 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { token, logged, firstname } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  
+  const admin = true;
+
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -69,6 +70,18 @@ function Header() {
                 Communauté
               </NavLink>
             </li>
+            <div>
+              {admin && (
+              <NavLink to="/admin" className="flex flex-row gap-2 text-gray-700 block px-4 py-1 border-green-600 hover:border-l-4 hover:text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
+                  <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+
+                Admin
+              </NavLink>
+
+              )}
+            </div>
           </ul>
         </div>
       </nav>
