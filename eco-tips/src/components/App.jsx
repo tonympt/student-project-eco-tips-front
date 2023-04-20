@@ -21,7 +21,7 @@ import Spinner from '@/components/Spinner';
 function App() {
   const { logged } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [hasTokenSent, setHasTokenSent] = useState(false);
+  const [hasTokenSent, setHasTokenSent] = useState(true);
 
   // checked if user is connected and update token to store
   useEffect(() => {
@@ -29,35 +29,33 @@ function App() {
     if (token) {
       dispatch(setAuthToken(token));
       dispatch(fetchProfileData());
-      setHasTokenSent(true);
+      setHasTokenSent(false);
     } else {
-      setHasTokenSent(true);
+      setHasTokenSent(false);
     }
   }, []);
-
-  if (!hasTokenSent) {
-    return <div><Spinner /></div>;
-  }
 
   return (
     <div>
       <Header />
-      <BodyStyle>
-        <Routes>
-          {logged && <Route path="/profile" element={<ProfilePage />} />}
-          <Route
-            path="/sign-in"
-            element={logged ? <Navigate to="/" /> : <SignIn />}
-          />
-          <Route
-            path="/sign-up"
-            element={logged ? <Navigate to="/" /> : <SignUp />}
-          />
-          {logged && <Route path="/collection" element={<Collection />} /> }
-          {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BodyStyle>
+      { hasTokenSent ? (<Spinner />) : (
+        <BodyStyle>
+          <Routes>
+            {logged && <Route path="/profile" element={<ProfilePage />} />}
+            <Route
+              path="/sign-in"
+              element={logged ? <Navigate to="/" /> : <SignIn />}
+            />
+            <Route
+              path="/sign-up"
+              element={logged ? <Navigate to="/" /> : <SignUp />}
+            />
+            {logged && <Route path="/collection" element={<Collection />} /> }
+            {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BodyStyle>
+      )}
       <Footer />
     </div>
   );

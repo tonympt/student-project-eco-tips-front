@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { GET_ALL_COLLECTION, GET_ALL_TAGS, saveCollection, saveAllTags } from '@/actions/collection';
+import {
+  GET_ALL_COLLECTION,
+  GET_ALL_TAGS,
+  SEND_PROPOSAL,
+  saveCollection,
+  saveAllTags } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -24,6 +29,19 @@ const collectionMiddelware = (store) => (next) => (action) => {
         })
         .catch((err) => console.log(err))
         .finally();
+      break;
+    case SEND_PROPOSAL: {
+      const { formValues } = action;
+      axios
+        .post('http://paulinecty-server.eddi.cloud:8080/me/proposal', formValues, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(saveAllTags(res.data));
+        })
+        .catch((err) => console.log(err))
+        .finally();
+    }
       break;
     default:
   }
