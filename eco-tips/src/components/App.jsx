@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
+import ProposalForm from '@/components/ProposalForm';
 // collection component
 import Collection from '@/components/Collection';
 // authentification component
