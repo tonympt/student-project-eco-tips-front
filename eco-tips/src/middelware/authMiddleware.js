@@ -14,7 +14,6 @@ const authMiddleware = (store) => (next) => (action) => {
           const { firstname, accessToken: token } = res.data;
           window.localStorage.setItem('token', token);
           store.dispatch(saveAuthData(firstname, token));
-          store.dispatch(redirect('/'));
         })
         .catch((err) => console.log(err))
         .finally();

@@ -2,8 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateSignupField, submitSignup } from '@/actions/user';
-import { clearRedirectTo } from '@/actions/ui';
+import { updateAuthField, submitSignup } from '@/actions/user';
 import Field from '@/components/Authentification/Field';
 
 function SignUp() {
@@ -13,7 +12,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const changeField = (newValue, identifier) => {
-    const action = updateSignupField(newValue, identifier);
+    const action = updateAuthField(newValue, identifier);
     dispatch(action);
   };
 
@@ -24,9 +23,8 @@ function SignUp() {
   useEffect(() => {
     if (redirectTo) {
       navigate(redirectTo);
-      dispatch(clearRedirectTo());
     }
-  }, [redirectTo, navigate]);
+  }, [redirectTo]);
 
   return (
     <div className="py-8">
