@@ -10,7 +10,7 @@ function ProposalForm() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllTags());
-  }, []);
+  }, [firstname]);
 
   // state
   const [tags, setTags] = useState([...allTags]);

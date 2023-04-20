@@ -15,6 +15,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
         .finally();
       break;
     case GET_ALL_TAGS:
+      console.log(store.getState().user);
       axios
         .get('http://paulinecty-server.eddi.cloud:8080/tag', {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
@@ -23,7 +24,9 @@ const collectionMiddelware = (store) => (next) => (action) => {
           console.log(res.data);
           store.dispatch(saveAllTags(res.data));
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+        })
         .finally();
       break;
     default:

@@ -33,7 +33,7 @@ function App() {
       <Header />
       <BodyStyle>
         <Routes>
-          <Route path="/" element={<ProposalForm />} />
+          <Route path="/" />
           {logged && <Route path="/profile" element={<ProfilePage />} />}
           <Route
             path="/sign-in"
