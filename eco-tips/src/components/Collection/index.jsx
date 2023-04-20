@@ -26,7 +26,7 @@ function Collection() {
 
             <div key={card.id}>
               <Card {...card} />
-              <DisplayRemainingTime />
+              <DisplayRemainingTime expirationDate={card.expiration_date} />
             </div>
 
           ))}

@@ -2,16 +2,17 @@
 
 import dayjs from 'dayjs';
 
-function DisplayRemainingTime() {
-  // récupèrer la targetDate de la carte
-  const targetDate = '12'; // nombre factice
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/fr';
 
+function DisplayRemainingTime({ expirationDate }) {
   const timeRemaining = () => {
+    dayjs.extend(relativeTime);
+    dayjs.locale('fr');
     const now = dayjs();
-    const futureDate = now.add(targetDate, 'day');
-    const currentDate = dayjs();
-    const remainingDays = futureDate.diff(currentDate, 'day');
-    console.log(futureDate);
+    const expectedDate = expirationDate;
+    const remainingDays = now.to(expectedDate, 'day');
+    console.log(remainingDays);
     return remainingDays;
   };
 
@@ -27,7 +28,8 @@ function DisplayRemainingTime() {
         {' '}
         {remainingDays}
         {' '}
-        Jours restant
+        restants
+
       </p>
     </div>
   );
