@@ -2,10 +2,11 @@ import axios from 'axios';
 import { GET_ALL_COLLECTION, GET_ALL_TAGS, saveCollection, saveAllTags } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   switch (action.type) {
     case GET_ALL_COLLECTION:
       axios
-        .get('http://paulinecty-server.eddi.cloud:8080/me/collection', {
+        .get(`${apiUrl}/me/collection`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
@@ -15,9 +16,8 @@ const collectionMiddelware = (store) => (next) => (action) => {
         .finally();
       break;
     case GET_ALL_TAGS:
-      console.log(store.getState().user);
       axios
-        .get('http://paulinecty-server.eddi.cloud:8080/tag', {
+        .get(`${apiUrl}/tag`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {

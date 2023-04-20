@@ -4,11 +4,12 @@ import { SUBMIT_LOGIN, SUBMIT_SIGNUP, FETCH_PROFILE_DATA, saveAuthData, resetAll
 import { redirect } from '@/actions/ui';
 
 const authMiddleware = (store) => (next) => (action) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState().user;
       axios
-        .post('http://paulinecty-server.eddi.cloud:8080/sign-in', { email, password })
+        .post(`${apiUrl}/sign-in`, { email, password })
         .then((res) => {
           const { firstname, accessToken: token } = res.data;
           window.localStorage.setItem('token', token);
@@ -21,7 +22,7 @@ const authMiddleware = (store) => (next) => (action) => {
     case SUBMIT_SIGNUP: {
       const { email, password, confirmpassword, firstname, lastname, birthdate } = store.getState().user;
       axios
-        .post('http://paulinecty-server.eddi.cloud:8080/sign-up', { email, password, confirmpassword, firstname, lastname, birthdate })
+        .post(`${apiUrl}/sign-up`, { email, password, confirmpassword, firstname, lastname, birthdate })
         .then((res) => {
           store.dispatch(resetAllData());
           store.dispatch(redirect('/sign-in'));
@@ -32,7 +33,7 @@ const authMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_PROFILE_DATA:
       axios
-        .get('http://paulinecty-server.eddi.cloud:8080/me/profile', {
+        .get(`${apiUrl}/me/profile`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
