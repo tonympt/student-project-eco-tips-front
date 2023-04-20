@@ -1,24 +1,34 @@
 /* eslint-disable max-len */
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { getAllTags } from '@/actions/collection';
 
+import Spinner from '@/components/Spinner';
+
 function ProposalForm() {
+  // store
   const { firstname, lastname } = useSelector((state) => state.user);
   const { tags: allTags } = useSelector((state) => state.collection);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllTags());
-  }, []);
-
   // state
   const [tags, setTags] = useState([...allTags]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [economyRating, setEconomyRating] = useState(0);
   const [ecologyRating, setEcologyRating] = useState(0);
-  const [valueInput, setValueInput] = useState('');
+  const [valueInput, setValueInput] = useState(0);
   const [base64Image, setBase64Image] = useState('');
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllTags());
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (allTags.length > 0) {
+      setTags([...allTags]);
+    }
+  }, [loading, allTags]);
 
   // display ratings value
   const handleEconomyRatingChange = (event) => {
@@ -63,8 +73,6 @@ function ProposalForm() {
         const newTagsOptions = tags.filter((tag) => tag.id !== Number(idTag));
         setTags(newTagsOptions);
       }
-    } else {
-      alert('impossible de mettre + de 4 tags');
     }
   };
 
@@ -102,6 +110,10 @@ function ProposalForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (selectedTags.length === 0) {
+      alert('Veuillez sélectionner au moins une catégorie.');
+      return;
+    }
     const formData = new FormData(event.target);
     const formValues = {};
     formData.forEach((value, key) => {
@@ -129,48 +141,50 @@ function ProposalForm() {
           {/* title input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
             <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 ">Titre</label>
-            <textarea name="title" id="title" rows="1" className="block resize-none p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Écrivez votre titre ici..." />
+            <textarea name="title" id="title" required minLength="3" rows="1" className="block resize-none p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Écrivez votre titre ici..." />
           </div>
 
           {/* tags input add */}
-          <div className="p-2 border border-opacity-50 border-gray-400 rounded">
-            <label
-              htmlFor="tags"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Sélectioner une catégorie
-            </label>
-            <select
-              id="tags"
-              defaultValue="Choisir une catégorie"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={handleTags}
-            >
-              <option value="Choisir une catégorie" disabled>Choisir une catégorie</option>
-              {tags.map((tag) => <option key={tag.id} value={tag.id}>{tag.title}</option>)}
-            </select>
-            <div className="flex flex-wrap gap-1 mt-2 mx-2">
-              {selectedTags.map((tag) => (
-                <div
-                  key={tag.id}
-                  className="flex gap-1 text-bold text-white text-sm p-1 rounded"
-                  style={{ backgroundColor: tag.color }}
-                  value={selectedTags}
-                  name="tags"
-                >
-                  {tag.title}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveTag(tag)}
+          { loading ? (<Spinner />) : (
+            <div className="p-2 border border-opacity-50 border-gray-400 rounded">
+              <label
+                htmlFor="tags"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Sélectioner une catégorie
+              </label>
+              <select
+                id="tags"
+                defaultValue="Choisir une catégorie"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                onChange={handleTags}
+              >
+                <option value="Choisir une catégorie" disabled>Choisir une catégorie</option>
+                {tags.map((tag) => <option key={tag.id} value={tag.id}>{tag.name}</option>)}
+              </select>
+              <div className="flex flex-wrap gap-1 mt-2 mx-2">
+                {selectedTags.map((tag) => (
+                  <div
+                    key={tag.id}
+                    className="flex gap-1 text-bold text-white text-sm p-1 rounded"
+                    style={{ backgroundColor: tag.color }}
+                    value={selectedTags}
+                    name="tags"
                   >
-                    &times;
-                  </button>
-                </div>
-              ))}
+                    {tag.name}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTag(tag)}
+                    >
+                      &times;
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div />
+              <div className="flex flex-wrap gap-1 mt-2" />
             </div>
-            <div />
-            <div className="flex flex-wrap gap-1 mt-2" />
-          </div>
+          )}
 
           {/* rating economy input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
@@ -192,7 +206,7 @@ function ProposalForm() {
           {/* description input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Description :</label>
-            <textarea name="description" id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre description..." />
+            <textarea name="description" id="description" rows="4" required minLength="10" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre description..." />
           </div>
           {/* card number input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
@@ -231,7 +245,7 @@ function ProposalForm() {
           {/* author  */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded text-gray-500 text-xs">
             Par
-            {' '}
+            {` ${firstname} ${lastname}`}
           </div>
 
           <div className="flex items-center place-content-evenly py-2">

@@ -2,7 +2,6 @@ import axios from 'axios';
 import { GET_ALL_COLLECTION, GET_ALL_TAGS, saveCollection, saveAllTags } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
-  console.log(store.getState().user.token);
   switch (action.type) {
     case GET_ALL_COLLECTION:
       axios
