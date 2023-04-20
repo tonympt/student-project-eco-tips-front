@@ -1,20 +1,23 @@
 /* eslint-disable max-len */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getAllTags } from '@/actions/collection';
 
 function ProposalForm() {
-  const allTags = [
-    { id: 1, title: 'Tag 1', color: 'red' },
-    { id: 2, title: 'Tag 2', color: 'green' },
-    { id: 3, title: 'Tag 3', color: 'blue' },
-    { id: 4, title: 'Tag 4', color: 'orange' },
-    { id: 5, title: 'Tag 5', color: 'purple' },
-  ];
+  const { firstname, lastname } = useSelector((state) => state.user);
+  const { tags: allTags } = useSelector((state) => state.collection);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllTags());
+  }, []);
 
   // state
   const [tags, setTags] = useState([...allTags]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [economyRating, setEconomyRating] = useState(0);
   const [ecologyRating, setEcologyRating] = useState(0);
+  const [valueInput, setValueInput] = useState('');
   const [base64Image, setBase64Image] = useState('');
 
   // display ratings value
@@ -23,6 +26,26 @@ function ProposalForm() {
   };
   const handleEcologyRatingChange = (event) => {
     setEcologyRating(event.target.value);
+  };
+  const handlevalueInput = (number) => {
+    if (number >= 0 && number <= 20) {
+      setValueInput(number);
+    } else if (number < 1) {
+      setValueInput(1);
+    } else if (number > 20) {
+      setValueInput(20);
+    }
+  };
+  const decrement = () => {
+    if (valueInput > 1) {
+      setValueInput(valueInput - 1);
+    }
+  };
+
+  const increment = () => {
+    if (valueInput < 20) {
+      setValueInput(valueInput + 1);
+    }
   };
 
   const handleTags = (event) => {
@@ -59,6 +82,7 @@ function ProposalForm() {
     setEconomyRating(0);
     setEcologyRating(0);
     setBase64Image('');
+    setValueInput(0);
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
     document.getElementById('economy_rating').value = 0;
@@ -163,14 +187,47 @@ function ProposalForm() {
               {' '}
               {ecologyRating}
             </label>
-            <input id="ecology_rating" name="ecology_rating" type="range" min="0" max="5" value={ecologyRating} step="1" className="h-2 bg-gray-200 text-green-500 rounded-lg appearance-none cursor-pointer" onChange={handleEcologyRatingChange} />
+            <input id="ecology_rating" name="ecology_rating" type="range" min="0" max="5" value={ecologyRating} step="1" className="h-2 bg-gray-200  appearance-none cursor-pointer" onChange={handleEcologyRatingChange} />
           </div>
           {/* description input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Description :</label>
             <textarea name="description" id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre description..." />
           </div>
-
+          {/* card number input */}
+          <div className="p-2 border border-opacity-50 border-gray-400 rounded">
+            <label htmlFor="value" className="mb-2 text-sm font-medium text-gray-900">
+              Valeur :
+            </label>
+            <div className="flex flex-row w-1/3 rounded-lg relative bg-transparent mt-1 h-9">
+              <button
+                type="button"
+                data-action="decrement"
+                className="bg-gray-50 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-20 rounded-l cursor-pointer border-opacity-50 border-gray-400"
+                onClick={decrement}
+              >
+                <span className="m-auto text-xl">−</span>
+              </button>
+              <input
+                type="number"
+                min="1"
+                max="20"
+                className="bg-gray-50 hover:bg-gray-200 flec text-center text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20 cursor-pointer border-opacity-50 border-gray-400"
+                id="value"
+                name="value"
+                value={valueInput}
+                onChange={(event) => handlevalueInput(Number(event.target.value))}
+              />
+              <button
+                type="button"
+                data-action="increment"
+                className="bg-gray-50 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-20 rounded-r cursor-pointer border-opacity-50 border-gray-400"
+                onClick={increment}
+              >
+                <span className="text-xl">+</span>
+              </button>
+            </div>
+          </div>
           {/* author  */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded text-gray-500 text-xs">
             Par
