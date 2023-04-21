@@ -1,16 +1,20 @@
 /* eslint-disable max-len */
 
 import dayjs from 'dayjs';
-
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/fr';
+
+// function to display the time left before validation of the card
 
 function DisplayRemainingTime({ expirationDate }) {
   const timeRemaining = () => {
     dayjs.extend(relativeTime);
     dayjs.locale('fr');
+    // current date
     const now = dayjs();
+    // date user have chosen
     const expectedDate = expirationDate;
+    // time left from current date to date chosen
     const remainingDays = now.to(expectedDate, 'day');
     console.log(remainingDays);
     return remainingDays;
