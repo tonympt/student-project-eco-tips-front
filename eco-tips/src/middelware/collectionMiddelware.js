@@ -3,11 +3,12 @@ import {
   GET_ALL_COLLECTION,
   GET_ALL_TAGS,
   SEND_PROPOSAL,
+  GET_RANDOM_CARD,
   saveCollection,
-  saveAllTags } from '@/actions/collection';
+  saveAllTags,
+  saveRandomCard } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
-
   const apiUrl = import.meta.env.VITE_API_URL;
   switch (action.type) {
     case GET_ALL_COLLECTION:
@@ -38,7 +39,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
     case SEND_PROPOSAL: {
       const { formValues } = action;
       axios
-        .post('${apiUrl}/me/proposal', formValues, {
+        .post(`${apiUrl}/me/proposal`, formValues, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
@@ -47,6 +48,17 @@ const collectionMiddelware = (store) => (next) => (action) => {
         .catch((err) => console.log(err))
         .finally();
     }
+      break;
+    case GET_RANDOM_CARD:
+      axios
+        .get(`${apiUrl}/me/collection/card`, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(saveRandomCard(res.data));
+        })
+        .catch((err) => console.log(err))
+        .finally();
       break;
     default:
   }

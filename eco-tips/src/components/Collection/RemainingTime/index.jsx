@@ -12,7 +12,6 @@ function DisplayRemainingTime({ expirationDate }) {
     const now = dayjs();
     const expectedDate = expirationDate;
     const remainingDays = now.to(expectedDate, 'day');
-    console.log(remainingDays);
     return remainingDays;
   };
 

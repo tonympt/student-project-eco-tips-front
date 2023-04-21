@@ -6,18 +6,23 @@ import DisplayRemainingTime from '@/components/Collection/RemainingTime';
 // card component
 import Card from '@/components/Card';
 import Spinner from '@/components/Spinner';
+import AddCard from '@/components/Collection/AddCard';
 
 function Collection() {
   const dispatch = useDispatch();
   const { collection } = useSelector((state) => state.collection);
   const [loading, setLoading] = useState(true);
+  const [addCard, setAddCard] = useState(false);
   useEffect(() => {
     dispatch(getAllCollection());
     setLoading(false);
   }, []);
+  const addCardRequest = (confirm) => {
+    setAddCard(confirm);
+  };
   return (
     <div className="w-full mx-auto bg-white p-8 rounded-md shadow-md relative">
-      <IconsAdd />
+      <IconsAdd addCardRequest={addCardRequest} />
       {loading ? (
         <Spinner />
       ) : (
@@ -28,8 +33,8 @@ function Collection() {
               <Card {...card} />
               <DisplayRemainingTime expirationDate={card.expiration_date} />
             </div>
-
           ))}
+          {addCard && <AddCard />}
         </div>
       )}
     </div>
