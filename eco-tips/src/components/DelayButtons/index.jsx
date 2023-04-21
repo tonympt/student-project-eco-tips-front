@@ -1,12 +1,12 @@
-import { addDays } from 'date-fns';
+import dayjs from 'dayjs';
 
 // Functionality when the user decides on the deadline for his eco tips
 function DelayButtons() {
   // function to send the date on which the user will have to carry out his eco-tips
   const handleClick = (value) => {
-    const today = new Date();
-    // addDays add the number of days to the date of the button value
-    const targetDate = addDays(today, value);
+    const today = dayjs();
+    // today.add add the number of days to the date of the button value
+    const targetDate = today.add(value, 'day');
   };
 
   return (
