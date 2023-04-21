@@ -1,7 +1,13 @@
 import axios from 'axios';
-import { GET_ALL_COLLECTION, GET_ALL_TAGS, saveCollection, saveAllTags } from '@/actions/collection';
+import {
+  GET_ALL_COLLECTION,
+  GET_ALL_TAGS,
+  SEND_PROPOSAL,
+  saveCollection,
+  saveAllTags } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
+
   const apiUrl = import.meta.env.VITE_API_URL;
   switch (action.type) {
     case GET_ALL_COLLECTION:
@@ -28,6 +34,19 @@ const collectionMiddelware = (store) => (next) => (action) => {
           console.log(err);
         })
         .finally();
+      break;
+    case SEND_PROPOSAL: {
+      const { formValues } = action;
+      axios
+        .post('${apiUrl}/me/proposal', formValues, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(saveAllTags(res.data));
+        })
+        .catch((err) => console.log(err))
+        .finally();
+    }
       break;
     default:
   }
