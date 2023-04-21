@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-
+import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/fr';
@@ -38,4 +38,9 @@ function DisplayRemainingTime({ expirationDate }) {
     </div>
   );
 }
+
+DisplayRemainingTime.propTypes = {
+  expirationDate: PropTypes.string.isRequired,
+};
+
 export default DisplayRemainingTime;
