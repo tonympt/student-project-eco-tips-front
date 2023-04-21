@@ -7,10 +7,12 @@ import {
   saveAllTags } from '@/actions/collection';
 
 const collectionMiddelware = (store) => (next) => (action) => {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
   switch (action.type) {
     case GET_ALL_COLLECTION:
       axios
-        .get('http://paulinecty-server.eddi.cloud:8080/me/collection', {
+        .get(`${apiUrl}/me/collection`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
@@ -21,19 +23,22 @@ const collectionMiddelware = (store) => (next) => (action) => {
       break;
     case GET_ALL_TAGS:
       axios
-        .get('http://paulinecty-server.eddi.cloud:8080/tag', {
+        .get(`${apiUrl}/tag`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
+          console.log(res.data);
           store.dispatch(saveAllTags(res.data));
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+        })
         .finally();
       break;
     case SEND_PROPOSAL: {
       const { formValues } = action;
       axios
-        .post('http://paulinecty-server.eddi.cloud:8080/me/proposal', formValues, {
+        .post('${apiUrl}/me/proposal', formValues, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {

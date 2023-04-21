@@ -15,9 +15,7 @@ import CardAuthor from './CardAuthor';
 import CardImg from './CardImg';
 import CheckIcon from './CheckIcon';
 
-function Card({ image_data,
-  image_name,
-  image_type,
+function Card({ image,
   title,
   tag,
   description,
@@ -67,7 +65,7 @@ function Card({ image_data,
           className={`bg-white rounded shadow-md hover:shadow-lg sm:w-full ${styleCardExpanded} ${styleValidated}`}
           onClick={handleClick}
         >
-          <CardImg data={image_data} name={image_name} type={image_type} />
+          <CardImg path={image} title={title} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />
             <CardTags tags={tag} isExpanded={isExpanded} />
@@ -83,9 +81,7 @@ function Card({ image_data,
 }
 
 Card.propTypes = {
-  image_data: PropTypes.string.isRequired,
-  image_name: PropTypes.string.isRequired,
-  image_type: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   tag: PropTypes.arrayOf(
     PropTypes.shape({

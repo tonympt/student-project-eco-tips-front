@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 
-function CardImg({ name, data, type }) {
-  const imageUrl = `data:${type};base64,${data}`;
+function CardImg({ path, title }) {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const url = `${apiUrl}${path}`;
   return (
     <img
       className="w-full h-32 object-cover"
-      src={imageUrl}
-      alt={name}
+      src={url}
+      alt={title}
     />
   );
 }
 
 CardImg.propTypes = {
-  name: PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default CardImg;

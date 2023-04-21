@@ -1,6 +1,5 @@
 import {
-  UPDATE_LOGIN_FIELD,
-  UPDATE_SIGNUP_FIELD,
+  UPDATE_AUTH_FIELD,
   SAVE_AUTH_DATA,
   STAY_CONNECTED_SESSION,
   RESET_ALL_DATA,
@@ -24,10 +23,8 @@ const resetAllData = () => initialState;
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case UPDATE_LOGIN_FIELD:
+    case UPDATE_AUTH_FIELD:
       // the identifier must be equal to the key of its state
-      return { ...state, [action.identifier]: action.newValue };
-    case UPDATE_SIGNUP_FIELD:
       return { ...state, [action.identifier]: action.newValue };
     case SAVE_AUTH_DATA: {
       const { firstname, token } = action;
