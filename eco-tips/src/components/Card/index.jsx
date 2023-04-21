@@ -28,8 +28,8 @@ function Card({ image,
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
   const styleCardExpanded = isExpanded
-    ? 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-full md:w-1/3'
-    : 'md:w-48 cursor-pointer';
+    ? 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/3'
+    : 'md:w-full cursor-pointer sm:w-full';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
     setIsExpanded(true);
@@ -60,10 +60,13 @@ function Card({ image,
           onClick={handleOutsideClick}
         />
       )}
-      <div className="relative" aria-label="Card container">
+      <div
+        className={`${styleCardExpanded}`}
+        aria-label="Card container"
+        ref={cardRef}
+      >
         <div
-          ref={cardRef}
-          className={`bg-white rounded shadow-md hover:shadow-lg sm:w-full ${styleCardExpanded} ${styleValidated}`}
+          className={`bg-white relative rounded shadow-md hover:shadow-lg ${styleValidated}`}
           onClick={handleClick}
         >
           <CardImg path={image} title={title} />

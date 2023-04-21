@@ -49,7 +49,7 @@ function AddCard({ resetAddCard }) {
   }, [randomCard]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="md:w-1/6 border-4 p-2 border-opacity-50 rounded" onSubmit={handleSubmit}>
       {loading ? (
         <Spinner />
       ) : (
