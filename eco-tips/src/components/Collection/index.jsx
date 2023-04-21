@@ -20,6 +20,9 @@ function Collection() {
   const addCardRequest = (confirm) => {
     setAddCard(confirm);
   };
+  const resetAddCard = (reset) => {
+    setAddCard(reset);
+  };
   return (
     <div className="w-full mx-auto bg-white p-8 rounded-md shadow-md relative">
       <IconsAdd addCardRequest={addCardRequest} />
@@ -34,7 +37,7 @@ function Collection() {
               <DisplayRemainingTime expirationDate={card.expiration_date} />
             </div>
           ))}
-          {addCard && <AddCard />}
+          {addCard && <AddCard resetAddCard={resetAddCard} />}
         </div>
       )}
     </div>

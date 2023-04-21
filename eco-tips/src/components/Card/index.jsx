@@ -17,17 +17,18 @@ import CheckIcon from './CheckIcon';
 
 function Card({ image,
   title,
-  tag,
+  tags,
   description,
   author,
   environmental_rating,
   economic_rating,
-  state }) {
+  state,
+  children }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
   const styleCardExpanded = isExpanded
-    ? 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-full md:w-1/4'
+    ? 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-full md:w-1/3'
     : 'md:w-48 cursor-pointer';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
@@ -68,13 +69,14 @@ function Card({ image,
           <CardImg path={image} title={title} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />
-            <CardTags tags={tag} isExpanded={isExpanded} />
+            <CardTags tags={tags} isExpanded={isExpanded} />
             <CardRating environmental={environmental_rating} economic={economic_rating} />
             <CardDescription description={description} isExpanded={isExpanded} />
             <CardAuthor author={author} />
             {state && <CheckIcon />}
           </div>
         </div>
+        {children}
       </div>
     </>
   );
@@ -83,7 +85,7 @@ function Card({ image,
 Card.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  tag: PropTypes.arrayOf(
+  tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       color: PropTypes.string,
@@ -93,7 +95,12 @@ Card.propTypes = {
   author: PropTypes.string.isRequired,
   environmental_rating: PropTypes.number.isRequired,
   economic_rating: PropTypes.number.isRequired,
-  state: PropTypes.bool.isRequired,
+  state: PropTypes.bool,
+  children: PropTypes.node,
+};
+Card.defaultProps = {
+  children: null,
+  state: false,
 };
 
 export default Card;

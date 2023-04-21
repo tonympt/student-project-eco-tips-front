@@ -32,7 +32,7 @@ const authMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_PROFILE_DATA:
       axios
-        .get(`${apiUrl}/me/profile`, {
+        .get(`${apiUrl}/me/user`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
