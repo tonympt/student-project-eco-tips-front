@@ -10,7 +10,6 @@ const authMiddleware = (store) => (next) => (action) => {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState().user;
       store.dispatch(loadApiRequest());
-      store.dispatch(loadRequestSuccess('OK', 400));
       axios
         .post(`${apiUrl}/sign-in`, { email, password })
         .then((res) => {
