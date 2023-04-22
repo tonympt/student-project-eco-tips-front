@@ -9,16 +9,16 @@ const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN: {
       const { email, password } = store.getState().user;
-      store.dispatch(loadTRequestError('message', 400));
       store.dispatch(loadApiRequest());
       axios
         .post(`${apiUrl}/sign-in`, { email, password })
         .then((res) => {
+          console.log(res);
           const { firstname, accessToken: token } = res.data;
           window.localStorage.setItem('token', token);
           store.dispatch(saveAuthData(firstname, token));
         })
-        .catch((err) => console.log(err))
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();
     } break;
     case SUBMIT_SIGNUP: {
@@ -30,7 +30,7 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(resetAllData());
           store.dispatch(redirect('/sign-in'));
         })
-        .catch((err) => console.log(err))
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();
     }
       break;
@@ -43,7 +43,7 @@ const authMiddleware = (store) => (next) => (action) => {
         .then((res) => {
           store.dispatch(saveProfileData(res.data));
         })
-        .catch((err) => console.log(err))
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();
       break;
     default:

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateAuthField, submitSignup } from '@/actions/user';
 import Field from '@/components/Authentification/Field';
+import ErrorNotifications from '@/components/ErrorNotifications';
 
 function SignUp() {
   const { email, password, firstname, lastname, birthdate, confirmpassword } = useSelector((state) => state.user);
@@ -34,6 +35,7 @@ function SignUp() {
         className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
         onSubmit={handleSubmit}
       >
+        <ErrorNotifications />
         <Field
           name="firstname"
           labelName="Prénom"

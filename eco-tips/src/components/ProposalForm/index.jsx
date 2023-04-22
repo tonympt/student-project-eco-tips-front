@@ -9,6 +9,7 @@ import ProposalRating from '@/components/ProposalForm/ProposalRating';
 import ProposalDescription from '@/components/ProposalForm/ProposalDescription';
 import ProposalValue from '@/components/ProposalForm/ProposalValue';
 import AuthorForm from '@/components/ProposalForm/AuthorForm';
+import ErrorNotifications from '@/components/ErrorNotifications';
 // Spinner component
 import Spinner from '@/components/Spinner';
 
@@ -103,6 +104,7 @@ function ProposalForm() {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-1">
+          <ErrorNotifications />
           <ProposalImg onImageChange={handleImageChange} />
           <ProposalTitle />
           {/* handle Tags */}

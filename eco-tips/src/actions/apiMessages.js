@@ -20,7 +20,7 @@ export function loadTRequestError(error, errorStatus) {
   return {
     type: GET_REQUEST_ERROR,
     data: null,
-    error,
+    error: error.message,
     errorStatus,
   };
 }
