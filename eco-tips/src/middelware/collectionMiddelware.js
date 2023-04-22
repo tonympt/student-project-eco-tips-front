@@ -9,7 +9,7 @@ import {
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
 
-import { loadApiRequest, loadTRequestError } from '@/actions/apiMessages';
+import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 
 const collectionMiddelware = (store) => (next) => (action) => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -33,7 +33,6 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          console.log(res.data);
           store.dispatch(saveAllTags(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
@@ -73,7 +72,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          console.log(res.data);
+          store.dispatch(loadRequestSuccess(res.statusText, res.status));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();

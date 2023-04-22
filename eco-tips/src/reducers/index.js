@@ -6,6 +6,7 @@ import userReducer from './user';
 import uiReducer from './ui';
 import collectionReducer from './collection';
 import errorReducer from './error';
+import successReducer from './success';
 
 // combine and name reducer
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   collection: collectionReducer,
   error: errorReducer,
+  success: successReducer,
 });
 
 export default rootReducer;
