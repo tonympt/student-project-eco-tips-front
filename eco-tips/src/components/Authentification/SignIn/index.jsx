@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { updateAuthField, submitLogin } from '@/actions/user';
 import Field from '@/components/Authentification/Field';
+import ErrorNotifications from '@/components/ErrorNotifications';
 
 function SignIn() {
   const { email, password, token } = useSelector((state) => state.user);
@@ -31,6 +32,7 @@ function SignIn() {
         className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
         onSubmit={handleSubmit}
       >
+        <ErrorNotifications />
         <Field
           name="email"
           labelName="Email"
