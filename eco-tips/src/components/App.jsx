@@ -10,6 +10,8 @@ import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
 import ProposalForm from '@/components/ProposalForm';
+import ServerErrorPage from '@/components/ServerErrorPage';
+
 // collection component
 import Collection from '@/components/Collection';
 // authentification component
@@ -19,7 +21,10 @@ import SignUp from '@/components/Authentification/SignUp';
 import Spinner from '@/components/Spinner';
 
 function App() {
-  const { logged } = useSelector((state) => state.user);
+  const { logged, errorStatus } = useSelector((state) => ({
+    logged: state.user.logged,
+    errorStatus: state.error.errorStatus,
+  }));
   const dispatch = useDispatch();
   const [hasTokenSent, setHasTokenSent] = useState(true);
 
@@ -38,8 +43,10 @@ function App() {
   return (
     <div>
       <Header />
-      { hasTokenSent ? (<Spinner />) : (
-        <BodyStyle>
+      <BodyStyle>
+        {hasTokenSent ? (
+          <Spinner />
+        ) : (
           <Routes>
             {logged && <Route path="/profile" element={<ProfilePage />} />}
             <Route
@@ -50,12 +57,14 @@ function App() {
               path="/sign-up"
               element={logged ? <Navigate to="/" /> : <SignUp />}
             />
-            {logged && <Route path="/collection" element={<Collection />} /> }
+            {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
+            <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
+            <Route path="/" />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </BodyStyle>
-      )}
+        )}
+      </BodyStyle>
       <Footer />
     </div>
   );
