@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import 'dayjs/locale/fr';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import './style.css';
 
 dayjs.extend(localizedFormat);
 dayjs.locale('fr');
