@@ -1,12 +1,18 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function IconsAdd() {
-  // fake userId (import to localstorage)
-  const userID = 2;
+function IconsAdd({ addCardRequest }) {
+  const handleClick = () => {
+    addCardRequest(true);
+  };
   return (
     <div className="flex flex-row gap-4">
       <div className="flex flex-row gap-1 items-center ">
-        <button type="button" className="flex items-center justify-center w-8 h-8 p-2 bg-green-500 text-white shadow rounded-full button-active button:active active:animate-buttonAnimation">
+        <button
+          type="button"
+          className="flex items-center justify-center w-8 h-8 p-2 bg-green-500 text-white shadow rounded-full button-active button:active active:animate-buttonAnimation"
+          onClick={handleClick}
+        >
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
@@ -24,5 +30,9 @@ function IconsAdd() {
     </div>
   );
 }
+
+IconsAdd.propTypes = {
+  addCardRequest: PropTypes.func.isRequired,
+};
 
 export default IconsAdd;

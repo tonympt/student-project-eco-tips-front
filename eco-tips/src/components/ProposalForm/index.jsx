@@ -15,12 +15,6 @@ import Spinner from '@/components/Spinner';
 function ProposalForm() {
   // store
   const { tags: allTags } = useSelector((state) => state.collection);
-  const { logged, firstname, lastname } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllTags());
-  }, [firstname]);
-
   // state
   const [base64Image, setBase64Image] = useState('');
   const [tags, setTags] = useState([...allTags]);
