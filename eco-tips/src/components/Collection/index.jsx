@@ -40,7 +40,7 @@ function Collection() {
           )}
           {collection.map((card) => (
             <div key={card.id} className="md:w-1/6">
-              <Card {...card}>
+              <Card {...card} delete>
                 <DisplayRemainingTime expirationDate={card.expiration_date} />
               </Card>
             </div>
