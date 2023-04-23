@@ -32,7 +32,7 @@ function Card({ image,
   const cardRef = useRef();
   const styleCardExpanded = isExpanded
     ? 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/3'
-    : 'md:w-full cursor-pointer sm:w-full';
+    : 'md:w-full sm:w-full';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
     setIsExpanded(true);
@@ -57,7 +57,7 @@ function Card({ image,
     <>
       {showBackground && (
         <button
-          className="z-10 fixed inset-0 bg-black bg-opacity-20 backdrop-blur-md"
+          className="z-40 fixed inset-0 bg-black bg-opacity-20 backdrop-blur-md"
           type="button"
           aria-label="Outside click handler"
           onClick={handleOutsideClick}
@@ -70,9 +70,30 @@ function Card({ image,
         ref={cardRef}
       >
         <div
-          className={`bg-white relative rounded shadow-md hover:shadow-lg ${styleValidated}`}
-          onClick={handleClick}
+          className={`bg-white relative rounded shadow-lg hover:shadow-lg ${styleValidated}`}
         >
+          {isExpanded ? (
+            <button
+              type="button"
+              onClick={() => { setIsExpanded(false); setShowBackground(false); }}
+              className="absolute top-2 left-2 rounded shadow-lg p-1 bg-white button-active active:animate-buttonAnimation"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM13.5 10.5h-6" />
+              </svg>
+
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleClick}
+              className="absolute top-2 left-2 rounded shadow-lg p-1 bg-white button-active active:animate-buttonAnimation"
+            >
+              <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+              </svg>
+            </button>
+          )}
           <CardImg path={image} title={title} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />

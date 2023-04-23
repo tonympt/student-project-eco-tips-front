@@ -6,6 +6,7 @@ export const SEND_PROPOSAL = 'SEND_PROPOSAL';
 export const GET_RANDOM_CARD = 'GET_RANDOM_CARD';
 export const SAVE_RANDOM_CARD = 'SAVE_RANDOM_CARD';
 export const SAVE_RANDOM_CARD_COLLECTION = 'SAVE_RANDOM_CARD_COLLECTION';
+export const DELETE_ONE_CARD = 'DELETE_ONE_CARD';
 
 export const getAllCollection = () => ({ type: GET_ALL_COLLECTION });
 
@@ -36,4 +37,9 @@ export const saveRandomCard = (card) => ({
 export const saveRandomCardCollection = (formValues) => ({
   type: SAVE_RANDOM_CARD_COLLECTION,
   formValues,
+});
+
+export const deleteOneCard = (idCard) => ({
+  type: DELETE_ONE_CARD,
+  idCard,
 });

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onModalClose, onValidate }) {
   // Exemple to props component
   // <ModalTemplate
+  //         <ModalTemplate
   //         textModal="Here Text Modal"
   //         textValidate="Yes"
   //         textCancel="No"
@@ -13,6 +14,7 @@ function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onMod
   //         onShowModal={yourOnShowModalState}
   //         onModalClose={() => setYourOnShowModalState(false)}
   //          onValidate={()=> setValidate(true)}
+  //       />
   //       />
   const modalRef = useRef();
   const [modal, setModal] = useState();
@@ -22,11 +24,13 @@ function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onMod
     const options = {
       placement: 'center',
       backdrop: 'dynamic',
-      backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+      backdropClasses: 'fixed inset-0 z-60',
       closable: true,
       onHide: () => {
         onModalClose();
-        modal.hide();
+        if (modal) {
+          modal.hide();
+        }
       },
     };
     const modalInstance = new Modal(modalEl, options);
@@ -49,9 +53,9 @@ function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onMod
       ref={modalRef}
       tabIndex="-1"
       aria-hidden="true"
-      className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      className="fixed top-0 left-0 right-0 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full z-50"
     >
-      <div className="relative w-full max-w-md max-h-full">
+      <div className="relative w-full max-w-md max-h-full shadow-lg border-indigo-500/75">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <button
             type="button"
@@ -67,7 +71,7 @@ function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onMod
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{textModal}</h3>
             <button
               data-modal-hide="popup-modal"
-              onClick={() => onValidate(true)}
+              onClick={() => { onValidate(true); onClose(); }}
               type="button"
               className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
             >
