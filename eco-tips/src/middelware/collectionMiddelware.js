@@ -5,6 +5,7 @@ import {
   SEND_PROPOSAL,
   GET_RANDOM_CARD,
   SAVE_RANDOM_CARD_COLLECTION,
+  DELETE_ONE_CARD,
   saveCollection,
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
@@ -69,6 +70,20 @@ const collectionMiddelware = (store) => (next) => (action) => {
       store.dispatch(loadApiRequest());
       axios
         .post(`${apiUrl}/me/collection/card`, formValues, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally();
+    }
+      break;
+    case DELETE_ONE_CARD: {
+      const { idCard } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .delete(`${apiUrl}/me/collection/card`, idCard, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
