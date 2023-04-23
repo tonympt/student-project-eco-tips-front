@@ -79,6 +79,7 @@ function ProposalForm() {
     });
     formValues.tag = selectedTags.map((tag) => tag.id);
     formValues.image = base64Image;
+    console.log(formValues);
     dispatch(sendProposal(formValues));
   };
 
@@ -132,7 +133,6 @@ function ProposalForm() {
                     className="flex gap-1 text-bold text-white text-sm p-1 rounded"
                     style={{ backgroundColor: tag.color }}
                     value={selectedTags}
-                    name="tags"
                   >
                     {tag.name}
                     <button
@@ -152,12 +152,12 @@ function ProposalForm() {
           {/* ratings input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
             <ProposalRating
-              label="economic_rating"
+              label="economicrating"
               value={economyRating}
               onChange={setEconomyRating}
             />
             <ProposalRating
-              label="environmental_rating"
+              label="environmentalrating"
               value={ecologyRating}
               onChange={setEcologyRating}
             />

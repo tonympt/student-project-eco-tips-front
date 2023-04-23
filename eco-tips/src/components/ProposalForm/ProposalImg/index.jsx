@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 function ProposalImg({ onImageChange }) {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    console.log(event.target.files);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         onImageChange(reader.result);
       };
+      reader.readAsDataURL(file);
     }
   };
   return (

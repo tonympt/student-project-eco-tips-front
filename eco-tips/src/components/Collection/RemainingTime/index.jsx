@@ -22,10 +22,9 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
     const remainingDays = now.to(expectedDate, 'day');
     return remainingDays;
   };
-  // const remainingDays = timeRemaining();
-  const remainingDays = 1;
+  const remainingDays = timeRemaining();
   useEffect(() => {
-    if (remainingDays && remainingDays <= 2) {
+    if (remainingDays && remainingDays <= 0) {
       setDisplayCheckedButton(true);
     }
   }, [remainingDays]);

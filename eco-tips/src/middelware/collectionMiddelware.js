@@ -83,6 +83,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
     case DELETE_ONE_CARD: {
       const { idCard } = action;
       store.dispatch(loadApiRequest());
+      console.log(`le token de la route delete : ${store.getState().user.token}`);
       axios
         .delete(`${apiUrl}/me/collection/card/${idCard}`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
@@ -97,6 +98,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
     case CHECKED_CARD: {
       const { idCard } = action;
       store.dispatch(loadApiRequest());
+      console.log(`le token de la route patch : ${store.getState().user.token}`);
       axios
         .patch(`${apiUrl}/me/collection/card/${idCard}`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
