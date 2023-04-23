@@ -7,6 +7,7 @@ export const GET_RANDOM_CARD = 'GET_RANDOM_CARD';
 export const SAVE_RANDOM_CARD = 'SAVE_RANDOM_CARD';
 export const SAVE_RANDOM_CARD_COLLECTION = 'SAVE_RANDOM_CARD_COLLECTION';
 export const DELETE_ONE_CARD = 'DELETE_ONE_CARD';
+export const CHECKED_CARD = 'CHECKED_CARD';
 
 export const getAllCollection = () => ({ type: GET_ALL_COLLECTION });
 
@@ -41,5 +42,10 @@ export const saveRandomCardCollection = (formValues) => ({
 
 export const deleteOneCard = (idCard) => ({
   type: DELETE_ONE_CARD,
+  idCard,
+});
+
+export const checkedCard = (idCard) => ({
+  type: CHECKED_CARD,
   idCard,
 });

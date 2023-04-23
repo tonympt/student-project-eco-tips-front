@@ -6,6 +6,7 @@ import {
   GET_RANDOM_CARD,
   SAVE_RANDOM_CARD_COLLECTION,
   DELETE_ONE_CARD,
+  CHECKED_CARD,
   saveCollection,
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
@@ -83,7 +84,21 @@ const collectionMiddelware = (store) => (next) => (action) => {
       const { idCard } = action;
       store.dispatch(loadApiRequest());
       axios
-        .delete(`${apiUrl}/me/collection/card`, idCard, {
+        .delete(`${apiUrl}/me/collection/card/${idCard}`, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally();
+    }
+      break;
+    case CHECKED_CARD: {
+      const { idCard } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .patch(`${apiUrl}/me/collection/card/${idCard}`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
