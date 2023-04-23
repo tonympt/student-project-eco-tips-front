@@ -14,6 +14,7 @@ import CardDescription from './CardDescription';
 import CardAuthor from './CardAuthor';
 import CardImg from './CardImg';
 import CheckIcon from './CheckIcon';
+import DeleteButton from './DeleteButton';
 
 function Card({ image,
   title,
@@ -23,6 +24,8 @@ function Card({ image,
   environmental_rating,
   economic_rating,
   state,
+  delete: isDeleteEnabled,
+  id,
   children }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
@@ -63,6 +66,7 @@ function Card({ image,
       <div
         className={`${styleCardExpanded}`}
         aria-label="Card container"
+        id={`${id}`}
         ref={cardRef}
       >
         <div
@@ -77,6 +81,7 @@ function Card({ image,
             <CardDescription description={description} isExpanded={isExpanded} />
             <CardAuthor author={author} />
             {state && <CheckIcon />}
+            {isDeleteEnabled && <DeleteButton cardId={id} />}
           </div>
         </div>
         {children}
@@ -100,10 +105,13 @@ Card.propTypes = {
   economic_rating: PropTypes.number.isRequired,
   state: PropTypes.bool,
   children: PropTypes.node,
+  delete: PropTypes.bool,
+  id: PropTypes.number.isRequired,
 };
 Card.defaultProps = {
   children: null,
   state: false,
+  delete: false,
 };
 
 export default Card;
