@@ -39,7 +39,7 @@ function ProposalValue({ value, onValueChange }) {
         </button>
         <input
           type="number"
-          min="1"
+          min="0"
           max="20"
           className="bg-gray-50 hover:bg-gray-200 flec text-center text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20 cursor-pointer border-opacity-50 border-gray-400"
           id="value"

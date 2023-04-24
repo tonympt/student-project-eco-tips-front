@@ -29,6 +29,7 @@ function ProposalForm() {
   const [ecologyRating, setEcologyRating] = useState(0);
   const [valueInput, setValueInput] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [imagePreview, setImagePreview] = useState('');
   // hooks
   const dispatch = useDispatch();
   const location = useLocation();
@@ -72,6 +73,10 @@ function ProposalForm() {
     // update tags option with tag remove
     setTags((prevTags) => [...prevTags, tagToRemove]);
   };
+
+  const onImagePreview = (image) => {
+    setImagePreview(image);
+  };
   // created formData for api
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -92,6 +97,7 @@ function ProposalForm() {
     setEconomyRating(0);
     setEcologyRating(0);
     setBase64Image('');
+    setImagePreview('');
     setValueInput(0);
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
@@ -109,85 +115,94 @@ function ProposalForm() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-2 text-center">Proposer votre carte</h1>
-      <form
-        className="w-full max-w-md mx-auto bg-white p-4 rounded-md shadow-md"
-        onSubmit={handleSubmit}
-      >
-        <div className="flex flex-col gap-1">
-          <ErrorNotifications />
-          <SuccessNotifications notification="Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀" />
-          <ProposalImg onImageChange={handleImageChange} />
-          <ProposalTitle />
-          {/* handle Tags */}
-          { loading ? (<Spinner />) : (
-            <div className="p-2 border border-opacity-50 border-gray-400 rounded">
-              <label
-                htmlFor="tags"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
-                Sélectioner une catégorie
-              </label>
-              <select
-                id="tags"
-                defaultValue="Choisir une catégorie"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                onChange={handleTags}
-              >
-                <option value="Choisir une catégorie" disabled>Choisir une catégorie</option>
-                {tags.map((tag) => <option key={tag.id} value={tag.id}>{tag.name}</option>)}
-              </select>
-              <div className="flex flex-wrap gap-1 mt-2 mx-2">
-                {selectedTags.map((tag) => (
-                  <div
-                    key={tag.id}
-                    className="flex gap-1 text-bold text-white text-sm p-1 rounded"
-                    style={{ backgroundColor: tag.color }}
-                    value={selectedTags}
-                    name="tags"
-                  >
-                    {tag.name}
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveTag(tag)}
+      <div className="relative flex gap-5 justify-center">
+        <form
+          className="w-full max-w-md bg-white p-4 rounded-md shadow-md"
+          onSubmit={handleSubmit}
+        >
+          <div className="flex flex-col gap-1">
+            <ErrorNotifications />
+            <SuccessNotifications notification="Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀" />
+            <ProposalImg onImageChange={handleImageChange} onImagePreview={onImagePreview} />
+            <ProposalTitle onImagePreview={onImagePreview} />
+            {/* handle Tags */}
+            { loading ? (<Spinner />) : (
+              <div className="p-2 border border-opacity-50 border-gray-400 rounded">
+                <label
+                  htmlFor="tags"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Sélectioner une catégorie
+                </label>
+                <select
+                  id="tags"
+                  defaultValue="Choisir une catégorie"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  onChange={handleTags}
+                >
+                  <option value="Choisir une catégorie" disabled>Choisir une catégorie</option>
+                  {tags.map((tag) => <option key={tag.id} value={tag.id}>{tag.name}</option>)}
+                </select>
+                <div className="flex flex-wrap gap-1 mt-2 mx-2">
+                  {selectedTags.map((tag) => (
+                    <div
+                      key={tag.id}
+                      className="flex gap-1 text-bold text-white text-sm p-1 rounded"
+                      style={{ backgroundColor: tag.color }}
+                      value={selectedTags}
+                      name="tags"
                     >
-                      &times;
-                    </button>
-                  </div>
-                ))}
+                      {tag.name}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveTag(tag)}
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <div />
+                <div className="flex flex-wrap gap-1 mt-2" />
               </div>
-              <div />
-              <div className="flex flex-wrap gap-1 mt-2" />
-            </div>
-          )}
+            )}
 
-          {/* ratings input */}
-          <div className="p-2 border border-opacity-50 border-gray-400 rounded">
-            <ProposalRating
-              label="Note économique"
-              name="economicrating"
-              value={economyRating}
-              onChange={setEconomyRating}
-            />
-            <ProposalRating
-              label="Note environnementale"
-              name="environmentalrating"
-              value={ecologyRating}
-              onChange={setEcologyRating}
-            />
+            {/* ratings input */}
+            <div className="p-2 border border-opacity-50 border-gray-400 rounded">
+              <ProposalRating
+                label="Note économique"
+                name="economicrating"
+                value={economyRating}
+                onChange={setEconomyRating}
+              />
+              <ProposalRating
+                label="Note environnementale"
+                name="environmentalrating"
+                value={ecologyRating}
+                onChange={setEcologyRating}
+              />
+            </div>
+            <ProposalDescription />
+            <ProposalValue value={valueInput} onValueChange={setValueInput} />
+            <AuthorForm />
+            <div className="flex items-center place-content-evenly py-2">
+              <button type="submit" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
+                Valider
+              </button>
+              <button type="button" onClick={resetForm} className="py-1 px-2 font-bold red-button red-button:hover button-active active:animate-buttonAnimation">
+                Annuler
+              </button>
+            </div>
           </div>
-          <ProposalDescription />
-          <ProposalValue value={valueInput} onValueChange={setValueInput} />
-          <AuthorForm />
-          <div className="flex items-center place-content-evenly py-2">
-            <button type="submit" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
-              Valider
-            </button>
-            <button type="button" onClick={resetForm} className="py-1 px-2 font-bold red-button red-button:hover button-active active:animate-buttonAnimation">
-              Annuler
-            </button>
-          </div>
+
+        </form>
+        { imagePreview && (
+        <div className="bg-white p-4 rounded-md shadow-md w-1/4 absolute right-24">
+          <p className="text-xl font-bold mb-2 text-center">Prévisualisation de la carte :</p>
+          <img src={imagePreview} alt="preview" />
         </div>
-      </form>
+        )}
+      </div>
     </>
   );
 }

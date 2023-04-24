@@ -1,13 +1,18 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function ProposalImg({ onImageChange }) {
+function ProposalImg({ onImageChange, onImagePreview }) {
+  const [img, setImg] = useState('');
+  useEffect(() => {
+    onImagePreview(img);
+  }, [img]);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log(event.target.files);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         onImageChange(reader.result);
+        setImg(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -23,6 +28,7 @@ function ProposalImg({ onImageChange }) {
 
 ProposalImg.propTypes = {
   onImageChange: PropTypes.func.isRequired,
+  onImagePreview: PropTypes.func.isRequired,
 };
 
 export default ProposalImg;
