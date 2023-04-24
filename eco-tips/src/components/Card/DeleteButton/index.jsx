@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalTemplate from '@/components/Tools/ModalTemplate';
 import { deleteOneCard } from '@/actions/collection';
+import { askRefresh } from '@/actions/ui';
 
 function DeleteButton({ cardId }) {
   const [onShowModalState, setOnShowModalState] = useState(false);
@@ -15,6 +16,7 @@ function DeleteButton({ cardId }) {
   useEffect(() => {
     if (validate) {
       dispatch(deleteOneCard(cardId));
+      dispatch(askRefresh());
     }
   }, [validate]);
   return (
@@ -28,6 +30,7 @@ function DeleteButton({ cardId }) {
         textModal="Êtes vous sûrs de vouloir supprimer la carte?"
         textValidate="Oui"
         textCancel="Non"
+        colorButton="red"
         onShowModal={onShowModalState}
         onModalClose={() => setOnShowModalState(false)}
         onValidate={() => setValidate(true)}

@@ -19,7 +19,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   color: PropTypes.string,
   padding: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   width: PropTypes.string,
 };
 
@@ -29,6 +29,7 @@ Button.defaultProps = {
   padding: '',
   color: '',
   width: '',
+  children: '',
 };
 
 export default Button;

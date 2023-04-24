@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Modal } from 'flowbite';
 import PropTypes from 'prop-types';
 
-function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onModalClose, onValidate }) {
+function ModalTemplate({ textModal, textValidate, textCancel, colorButton, onShowModal, onModalClose, onValidate }) {
   // Exemple to props component
   // <ModalTemplate
   //         <ModalTemplate
@@ -73,7 +73,7 @@ function ModalTemplate({ textModal, textValidate, textCancel, onShowModal, onMod
               data-modal-hide="popup-modal"
               onClick={() => { onValidate(true); onClose(); }}
               type="button"
-              className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+              className={`text-white bg-${colorButton}-600 hover:bg-${colorButton}-800 focus:ring-4 focus:outline-none focus:ring-${colorButton}-300 dark:focus:ring-${colorButton}-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2`}
             >
               {textValidate}
             </button>
@@ -92,6 +92,7 @@ ModalTemplate.propTypes = {
   onShowModal: PropTypes.bool.isRequired,
   onModalClose: PropTypes.func.isRequired,
   onValidate: PropTypes.func.isRequired,
+  colorButton: PropTypes.string.isRequired,
 };
 
 export default ModalTemplate;

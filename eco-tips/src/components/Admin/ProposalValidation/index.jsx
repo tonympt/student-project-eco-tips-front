@@ -28,6 +28,7 @@ function ProposalValidation() {
         <h2 className="text-md mb-6 text-center">Gérer les propositions des nouvelles cartes</h2>
       </div>
       <div className="mx-auto bg-white p-8 rounded-md shadow-md">
+        <SuccessNotifications notification="La carte a bien été ajouté aux cartes 🥳 !!!" />
         {loading ? (
           <Spinner />
         ) : (
@@ -35,7 +36,7 @@ function ProposalValidation() {
             {proposals.map((card) => (
               <div key={card.id} className="md:w-1/6">
                 <Card {...card}>
-                  <ButtonsControls {...card} />
+                  <ButtonsControls card={card} />
                 </Card>
               </div>
             ))}

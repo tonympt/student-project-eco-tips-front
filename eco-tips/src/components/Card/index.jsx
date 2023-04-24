@@ -38,7 +38,6 @@ function Card({ image,
     setIsExpanded(true);
     setShowBackground(true);
   };
-  console.log(`le chemin dans les cartes collection ${image}`);
   const handleOutsideClick = (event) => {
     // Check if the clicked element is not a descendant of cardRef and isExpanded=true
     if (!cardRef.current.contains(event.target) && isExpanded) {
@@ -117,10 +116,10 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
-      color: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
     }),
-  ).isRequired,
+  ),
   description: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   environmental_rating: PropTypes.number.isRequired,
@@ -132,6 +131,7 @@ Card.propTypes = {
 };
 Card.defaultProps = {
   children: null,
+  tags: null,
   state: false,
   delete: false,
 };

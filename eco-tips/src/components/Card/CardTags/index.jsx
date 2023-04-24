@@ -25,8 +25,12 @@ CardTags.propTypes = {
       name: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,
     }),
-  ).isRequired,
+  ),
   isExpanded: PropTypes.bool.isRequired,
+};
+
+CardTags.defaultProps = {
+  tags: null,
 };
 
 export default CardTags;
