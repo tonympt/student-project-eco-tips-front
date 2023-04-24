@@ -48,6 +48,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status));
           store.dispatch(saveAllTags(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
@@ -100,13 +101,16 @@ const collectionMiddelware = (store) => (next) => (action) => {
       store.dispatch(loadApiRequest());
       console.log(`le token de la route patch : ${store.getState().user.token}`);
       axios
-        .patch(`${apiUrl}/me/collection/card/${idCard}`, {
+        .patch(`http://pauline-cauty.vpnuser.lan:3000/me/collection/card/${idCard}`, {}, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
           store.dispatch(loadRequestSuccess(res.statusText, res.status));
         })
-        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .catch((err) => {
+          console.log(err);
+          store.dispatch(loadTRequestError(err.response.data, err.response.status));
+        })
         .finally();
     }
       break;

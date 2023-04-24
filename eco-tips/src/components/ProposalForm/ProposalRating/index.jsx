@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function ProposalRating({ label, value, onChange }) {
+function ProposalRating({ label, name, value, onChange }) {
   const handleChange = (event) => {
     const newValue = Number(event.target.value);
     onChange(newValue);
@@ -12,8 +12,8 @@ function ProposalRating({ label, value, onChange }) {
         {`${label} : ${value}`}
       </label>
       <input
-        id={`${label}`}
-        name={`${label}`}
+        id={`${name}`}
+        name={`${name}`}
         type="range"
         min="0"
         max="5"
@@ -29,6 +29,7 @@ function ProposalRating({ label, value, onChange }) {
 ProposalRating.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

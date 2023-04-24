@@ -22,9 +22,23 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
     const remainingDays = now.to(expectedDate, 'day');
     return remainingDays;
   };
+
+  const diffDate = () => {
+    const now = dayjs();
+    const expectedDate = expirationDate;
+    const diff = now.diff(expectedDate, 'day');
+    return diff;
+  };
+
   const remainingDays = timeRemaining();
+  const dateDiff = diffDate();
+  // console.log(`différence de date : ${remainingDays}`);
+
+  // console.log(`temps restant : ${remainingDays}`);
+
+  // console.log(`date d'expiration : ${expirationDate}`);
   useEffect(() => {
-    if (remainingDays && remainingDays <= 0) {
+    if (dateDiff && dateDiff >= 0) {
       setDisplayCheckedButton(true);
     }
   }, [remainingDays]);
