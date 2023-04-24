@@ -3,23 +3,44 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/fr';
+import updateLocale from 'dayjs/plugin/updateLocale';
 
 // function to display the time left before validation of the card
 
 function DisplayRemainingTime({ expirationDate }) {
   const timeRemaining = () => {
+    dayjs.extend(updateLocale);
     dayjs.extend(relativeTime);
     dayjs.locale('fr');
+    dayjs.updateLocale('fr', {
+      relativeTime: {
+        future: 'dans %s',
+        s: 'quelques secondes',
+        m: '1 minute',
+        mm: '%d minutes',
+        h: '1 heure',
+        hh: '%d heures',
+        d: '1 jour',
+        dd: '%d jours',
+        M: '1 mois',
+        MM: '%d mois',
+        y: '1 an',
+        yy: '%d ans',
+      },
+    });
     // current date
     const now = dayjs();
     // date user have chosen
     const expectedDate = expirationDate;
+    console.log(expectedDate);
     // time left from current date to date chosen
     const remainingDays = now.to(expectedDate, 'day');
+    console.log(remainingDays);
     return remainingDays;
   };
 
   const remainingDays = timeRemaining();
+
   return (
 
     <div className="flex flex-row text-center w-full mx-auto bg-white p-4 rounded-md shadow-md mt-3 ">
@@ -31,7 +52,7 @@ function DisplayRemainingTime({ expirationDate }) {
         {' '}
         {remainingDays}
         {' '}
-        restants
+        restant(s)
 
       </p>
     </div>
