@@ -198,7 +198,7 @@ function ProposalForm() {
         </form>
         { imagePreview && (
         <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
-          <p className="text-xl font-bold mb-2 text-center">Prévisualisation de la carte :</p>
+          <p className="text-xl font-bold mb-2 text-center">Prévisualisation de l'image :</p>
           <img src={imagePreview} alt="preview" />
         </div>
         )}

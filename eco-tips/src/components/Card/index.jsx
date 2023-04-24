@@ -38,6 +38,7 @@ function Card({ image,
     setIsExpanded(true);
     setShowBackground(true);
   };
+  console.log(`le chemin dans les cartes collection ${image}`);
   const handleOutsideClick = (event) => {
     // Check if the clicked element is not a descendant of cardRef and isExpanded=true
     if (!cardRef.current.contains(event.target) && isExpanded) {
