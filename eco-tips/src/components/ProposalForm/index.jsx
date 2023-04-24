@@ -115,7 +115,7 @@ function ProposalForm() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-2 text-center">Proposer votre carte</h1>
-      <div className="relative flex gap-5 justify-center">
+      <div className="flex gap-5 justify-center">
         <form
           className="w-full max-w-md bg-white p-4 rounded-md shadow-md"
           onSubmit={handleSubmit}
@@ -197,7 +197,7 @@ function ProposalForm() {
 
         </form>
         { imagePreview && (
-        <div className="bg-white p-4 rounded-md shadow-md w-1/4 absolute right-24">
+        <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
           <p className="text-xl font-bold mb-2 text-center">Prévisualisation de la carte :</p>
           <img src={imagePreview} alt="preview" />
         </div>
