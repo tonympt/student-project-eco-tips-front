@@ -11,6 +11,7 @@ import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
 import ProposalForm from '@/components/ProposalForm';
 import ServerErrorPage from '@/components/ServerErrorPage';
+import Admin from '@/components/Admin';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -68,6 +69,7 @@ function App() {
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         )}
       </BodyStyle>
