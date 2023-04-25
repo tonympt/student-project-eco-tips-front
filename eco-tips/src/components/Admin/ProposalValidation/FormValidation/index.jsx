@@ -4,53 +4,74 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 // Action creator to fetch
-import { getAllTags, sendProposal } from '@/actions/collection';
+import { getAllTags } from '@/actions/collection';
 // Form components
-import ProposalImg from '@/components/ProposalForm/ProposalImg';
-import ProposalTitle from '@/components/ProposalForm/ProposalTitle';
-import ProposalRating from '@/components/ProposalForm/ProposalRating';
-import ProposalDescription from '@/components/ProposalForm/ProposalDescription';
-import ProposalValue from '@/components/ProposalForm/ProposalValue';
-import AuthorForm from '@/components/ProposalForm/AuthorForm';
+// import ProposalImg from '@/components/Admin/ProposalValidation/FormValidation/ProposalImg';
+import ProposalTitle from '@/components/Admin/ProposalValidation/FormValidation/ProposalTitle';
+import ProposalRating from '@/components/Admin/ProposalValidation/FormValidation/ProposalRating';
+import ProposalDescription from '@/components/Admin/ProposalValidation/FormValidation/ProposalDescription';
+import ProposalValue from '@/components/Admin/ProposalValidation/FormValidation/ProposalValue';
+import AuthorForm from '@/components/Admin/ProposalValidation/FormValidation/AuthorForm';
+import Card from '@/components/Card/';
 // Tools components
+import ErrorNotifications from '@/components/ErrorNotifications';
 import Spinner from '@/components/Spinner';
 import SuccessNotifications from '@/components/SuccessNotifications';
-import ErrorNotifications from '@/components/ErrorNotifications';
+import { updateProposal } from '@/actions/admin';
 
-function ProposalForm() {
-  // Store
+function FormValidation() {
+  // API Url
+  // const apiUrl = import.meta.env.VITE_API_URL;
+  // store
   const { isOpen } = useSelector((state) => state.success);
   const { tags: allTags } = useSelector((state) => state.collection);
+  // Hooks
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { cardDatas } = location.state;
   // STATE
   // State loading to fetch allTags
   const [loading, setLoading] = useState(true);
   // State input form
-  const [base64Image, setBase64Image] = useState('');
-  const [title, setTitle] = useState('');
+  const [firstImagePreview, setFirstImagePreview] = useState(cardDatas.image);
+  // const [base64Image, setBase64Image] = useState('');
+  const [title, setTitle] = useState(cardDatas.title);
   const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [description, setDescription] = useState('');
-  const [economyRating, setEconomyRating] = useState(0);
-  const [ecologyRating, setEcologyRating] = useState(0);
-  const [valueInput, setValueInput] = useState(0);
+  const [selectedTags, setSelectedTags] = useState(cardDatas.tags);
+  const [economyRating, setEconomyRating] = useState(cardDatas.economic_rating);
+  const [ecologyRating, setEcologyRating] = useState(cardDatas.environmental_rating);
+  const [description, setDescription] = useState(cardDatas.description);
+  const [valueInput, setValueInput] = useState(cardDatas.value);
 
-  // Hooks
-  const dispatch = useDispatch();
-  const location = useLocation();
-  // === HANDLE TAGS ===
-  // Fetch allTags
+  // USEFFECT
+  // fetch allTags
   useEffect(() => {
     dispatch(getAllTags());
     setLoading(false);
   }, []);
-  // set allTags
   useEffect(() => {
     if (allTags.length > 0) {
-      setTags([...allTags]);
+      // Compare selectedTags with allTags and add missing ids
+      const updatedSelectedTags = selectedTags.map((selectedTag) => {
+        const matchingTag = allTags.find((tag) => tag.name === selectedTag.name);
+        if (matchingTag) {
+          return {
+            name: selectedTag.name,
+            id: matchingTag.id,
+            color: matchingTag.color,
+          };
+        }
+        return selectedTag;
+      });
+      // Filter allTags to remove tags already in selectedTags
+      const filteredTags = allTags.filter((tag) => !updatedSelectedTags.some((selectedTag) => selectedTag.name === tag.name));
+      // Set state
+      setTags(filteredTags);
+      setSelectedTags(updatedSelectedTags);
     }
   }, [loading, allTags]);
-  // add Tags
-  const handleTags = (event) => {
+
+  function handleTags(event) {
     const idTag = event.target.value;
     // refuse more than 3 tags
     if (selectedTags.length < 4) {
@@ -66,8 +87,8 @@ function ProposalForm() {
         setTags(newTagsOptions);
       }
     }
-  };
-  // Remove Tags
+  }
+
   const handleRemoveTag = (tagToRemove) => {
     // update selectedTags returning an array without the deleted tag
     setSelectedTags((prevSelectedTags) => prevSelectedTags.filter((tag) => tag.id !== tagToRemove.id));
@@ -75,7 +96,13 @@ function ProposalForm() {
     setTags((prevTags) => [...prevTags, tagToRemove]);
   };
 
-  // Created formData for api
+  // // Handle Image (loading base64 on state and previewImg)
+  // const handleImageChange = (imageData) => {
+  //   setBase64Image(imageData);
+  //   setFirstImagePreview(null);
+  // };
+
+  // created formData for api
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -84,22 +111,23 @@ function ProposalForm() {
       formValues[key] = value;
     });
     formValues.tags = selectedTags.map((tag) => tag.id);
-    formValues.image = base64Image;
-    dispatch(sendProposal(formValues));
+    dispatch(updateProposal(formValues, cardDatas.id));
   };
 
-  // reset form with initial state and DOM element
+  // Reset form with initial state
   const resetForm = () => {
-    setBase64Image('');
-    setTitle('');
+    dispatch(getAllTags());
     setSelectedTags([]);
     setTags([]);
     setEconomyRating(0);
     setEcologyRating(0);
     setDescription('');
+    setTitle('');
+    // setBase64Image('');
+    // setFirstImagePreview('');
     setValueInput(0);
   };
-  // Scroll on the top page
+  // Scroll on the page top
   useEffect(() => {
     if (isOpen) {
       resetForm();
@@ -109,16 +137,16 @@ function ProposalForm() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-2 text-center">Proposer votre carte</h1>
+      <h1 className="text-2xl font-bold mb-2 text-center my-4">Modifier la carte</h1>
       <div className="flex gap-5 justify-center">
         <form
-          className="w-full max-w-md bg-white p-4 rounded-md shadow-md"
+          className="w-full max-w-md bg-white p-4 rounded-md shadow-md my-4"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-1">
             <ErrorNotifications />
-            <SuccessNotifications />
-            <ProposalImg onImageChange={setBase64Image} />
+            <SuccessNotifications notification="Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀" />
+            {/* <ProposalImg onImageChange={handleImageChange} /> */}
             <ProposalTitle title={title} onChangeTitle={setTitle} />
             {/* handle Tags */}
             { loading ? (<Spinner />) : (
@@ -179,27 +207,44 @@ function ProposalForm() {
             </div>
             <ProposalDescription description={description} onChangeDescription={setDescription} />
             <ProposalValue value={valueInput} onValueChange={setValueInput} />
-            <AuthorForm />
+            <AuthorForm author={cardDatas.author} />
             <div className="flex items-center place-content-evenly py-2">
               <button type="submit" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
                 Valider
               </button>
               <button type="button" onClick={resetForm} className="py-1 px-2 font-bold red-button red-button:hover button-active active:animate-buttonAnimation">
-                Annuler
+                Réinitialiser
               </button>
             </div>
           </div>
 
         </form>
-        { base64Image && (
-        <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
-          <p className="text-xl font-bold mb-2 text-center">Prévisualisation de l'image :</p>
-          <img src={base64Image} alt="preview" />
+        {/* { (firstImagePreview || base64Image) ? (
+          <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
+            <p className="text-xl font-bold mb-2 text-center">Prévisualisation de l'image :</p>
+            {firstImagePreview ? (
+              <img src={`${apiUrl}${firstImagePreview}`} alt="preview" />
+            ) : (
+              <img src={base64Image} alt="preview" />
+            )}
+          </div>
+        ) : null } */}
+        {/* {
+        firstImagePreview && (
+          <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
+            <p className="text-xl font-bold mb-2 text-center">
+              Prévisualisation de l'image :
+            </p>
+            <img src={`${apiUrl}${firstImagePreview}`} alt="preview" />
+          </div>
+        )
+      } */}
+        <div className="w-1/6 my-4">
+          <Card title={title} image={firstImagePreview} tags={selectedTags} description={description} author={cardDatas.author} environmental_rating={ecologyRating} economic_rating={economyRating} />
         </div>
-        )}
       </div>
     </>
   );
 }
 
-export default ProposalForm;
+export default FormValidation;

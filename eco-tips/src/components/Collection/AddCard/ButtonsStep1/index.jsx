@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Button from '@/components/Collection/AddCard/Button';
+import Button from '@/components/Tools/ButtonTemplate';
 
 function ButtonsStep1({ stateStep1 }) {
   const handleValidation = () => {

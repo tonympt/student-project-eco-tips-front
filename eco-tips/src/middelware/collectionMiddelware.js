@@ -11,6 +11,8 @@ import {
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
 
+import { askRefresh } from '@/actions/ui';
+
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 
 const collectionMiddelware = (store) => (next) => (action) => {
@@ -48,7 +50,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, "Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀"));
           store.dispatch(saveAllTags(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
@@ -75,43 +77,47 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Votre carte a bien été importé dans votre collection 🃏'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     case DELETE_ONE_CARD: {
       const { idCard } = action;
       store.dispatch(loadApiRequest());
-      console.log(`le token de la route delete : ${store.getState().user.token}`);
       axios
         .delete(`${apiUrl}/me/collection/card/${idCard}`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Votre carte a bien été supprimée '));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     case CHECKED_CARD: {
       const { idCard } = action;
       store.dispatch(loadApiRequest());
-      console.log(`le token de la route patch : ${store.getState().user.token}`);
       axios
-        .patch(`http://pauline-cauty.vpnuser.lan:3000/me/collection/card/${idCard}`, {}, {
+        .patch(`${apiUrl}/me/collection/card/${idCard}`, {}, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Les 🦫 te remercient pour ton geste !!!'));
         })
         .catch((err) => {
           console.log(err);
           store.dispatch(loadTRequestError(err.response.data, err.response.status));
         })
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     default:

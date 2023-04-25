@@ -9,12 +9,13 @@ export function loadApiRequest() {
   };
 }
 
-export function loadRequestSuccess(successText, successStatus) {
+export function loadRequestSuccess(successTextApi, successStatus, successTextToDisplay) {
   return {
     type: GET_REQUEST_SUCCESS,
     data: null,
-    successText,
+    successTextApi,
     successStatus,
+    successTextToDisplay,
   };
 }
 

@@ -5,7 +5,7 @@ User :
 laura.teur@gmail.com
 Azerty123!
 
-Amin :
+Admin :
 jean.biance@gmail.com
 Azerty123!
 

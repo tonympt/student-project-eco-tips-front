@@ -21,6 +21,10 @@ import SignUp from '@/components/Authentification/SignUp';
 // spinner component
 import Spinner from '@/components/Spinner';
 
+// Admin components
+import ProposalValidation from '@/components/Admin/ProposalValidation';
+import FormValidation from '@/components/Admin/ProposalValidation/FormValidation';
+
 function App() {
   const { logged, errorStatus } = useSelector((state) => ({
     logged: state.user.logged,
@@ -60,6 +64,8 @@ function App() {
             />
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
+            {logged && <Route path="/admin/proposals" element={<ProposalValidation />} />}
+            {logged && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" />
             <Route path="*" element={<NotFoundPage />} />
