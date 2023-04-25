@@ -25,6 +25,5 @@ export default {
         buttonAnimation: 'buttonAnimation 10ms cubic-bezier(0.4, 0, 0.2, 1) 1',
       },
     },
-  },
-  plugins: [require('flowbite/plugin')],
-};
+    plugins: [require('flowbite/plugin')],
+  } };

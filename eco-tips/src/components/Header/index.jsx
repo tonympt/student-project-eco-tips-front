@@ -20,8 +20,9 @@ function Header() {
   };
 
   return (
-    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40">
-      <nav className="flex flex-wrap items-center space-x-2">
+    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40 bg-bottom bg-contain bg-[url('https://img.freepik.com/free-vector/grass-border-vector-illustration_433751-81.jpg?w=1800&t=st=1682429718~exp=1682430318~hmac=e98fed2459a09e00308040c4ba09aba5c81b3319f53855cba677b8ce5b3473a0')] ">
+
+      <nav className="flex flex-wrap items-center space-x-2 ">
         {/* Burger button */}
         <button type="button" className="ml-3" onClick={toggleMenu}>
           {menuOpen ? (
@@ -45,7 +46,7 @@ function Header() {
         <div className={`absolute top-full left-0 ${menuOpen ? 'block bg-white border rounded-b-lg border-x-1 border-b-1' : 'hidden'}`}>
           <ul className="flex flex-col gap-2 py-2">
             <li>
-              <NavLink to="/profile" className="flex flex-row gap-2 text-gray-700 px-4 py-1 hover:border-l-4  border-green-600 hover:text-green-600">
+              <NavLink to="/profile" className="flex flex-row gap-2 text-gray-700 px-4 py-1 hover:border-l-4  border-green-600 hover:text-green-600 ">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                   <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
                 </svg>
@@ -85,7 +86,7 @@ function Header() {
         </div>
       </nav>
       {/* button sign-up sign-in */}
-      <div className="flex flex-wrap items-center space-x-2">
+      <div className="flex flex-wrap items-center space-x-2 ">
         {!logged && !token ? (
           <>
             <Link to="/sign-in" className="text-gray-700 hover:text-green-700">Se connecter</Link>

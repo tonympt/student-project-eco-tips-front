@@ -27,7 +27,7 @@ function Collection() {
     setAddCard(reset);
   };
   return (
-    <div className="mx-auto bg-white p-8 rounded-md shadow-md">
+    <div className="mx-auto bg-white p-8 rounded-md shadow-md bg-no-repeat bg-bottom bg-contain bg-[url('https://img.freepik.com/free-vector/grass-border-vector-illustration_433751-81.jpg?w=1800&t=st=1682429718~exp=1682430318~hmac=e98fed2459a09e00308040c4ba09aba5c81b3319f53855cba677b8ce5b3473a0')]">
       <IconsAdd addCardRequest={addCardRequest} />
       {loading ? (
         <Spinner />
