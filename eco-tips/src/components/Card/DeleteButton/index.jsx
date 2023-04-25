@@ -16,7 +16,7 @@ function DeleteButton({ cardId }) {
   useEffect(() => {
     if (validate) {
       dispatch(deleteOneCard(cardId));
-      dispatch(askRefresh());
+      // dispatch(askRefresh());
     }
   }, [validate]);
   return (

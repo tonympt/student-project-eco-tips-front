@@ -11,6 +11,8 @@ import {
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
 
+import { askRefresh } from '@/actions/ui';
+
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 
 const collectionMiddelware = (store) => (next) => (action) => {
@@ -48,7 +50,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, "Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀"));
           store.dispatch(saveAllTags(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
@@ -75,10 +77,12 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Votre carte a bien été importé dans votre collection 🃏'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     case DELETE_ONE_CARD: {
@@ -89,10 +93,12 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Votre carte a bien été supprimée '));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     case CHECKED_CARD: {
@@ -103,13 +109,15 @@ const collectionMiddelware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Les 🦫 te remercient pour ton geste !!!'));
         })
         .catch((err) => {
           console.log(err);
           store.dispatch(loadTRequestError(err.response.data, err.response.status));
         })
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     default:

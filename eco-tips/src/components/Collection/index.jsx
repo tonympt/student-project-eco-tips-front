@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import IconsAdd from '@/components/Collection/IconsAdd';
 import { getAllCollection } from '@/actions/collection';
 import { askRefresh } from '@/actions/ui';
@@ -11,15 +12,15 @@ import Spinner from '@/components/Spinner';
 import AddCard from '@/components/Collection/AddCard';
 
 import SuccessNotifications from '@/components/SuccessNotifications';
+import ErrorNotifications from '@/components/ErrorNotifications';
 
 function Collection() {
   const dispatch = useDispatch();
   const { collection } = useSelector((state) => state.collection);
   const { refresh } = useSelector((state) => state.ui);
-  const successText = useSelector((state) => state.success.successText);
-  console.log(successText);
   const [loading, setLoading] = useState(true);
   const [addCard, setAddCard] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(getAllCollection());
@@ -28,12 +29,11 @@ function Collection() {
 
   useEffect(() => {
     if (refresh) {
-      setLoading(true);
       dispatch(getAllCollection());
-      setLoading(false);
       dispatch(askRefresh());
+      window.scroll(0, 0);
     }
-  }, [refresh]);
+  }, [refresh, location]);
 
   const addCardRequest = (confirm) => {
     setAddCard(confirm);
@@ -44,15 +44,14 @@ function Collection() {
   return (
     <div className="mx-auto bg-white p-8 rounded-md shadow-md">
       <IconsAdd addCardRequest={addCardRequest} />
+      <SuccessNotifications />
+      <ErrorNotifications />
       {loading ? (
         <Spinner />
       ) : (
         <div className="flex flex-wrap gap-3 m-6">
           {addCard && (
-          <>
-            <SuccessNotifications notification="Votre carte a bien été importé dans votre collection" />
-            <AddCard resetAddCard={resetAddCard} />
-          </>
+          <AddCard resetAddCard={resetAddCard} />
           )}
           {collection.map((card) => (
             <div key={card.id} className="md:w-1/6">

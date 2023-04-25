@@ -7,7 +7,7 @@ function Button({ type, onClick, color, children, padding, width }) {
     <button
       type={type}
       onClick={onClick}
-      className={`${color}-button text-white text-xl ${width} ${color}-button:hover ${padding}font-bold button-active active:animate-buttonAnimation`}
+      className={`${color}-button text-white text-xl ${width} ${color}-button:hover ${padding} font-bold button-active active:animate-buttonAnimation`}
     >
       {children}
     </button>

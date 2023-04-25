@@ -19,7 +19,7 @@ import ErrorNotifications from '@/components/ErrorNotifications';
 
 function ProposalForm() {
   // Store
-  const { successText } = useSelector((state) => state.success);
+  const { isOpen } = useSelector((state) => state.success);
   const { tags: allTags } = useSelector((state) => state.collection);
   // STATE
   // State loading to fetch allTags
@@ -85,8 +85,7 @@ function ProposalForm() {
     });
     formValues.tags = selectedTags.map((tag) => tag.id);
     formValues.image = base64Image;
-    console.log(formValues);
-    // dispatch(sendProposal(formValues));
+    dispatch(sendProposal(formValues));
   };
 
   // reset form with initial state and DOM element
@@ -102,11 +101,11 @@ function ProposalForm() {
   };
   // Scroll on the top page
   useEffect(() => {
-    if (successText) {
+    if (isOpen) {
       resetForm();
       window.scroll(0, 0);
     }
-  }, [successText, location]);
+  }, [isOpen, location]);
 
   return (
     <>
@@ -118,7 +117,7 @@ function ProposalForm() {
         >
           <div className="flex flex-col gap-1">
             <ErrorNotifications />
-            <SuccessNotifications notification="Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀" />
+            <SuccessNotifications />
             <ProposalImg onImageChange={setBase64Image} />
             <ProposalTitle title={title} onChangeTitle={setTitle} />
             {/* handle Tags */}

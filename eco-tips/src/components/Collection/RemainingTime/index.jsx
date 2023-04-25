@@ -32,11 +32,6 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
 
   const remainingDays = timeRemaining();
   const dateDiff = diffDate();
-  // console.log(`différence de date : ${remainingDays}`);
-
-  // console.log(`temps restant : ${remainingDays}`);
-
-  // console.log(`date d'expiration : ${expirationDate}`);
   useEffect(() => {
     if (dateDiff && dateDiff >= 0) {
       setDisplayCheckedButton(true);

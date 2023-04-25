@@ -64,7 +64,7 @@ function App() {
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && <Route path="/admin/proposals" element={<ProposalValidation />} />}
-            {logged && <Route path="/admin/proposals/:urlParams" element={<FormValidation />} />}
+            {logged && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" />
             <Route path="*" element={<NotFoundPage />} />
