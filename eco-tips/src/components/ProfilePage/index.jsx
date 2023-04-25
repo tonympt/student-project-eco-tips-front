@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 // action creator
+import moment from 'moment';
 import { fetchProfileData } from '@/actions/user';
 // import component
 import Spinner from '@/components/Spinner';
@@ -27,6 +28,7 @@ function ProfilePage() {
   const { firstname, lastname, birthdate, ecocoins, email, score, logged } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const birthdateDisplay = moment.utc(birthdate).format('DD/MM/YYYY');
   useEffect(() => {
     if (logged) {
       dispatch(fetchProfileData());
@@ -74,7 +76,7 @@ function ProfilePage() {
                   </svg>
 )}
                 inputType="text"
-                placeholder={birthdate}
+                placeholder={birthdateDisplay}
               />
               <InputField
                 icon={(

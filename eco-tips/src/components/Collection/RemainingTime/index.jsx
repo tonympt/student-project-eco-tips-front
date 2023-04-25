@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/fr';
+import updateLocale from 'dayjs/plugin/updateLocale';
 
 import CheckedTipsButton from '@/components/Collection/CheckedTipsButton';
 
@@ -12,14 +13,33 @@ import CheckedTipsButton from '@/components/Collection/CheckedTipsButton';
 function DisplayRemainingTime({ expirationDate, cardId }) {
   const [displayCheckedButton, setDisplayCheckedButton] = useState(false);
   const timeRemaining = () => {
+    dayjs.extend(updateLocale);
     dayjs.extend(relativeTime);
     dayjs.locale('fr');
+    dayjs.updateLocale('fr', {
+      relativeTime: {
+        future: 'dans %s',
+        s: 'quelques secondes',
+        m: '1 minute',
+        mm: '%d minutes',
+        h: '1 heure',
+        hh: '%d heures',
+        d: '1 jour',
+        dd: '%d jours',
+        M: '1 mois',
+        MM: '%d mois',
+        y: '1 an',
+        yy: '%d ans',
+      },
+    });
     // current date
     const now = dayjs();
     // date user have chosen
     const expectedDate = expirationDate;
+    console.log(expectedDate);
     // time left from current date to date chosen
     const remainingDays = now.to(expectedDate, 'day');
+    console.log(remainingDays);
     return remainingDays;
   };
 
@@ -29,14 +49,8 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
     const diff = now.diff(expectedDate, 'day');
     return diff;
   };
-
   const remainingDays = timeRemaining();
   const dateDiff = diffDate();
-  // console.log(`différence de date : ${remainingDays}`);
-
-  // console.log(`temps restant : ${remainingDays}`);
-
-  // console.log(`date d'expiration : ${expirationDate}`);
   useEffect(() => {
     if (dateDiff && dateDiff >= 0) {
       setDisplayCheckedButton(true);
