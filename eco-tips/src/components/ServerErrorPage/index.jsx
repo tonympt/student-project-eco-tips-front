@@ -15,8 +15,8 @@ function ServerErrorPage() {
       <img src={image} alt="Logo" className="w-1/5 h-1/5" />
       <div className="flex flex-col items-center justify-center">
         <div className="text-6xl font-bold text-gray-800">500</div>
-        <h1 className="text-gray-500">Cette Page est temporairement indisponible...</h1>
-        <p className="text-2xl font-semibold text-gray-700">PAS DE PANIQUE, NOS MARMOTTES SONT SUR LE COUPS </p>
+        <h1 className="text-gray-500">Cette page est temporairement indisponible...</h1>
+        <p className="text-2xl font-semibold text-gray-700">PAS DE PANIQUE, NOS CASTORS SONT SUR LE COUP !!!</p>
       </div>
       <Link to="/" type="button" className="py-2 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
         Page d'accueil

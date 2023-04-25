@@ -33,7 +33,7 @@ function DelayButtons({ handleDate }) {
         <input
           type="range"
           min="7"
-          max="90"
+          max="91"
           step="7"
           value={rangeValue}
           onChange={handleRangeChange}

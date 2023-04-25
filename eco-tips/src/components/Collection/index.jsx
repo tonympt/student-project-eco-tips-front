@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IconsAdd from '@/components/Collection/IconsAdd';
@@ -41,7 +42,7 @@ function Collection() {
           {collection.map((card) => (
             <div key={card.id} className="md:w-1/6">
               <Card {...card} delete>
-                <DisplayRemainingTime expirationDate={card.expiration_date} />
+                {!card.state && <DisplayRemainingTime expirationDate={card.expiration_date} cardId={card.id} />}
               </Card>
             </div>
           ))}

@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { getAllTags, sendProposal } from '@/actions/collection';
 // form components
 import ProposalImg from '@/components/ProposalForm/ProposalImg';
@@ -12,19 +13,25 @@ import AuthorForm from '@/components/ProposalForm/AuthorForm';
 import ErrorNotifications from '@/components/ErrorNotifications';
 // Spinner component
 import Spinner from '@/components/Spinner';
+// SuccessNotifications component
+import SuccessNotifications from '@/components/SuccessNotifications';
 
 function ProposalForm() {
+  // store
+  const { successText } = useSelector((state) => state.success);
   // store
   const { tags: allTags } = useSelector((state) => state.collection);
   // state
   const [base64Image, setBase64Image] = useState('');
-  const [tags, setTags] = useState([...allTags]);
+  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [economyRating, setEconomyRating] = useState(0);
   const [ecologyRating, setEcologyRating] = useState(0);
   const [valueInput, setValueInput] = useState(0);
   const [loading, setLoading] = useState(true);
+  // hooks
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleImageChange = (imageData) => {
     setBase64Image(imageData);
@@ -68,16 +75,12 @@ function ProposalForm() {
   // created formData for api
   const handleSubmit = (event) => {
     event.preventDefault();
-    // if (selectedTags.length === 0) {
-    //   alert('Veuillez sélectionner au moins une catégorie.');
-    //   return;
-    // }
     const formData = new FormData(event.target);
     const formValues = {};
     formData.forEach((value, key) => {
       formValues[key] = value;
     });
-    formValues.tag = selectedTags.map((tag) => tag.id);
+    formValues.tags = selectedTags.map((tag) => tag.id);
     formValues.image = base64Image;
     dispatch(sendProposal(formValues));
   };
@@ -85,16 +88,23 @@ function ProposalForm() {
   // reset form with initial state and DOM element
   const resetForm = () => {
     setSelectedTags([]);
-    setTags([...allTags]);
+    setTags([]);
     setEconomyRating(0);
     setEcologyRating(0);
     setBase64Image('');
     setValueInput(0);
     document.getElementById('title').value = '';
     document.getElementById('description').value = '';
-    document.getElementById('economy_rating').value = 0;
-    document.getElementById('ecology_rating').value = 0;
+    document.getElementById('economicrating').value = 0;
+    document.getElementById('environmentalrating').value = 0;
   };
+
+  useEffect(() => {
+    if (successText) {
+      resetForm();
+      window.scroll(0, 0);
+    }
+  }, [successText, location]);
 
   return (
     <>
@@ -105,6 +115,7 @@ function ProposalForm() {
       >
         <div className="flex flex-col gap-1">
           <ErrorNotifications />
+          <SuccessNotifications notification="Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀" />
           <ProposalImg onImageChange={handleImageChange} />
           <ProposalTitle />
           {/* handle Tags */}
@@ -152,12 +163,14 @@ function ProposalForm() {
           {/* ratings input */}
           <div className="p-2 border border-opacity-50 border-gray-400 rounded">
             <ProposalRating
-              label="economic_rating"
+              label="Note économique"
+              name="economicrating"
               value={economyRating}
               onChange={setEconomyRating}
             />
             <ProposalRating
-              label="environmental_rating"
+              label="Note environnementale"
+              name="environmentalrating"
               value={ecologyRating}
               onChange={setEcologyRating}
             />
