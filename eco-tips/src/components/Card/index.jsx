@@ -17,6 +17,7 @@ import CheckIcon from './CheckIcon';
 import DeleteButton from './DeleteButton';
 
 function Card({ image,
+  base64Image,
   title,
   tags,
   description,
@@ -94,7 +95,7 @@ function Card({ image,
               </svg>
             </button>
           )}
-          <CardImg path={image} title={title} />
+          <CardImg path={image} title={title} base64Image={base64Image} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />
             <CardTags tags={tags} isExpanded={isExpanded} />
@@ -127,6 +128,7 @@ Card.propTypes = {
   state: PropTypes.bool,
   children: PropTypes.node,
   delete: PropTypes.bool,
+  base64Image: PropTypes.string,
   id: PropTypes.number.isRequired,
 };
 Card.defaultProps = {
@@ -134,6 +136,7 @@ Card.defaultProps = {
   tags: null,
   state: false,
   delete: false,
+  base64Image: null,
 };
 
 export default Card;
