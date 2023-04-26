@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { HIDE_ERROR } from '@/actions/errorTypes';
 
-function ErrorNotification(props) {
+function ErrorNotification() {
   const isOpen = useSelector((state) => state.error.isOpen);
   const error = useSelector((state) => state.error.error);
   const errorStatus = useSelector((state) => state.error.errorStatus);

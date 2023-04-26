@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // action creator
 import { setAuthToken, fetchProfileData } from '@/actions/user';
+
 // core components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -66,10 +67,10 @@ function App() {
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" />
             <Route path="*" element={<NotFoundPage />} />
-            <Route path="/admin" element={<Admin />} />
           </Routes>
         )}
       </BodyStyle>
