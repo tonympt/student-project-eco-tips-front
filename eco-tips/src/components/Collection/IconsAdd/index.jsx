@@ -6,7 +6,7 @@ function IconsAdd({ addCardRequest }) {
     addCardRequest(true);
   };
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row gap-4 mb-4">
       <div className="flex flex-row gap-1 items-center ">
         <button
           type="button"

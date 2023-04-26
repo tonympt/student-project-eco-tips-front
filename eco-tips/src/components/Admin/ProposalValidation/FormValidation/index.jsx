@@ -2,7 +2,7 @@
 // Hooks
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 // Action creator to fetch
 import { getAllTags } from '@/actions/collection';
 // Form components
@@ -17,7 +17,7 @@ import Card from '@/components/Card/';
 import ErrorNotifications from '@/components/ErrorNotifications';
 import Spinner from '@/components/Spinner';
 import SuccessNotifications from '@/components/SuccessNotifications';
-import { updateProposal } from '@/actions/admin';
+import { updateProposal, addProposalToCollection } from '@/actions/admin';
 
 function FormValidation() {
   // API Url
@@ -110,6 +110,8 @@ function FormValidation() {
     formData.forEach((value, key) => {
       formValues[key] = value;
     });
+    formValues.economicrating = Number(economyRating);
+    formValues.environmentalrating = Number(ecologyRating);
     formValues.tags = selectedTags.map((tag) => tag.id);
     dispatch(updateProposal(formValues, cardDatas.id));
   };
@@ -118,7 +120,7 @@ function FormValidation() {
   const resetForm = () => {
     dispatch(getAllTags());
     setSelectedTags([]);
-    setTags([]);
+    setTags([allTags]);
     setEconomyRating(0);
     setEcologyRating(0);
     setDescription('');
@@ -144,8 +146,18 @@ function FormValidation() {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-1">
-            <ErrorNotifications />
-            <SuccessNotifications notification="Votre carte a bien été proposé, nous l'avons soumis à un Admin 😀" />
+            <div className="flex flex-col my-2 gap-2">
+              <Link to="/admin/proposals">
+                <div className="flex gap-1 text-sm hover:text-green-600 items-center">
+                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                  </svg>
+                  <p>Retourner aux propositions</p>
+                </div>
+              </Link>
+              <ErrorNotifications />
+              <SuccessNotifications />
+            </div>
             {/* <ProposalImg onImageChange={handleImageChange} /> */}
             <ProposalTitle title={title} onChangeTitle={setTitle} />
             {/* handle Tags */}
@@ -209,8 +221,8 @@ function FormValidation() {
             <ProposalValue value={valueInput} onValueChange={setValueInput} />
             <AuthorForm author={cardDatas.author} />
             <div className="flex items-center place-content-evenly py-2">
-              <button type="submit" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
-                Valider
+              <button type="submit" className="py-1 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation">
+                Modifier
               </button>
               <button type="button" onClick={resetForm} className="py-1 px-2 font-bold red-button red-button:hover button-active active:animate-buttonAnimation">
                 Réinitialiser

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import slugify from 'react-slugify';
 // action creator
 import { deleteProposal, addProposalToCollection } from '@/actions/admin';
+
 // Components
 import Button from '@/components/Tools/ButtonTemplate';
 import ModalTemplate from '@/components/Tools/ModalTemplate';

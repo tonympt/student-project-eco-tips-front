@@ -2,9 +2,10 @@
 // Hooks
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 // Action creator to fetch
 import { getAllTags, sendProposal } from '@/actions/collection';
+import { askRefresh } from '@/actions/ui';
 // Form components
 import ProposalImg from '@/components/ProposalForm/ProposalImg';
 import ProposalTitle from '@/components/ProposalForm/ProposalTitle';
@@ -12,6 +13,7 @@ import ProposalRating from '@/components/ProposalForm/ProposalRating';
 import ProposalDescription from '@/components/ProposalForm/ProposalDescription';
 import ProposalValue from '@/components/ProposalForm/ProposalValue';
 import AuthorForm from '@/components/ProposalForm/AuthorForm';
+import Card from '@/components/Card/';
 // Tools components
 import Spinner from '@/components/Spinner';
 import SuccessNotifications from '@/components/SuccessNotifications';
@@ -21,6 +23,7 @@ function ProposalForm() {
   // Store
   const { isOpen } = useSelector((state) => state.success);
   const { tags: allTags } = useSelector((state) => state.collection);
+  const { firstname, lastname } = useSelector((state) => state.user);
   // STATE
   // State loading to fetch allTags
   const [loading, setLoading] = useState(true);
@@ -33,10 +36,12 @@ function ProposalForm() {
   const [economyRating, setEconomyRating] = useState(0);
   const [ecologyRating, setEcologyRating] = useState(0);
   const [valueInput, setValueInput] = useState(0);
-
+  console.log(firstname, lastname);
   // Hooks
   const dispatch = useDispatch();
   const location = useLocation();
+  // Store
+  const { refresh } = useSelector((state) => state.ui);
   // === HANDLE TAGS ===
   // Fetch allTags
   useEffect(() => {
@@ -45,7 +50,7 @@ function ProposalForm() {
   }, []);
   // set allTags
   useEffect(() => {
-    if (allTags.length > 0) {
+    if (Array.isArray(allTags) && allTags.length > 0) {
       setTags([...allTags]);
     }
   }, [loading, allTags]);
@@ -83,17 +88,18 @@ function ProposalForm() {
     formData.forEach((value, key) => {
       formValues[key] = value;
     });
+    formValues.economicrating = Number(economyRating);
+    formValues.environmentalrating = Number(ecologyRating);
     formValues.tags = selectedTags.map((tag) => tag.id);
     formValues.image = base64Image;
     dispatch(sendProposal(formValues));
   };
-
   // reset form with initial state and DOM element
   const resetForm = () => {
     setBase64Image('');
     setTitle('');
     setSelectedTags([]);
-    setTags([]);
+    setTags([...allTags]);
     setEconomyRating(0);
     setEcologyRating(0);
     setDescription('');
@@ -102,10 +108,17 @@ function ProposalForm() {
   // Scroll on the top page
   useEffect(() => {
     if (isOpen) {
-      resetForm();
       window.scroll(0, 0);
+      setLoading(true);
     }
-  }, [isOpen, location]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (refresh) {
+      setLoading(false);
+      dispatch(askRefresh());
+    }
+  }, [refresh, location]);
 
   return (
     <>
@@ -116,8 +129,18 @@ function ProposalForm() {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-1">
-            <ErrorNotifications />
-            <SuccessNotifications />
+            <div className="flex flex-col my-2 gap-2">
+              <Link to="/collection">
+                <div className="flex gap-1 text-sm hover:text-green-600 items-center">
+                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                  </svg>
+                  <p>Retourner à ma collection</p>
+                </div>
+              </Link>
+              <ErrorNotifications />
+              <SuccessNotifications />
+            </div>
             <ProposalImg onImageChange={setBase64Image} />
             <ProposalTitle title={title} onChangeTitle={setTitle} />
             {/* handle Tags */}
@@ -191,12 +214,15 @@ function ProposalForm() {
           </div>
 
         </form>
-        { base64Image && (
+        <div className="w-1/6 my-4">
+          <Card title={title} base64Image={base64Image} tags={selectedTags} description={description} author={`${firstname} ${lastname}`} environmental_rating={ecologyRating} economic_rating={economyRating} />
+        </div>
+        {/* { base64Image && (
         <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
           <p className="text-xl font-bold mb-2 text-center">Prévisualisation de l'image :</p>
           <img src={base64Image} alt="preview" />
         </div>
-        )}
+        )} */}
       </div>
     </>
   );

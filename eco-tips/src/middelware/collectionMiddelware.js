@@ -54,7 +54,9 @@ const collectionMiddelware = (store) => (next) => (action) => {
           store.dispatch(saveAllTags(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
     }
       break;
     case GET_RANDOM_CARD:

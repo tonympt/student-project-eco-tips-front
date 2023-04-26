@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   UPDATE_AUTH_FIELD,
   SAVE_AUTH_DATA,
@@ -17,6 +18,7 @@ export const initialState = {
   logged: false,
   ecocoins: 0,
   score: 0,
+  roleId: 0,
 };
 
 const resetAllData = () => initialState;
@@ -27,16 +29,16 @@ const reducer = (state = initialState, action = {}) => {
       // the identifier must be equal to the key of its state
       return { ...state, [action.identifier]: action.newValue };
     case SAVE_AUTH_DATA: {
-      const { firstname, token } = action;
-      return { ...state, firstname, token, logged: true, email: '', password: '' };
+      const { firstname, token, roleId } = action;
+      return { ...state, firstname, token, logged: true, roleId, email: '', password: '' };
     }
     case STAY_CONNECTED_SESSION:
       return { ...state, token: action.token, logged: true };
     case RESET_ALL_DATA:
       return resetAllData();
     case SAVE_PROFILE_DATA: {
-      const { firstname, lastname, birthdate, email, ecocoins, score } = action.profileDatas;
-      return { ...state, firstname, lastname, email, birthdate, ecocoins, score };
+      const { firstname, lastname, birthdate, email, ecocoins, score, role_id: roleId } = action.profileDatas;
+      return { ...state, firstname, lastname, email, birthdate, ecocoins, score, roleId };
     }
     default:
       return state;

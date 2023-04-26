@@ -61,11 +61,12 @@ const adminMiddleware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'La carte a bien été enregistrée dans la collection globale de cartes 😀'));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'La carte a bien été modifié ♻️ !!!'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
-    }
+        .finally(() => {
+          store.dispatch(askRefresh());
+        }); }
       break;
     default:
   }

@@ -13,9 +13,10 @@ const authMiddleware = (store) => (next) => (action) => {
       axios
         .post(`${apiUrl}/sign-in`, { email, password })
         .then((res) => {
-          const { firstname, accessToken: token } = res.data;
+          // eslint-disable-next-line camelcase
+          const { firstname, accessToken: token, role_id } = res.data;
           window.localStorage.setItem('token', token);
-          store.dispatch(saveAuthData(firstname, token));
+          store.dispatch(saveAuthData(firstname, token, role_id));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();
@@ -28,6 +29,7 @@ const authMiddleware = (store) => (next) => (action) => {
         .then((res) => {
           store.dispatch(resetAllData());
           store.dispatch(redirect('/sign-in'));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Votre compte a été créé avec succès 🎉'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();

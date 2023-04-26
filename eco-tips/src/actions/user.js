@@ -21,10 +21,11 @@ export const submitSignup = () => ({
   type: SUBMIT_SIGNUP,
 });
 
-export const saveAuthData = (firstname, token) => ({
+export const saveAuthData = (firstname, token, roleId) => ({
   type: SAVE_AUTH_DATA,
   firstname,
   token,
+  roleId,
 });
 
 export const resetAllData = () => ({

@@ -26,13 +26,13 @@ import ProposalValidation from '@/components/Admin/ProposalValidation';
 import FormValidation from '@/components/Admin/ProposalValidation/FormValidation';
 
 function App() {
-  const { logged, errorStatus } = useSelector((state) => ({
+  const { logged, errorStatus, roleId } = useSelector((state) => ({
     logged: state.user.logged,
+    roleId: state.user.roleId,
     errorStatus: state.error.errorStatus,
   }));
   const dispatch = useDispatch();
   const [hasTokenSent, setHasTokenSent] = useState(true);
-
   // checked if user is connected and update token to store
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -64,8 +64,8 @@ function App() {
             />
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
-            {logged && <Route path="/admin/proposals" element={<ProposalValidation />} />}
-            {logged && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" />
             <Route path="*" element={<NotFoundPage />} />
