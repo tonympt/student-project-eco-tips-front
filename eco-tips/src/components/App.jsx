@@ -13,6 +13,7 @@ import ProfilePage from '@/components/ProfilePage';
 import ProposalForm from '@/components/ProposalForm';
 import ServerErrorPage from '@/components/ServerErrorPage';
 import Admin from '@/components/Admin';
+import Home from '@/components/Home';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -71,7 +72,7 @@ function App() {
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
-            <Route path="/" />
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         )}

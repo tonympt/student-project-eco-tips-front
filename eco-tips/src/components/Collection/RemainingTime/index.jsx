@@ -66,7 +66,7 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
         <p className="text-sm font-semibold text-center ml-2 ">
           {remainingDays}
           {' '}
-          restants
+          restant(s)
         </p>
       </div>
     )

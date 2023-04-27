@@ -49,7 +49,7 @@ function Collection() {
     setAddCard(reset);
   };
   return (
-    <div className="mx-auto bg-white p-8 rounded-md shadow-md">
+    <div className="mx-auto bg-white p-8 rounded-md shadow-md bg-no-repeat ">
       <IconsAdd addCardRequest={addCardRequest} />
       <SuccessNotifications />
       <ErrorNotifications />
