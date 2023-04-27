@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 function ModalTemplate({ textModal, textValidate, textCancel, colorButton, onShowModal, onModalClose, onValidate }) {
   // Exemple to props component
-  // <ModalTemplate
   //         <ModalTemplate
   //         textModal="Here Text Modal"
   //         textValidate="Yes"

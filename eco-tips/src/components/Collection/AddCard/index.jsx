@@ -10,6 +10,7 @@ import Spinner from '@/components/Spinner';
 import Buttons from '@/components/Collection/AddCard/Buttons';
 import DelayButtons from '@/components/Collection/AddCard/DelayButtons';
 import SuccessNotifications from '@/components/SuccessNotifications';
+import ErrorNotifications from '@/components/ErrorNotifications';
 
 function AddCard() {
   // handle fetch random card
@@ -62,6 +63,7 @@ function AddCard() {
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold mb-6 text-center">Ajouter une carte :</h1>
         <SuccessNotifications />
+        <ErrorNotifications />
         {loading ? (
           <Spinner />
         ) : (
