@@ -13,7 +13,7 @@ import ProfilePage from '@/components/ProfilePage';
 import ProposalForm from '@/components/ProposalForm';
 import ServerErrorPage from '@/components/ServerErrorPage';
 import Admin from '@/components/Admin';
-
+import Community from '@/components/Community';
 // collection component
 import Collection from '@/components/Collection';
 import AddCard from '@/components/Collection/AddCard';
@@ -67,6 +67,7 @@ function App() {
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && <Route path="/me/add-card" element={<AddCard />} />}
+            {logged && <Route path="/community" element={<Community />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
