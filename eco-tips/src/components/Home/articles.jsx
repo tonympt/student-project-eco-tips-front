@@ -69,10 +69,10 @@ function ArticleList() {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 sd:grid-cols-1  gap-4 max-w-md ">
+    <div className="grid lg:grid-cols-2 sd:grid-cols-1  gap-4 max-w-lg mt-2">
       {articles.map((article) => (
-        <div key={article.link} className="p-2 bg-white p-1 rounded-md shadow-md box-border h-100 w-60 border-4 ... ">
-          <h2 className="font-bold text-start text-sm">{article.title}</h2>
+        <div key={article.link} className="p-2 bg-white p-1 rounded-md drop-shadow-md hover:drop-shadow-xl box-border h-100 w-60 border-4 ... ">
+          <h2 className="font-bold text-start text-sm ">{article.title}</h2>
           <p className="text-xs text-center pt-2">
             {article.category}
             {' '}
@@ -85,7 +85,7 @@ function ArticleList() {
 
           <div className="text-sm line-clamp-3">{article.description}</div>
           <p className="text-xs ">{article.copyright}</p>
-          <a className="mt-10" href={article.link} target="_blank" rel="noreferrer">
+          <a className="mt-10 text-xs underline decoration-green-500" href={article.link} target="_blank" rel="noreferrer">
             Lire la suite
           </a>
         </div>
