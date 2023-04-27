@@ -33,6 +33,7 @@ function SignIn() {
         className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
         onSubmit={handleSubmit}
       >
+        <SuccessNotifications />
         <ErrorNotifications />
         <Field
           name="email"

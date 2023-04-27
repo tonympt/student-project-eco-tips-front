@@ -20,8 +20,10 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
-    "redux": "^4.2.1",
-    "rss-parser": "^3.13.0"
+
+    "react-slugify": "^3.0.2",
+    "redux": "^4.2.1"
+
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

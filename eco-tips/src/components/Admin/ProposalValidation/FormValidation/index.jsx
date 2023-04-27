@@ -4,57 +4,74 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 // Action creator to fetch
-import { getAllTags, sendProposal } from '@/actions/collection';
-import { askRefresh } from '@/actions/ui';
+import { getAllTags } from '@/actions/collection';
 // Form components
-import ProposalImg from '@/components/ProposalForm/ProposalImg';
-import ProposalTitle from '@/components/ProposalForm/ProposalTitle';
-import ProposalRating from '@/components/ProposalForm/ProposalRating';
-import ProposalDescription from '@/components/ProposalForm/ProposalDescription';
-import ProposalValue from '@/components/ProposalForm/ProposalValue';
-import AuthorForm from '@/components/ProposalForm/AuthorForm';
+// import ProposalImg from '@/components/Admin/ProposalValidation/FormValidation/ProposalImg';
+import ProposalTitle from '@/components/Admin/ProposalValidation/FormValidation/ProposalTitle';
+import ProposalRating from '@/components/Admin/ProposalValidation/FormValidation/ProposalRating';
+import ProposalDescription from '@/components/Admin/ProposalValidation/FormValidation/ProposalDescription';
+import ProposalValue from '@/components/Admin/ProposalValidation/FormValidation/ProposalValue';
+import AuthorForm from '@/components/Admin/ProposalValidation/FormValidation/AuthorForm';
 import Card from '@/components/Card/';
 // Tools components
+import ErrorNotifications from '@/components/ErrorNotifications';
 import Spinner from '@/components/Spinner';
 import SuccessNotifications from '@/components/SuccessNotifications';
-import ErrorNotifications from '@/components/ErrorNotifications';
+import { updateProposal, addProposalToCollection } from '@/actions/admin';
 
-function ProposalForm() {
-  // Store
+function FormValidation() {
+  // API Url
+  // const apiUrl = import.meta.env.VITE_API_URL;
+  // store
   const { isOpen } = useSelector((state) => state.success);
   const { tags: allTags } = useSelector((state) => state.collection);
-  const { firstname, lastname } = useSelector((state) => state.user);
+  // Hooks
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { cardDatas } = location.state;
   // STATE
   // State loading to fetch allTags
   const [loading, setLoading] = useState(true);
   // State input form
-  const [base64Image, setBase64Image] = useState('');
-  const [title, setTitle] = useState('');
+  const [firstImagePreview, setFirstImagePreview] = useState(cardDatas.image);
+  // const [base64Image, setBase64Image] = useState('');
+  const [title, setTitle] = useState(cardDatas.title);
   const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [description, setDescription] = useState('');
-  const [economyRating, setEconomyRating] = useState(0);
-  const [ecologyRating, setEcologyRating] = useState(0);
-  const [valueInput, setValueInput] = useState(0);
-  // Hooks
-  const dispatch = useDispatch();
-  const location = useLocation();
-  // Store
-  const { refresh } = useSelector((state) => state.ui);
-  // === HANDLE TAGS ===
-  // Fetch allTags
+  const [selectedTags, setSelectedTags] = useState(cardDatas.tags);
+  const [economyRating, setEconomyRating] = useState(cardDatas.economic_rating);
+  const [ecologyRating, setEcologyRating] = useState(cardDatas.environmental_rating);
+  const [description, setDescription] = useState(cardDatas.description);
+  const [valueInput, setValueInput] = useState(cardDatas.value);
+
+  // USEFFECT
+  // fetch allTags
   useEffect(() => {
     dispatch(getAllTags());
     setLoading(false);
   }, []);
-  // set allTags
   useEffect(() => {
-    if (Array.isArray(allTags) && allTags.length > 0) {
-      setTags([...allTags]);
+    if (allTags.length > 0) {
+      // Compare selectedTags with allTags and add missing ids
+      const updatedSelectedTags = selectedTags.map((selectedTag) => {
+        const matchingTag = allTags.find((tag) => tag.name === selectedTag.name);
+        if (matchingTag) {
+          return {
+            name: selectedTag.name,
+            id: matchingTag.id,
+            color: matchingTag.color,
+          };
+        }
+        return selectedTag;
+      });
+      // Filter allTags to remove tags already in selectedTags
+      const filteredTags = allTags.filter((tag) => !updatedSelectedTags.some((selectedTag) => selectedTag.name === tag.name));
+      // Set state
+      setTags(filteredTags);
+      setSelectedTags(updatedSelectedTags);
     }
   }, [loading, allTags]);
-  // add Tags
-  const handleTags = (event) => {
+
+  function handleTags(event) {
     const idTag = event.target.value;
     // refuse more than 3 tags
     if (selectedTags.length < 4) {
@@ -70,8 +87,8 @@ function ProposalForm() {
         setTags(newTagsOptions);
       }
     }
-  };
-  // Remove Tags
+  }
+
   const handleRemoveTag = (tagToRemove) => {
     // update selectedTags returning an array without the deleted tag
     setSelectedTags((prevSelectedTags) => prevSelectedTags.filter((tag) => tag.id !== tagToRemove.id));
@@ -79,7 +96,13 @@ function ProposalForm() {
     setTags((prevTags) => [...prevTags, tagToRemove]);
   };
 
-  // Created formData for api
+  // // Handle Image (loading base64 on state and previewImg)
+  // const handleImageChange = (imageData) => {
+  //   setBase64Image(imageData);
+  //   setFirstImagePreview(null);
+  // };
+
+  // created formData for api
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -90,57 +113,52 @@ function ProposalForm() {
     formValues.economicrating = Number(economyRating);
     formValues.environmentalrating = Number(ecologyRating);
     formValues.tags = selectedTags.map((tag) => tag.id);
-    formValues.image = base64Image;
-    dispatch(sendProposal(formValues));
+    dispatch(updateProposal(formValues, cardDatas.id));
   };
-  // reset form with initial state and DOM element
+
+  // Reset form with initial state
   const resetForm = () => {
-    setBase64Image('');
-    setTitle('');
+    dispatch(getAllTags());
     setSelectedTags([]);
-    setTags([...allTags]);
+    setTags([allTags]);
     setEconomyRating(0);
     setEcologyRating(0);
     setDescription('');
+    setTitle('');
+    // setBase64Image('');
+    // setFirstImagePreview('');
     setValueInput(0);
   };
-  // Scroll on the top page
+  // Scroll on the page top
   useEffect(() => {
     if (isOpen) {
+      resetForm();
       window.scroll(0, 0);
-      setLoading(true);
     }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (refresh) {
-      setLoading(false);
-      dispatch(askRefresh());
-    }
-  }, [refresh, location]);
+  }, [isOpen, location]);
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-2 text-center">Proposer votre carte</h1>
+      <h1 className="text-2xl font-bold mb-2 text-center my-4">Modifier la carte</h1>
       <div className="flex gap-5 justify-center">
         <form
-          className="w-full max-w-md bg-white p-4 rounded-md shadow-md"
+          className="w-full max-w-md bg-white p-4 rounded-md shadow-md my-4"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-1">
             <div className="flex flex-col my-2 gap-2">
-              <Link to="/collection">
+              <Link to="/admin/proposals">
                 <div className="flex gap-1 text-sm hover:text-green-600 items-center">
                   <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                   </svg>
-                  <p>Retourner à ma collection</p>
+                  <p>Retourner aux propositions</p>
                 </div>
               </Link>
               <ErrorNotifications />
               <SuccessNotifications />
             </div>
-            <ProposalImg onImageChange={setBase64Image} />
+            {/* <ProposalImg onImageChange={handleImageChange} /> */}
             <ProposalTitle title={title} onChangeTitle={setTitle} />
             {/* handle Tags */}
             { loading ? (<Spinner />) : (
@@ -201,30 +219,44 @@ function ProposalForm() {
             </div>
             <ProposalDescription description={description} onChangeDescription={setDescription} />
             <ProposalValue value={valueInput} onValueChange={setValueInput} />
-            <AuthorForm />
+            <AuthorForm author={cardDatas.author} />
             <div className="flex items-center place-content-evenly py-2">
-              <button type="submit" className="py-1 px-2 font-bold green-button green-button:hover button-active active:animate-buttonAnimation">
-                Valider
+              <button type="submit" className="py-1 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation">
+                Modifier
               </button>
               <button type="button" onClick={resetForm} className="py-1 px-2 font-bold red-button red-button:hover button-active active:animate-buttonAnimation">
-                Annuler
+                Réinitialiser
               </button>
             </div>
           </div>
 
         </form>
+        {/* { (firstImagePreview || base64Image) ? (
+          <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
+            <p className="text-xl font-bold mb-2 text-center">Prévisualisation de l'image :</p>
+            {firstImagePreview ? (
+              <img src={`${apiUrl}${firstImagePreview}`} alt="preview" />
+            ) : (
+              <img src={base64Image} alt="preview" />
+            )}
+          </div>
+        ) : null } */}
+        {/* {
+        firstImagePreview && (
+          <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
+            <p className="text-xl font-bold mb-2 text-center">
+              Prévisualisation de l'image :
+            </p>
+            <img src={`${apiUrl}${firstImagePreview}`} alt="preview" />
+          </div>
+        )
+      } */}
         <div className="w-1/6 my-4">
-          <Card title={title} base64Image={base64Image} tags={selectedTags} description={description} author={`${firstname} ${lastname}`} environmental_rating={ecologyRating} economic_rating={economyRating} />
+          <Card title={title} image={firstImagePreview} tags={selectedTags} description={description} author={cardDatas.author} environmental_rating={ecologyRating} economic_rating={economyRating} />
         </div>
-        {/* { base64Image && (
-        <div className="bg-white p-4 rounded-md shadow-md h-full w-1/4">
-          <p className="text-xl font-bold mb-2 text-center">Prévisualisation de l'image :</p>
-          <img src={base64Image} alt="preview" />
-        </div>
-        )} */}
       </div>
     </>
   );
 }
 
-export default ProposalForm;
+export default FormValidation;

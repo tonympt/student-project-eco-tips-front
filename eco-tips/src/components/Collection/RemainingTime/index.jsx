@@ -36,10 +36,8 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
     const now = dayjs();
     // date user have chosen
     const expectedDate = expirationDate;
-    console.log(expectedDate);
     // time left from current date to date chosen
     const remainingDays = now.to(expectedDate, 'day');
-    console.log(remainingDays);
     return remainingDays;
   };
 

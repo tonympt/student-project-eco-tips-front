@@ -17,6 +17,7 @@ import CheckIcon from './CheckIcon';
 import DeleteButton from './DeleteButton';
 
 function Card({ image,
+  base64Image,
   title,
   tags,
   description,
@@ -30,9 +31,7 @@ function Card({ image,
   const [isExpanded, setIsExpanded] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
-  const styleCardExpanded = isExpanded
-    ? 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/3'
-    : 'md:w-full sm:w-full';
+  const styleCardExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/3';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
     setIsExpanded(true);
@@ -94,7 +93,7 @@ function Card({ image,
               </svg>
             </button>
           )}
-          <CardImg path={image} title={title} />
+          <CardImg path={image} title={title} base64Image={base64Image} />
           <div className="p-4">
             <CardTitle title={title} isExpanded={isExpanded} />
             <CardTags tags={tags} isExpanded={isExpanded} />
@@ -116,10 +115,10 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
-      color: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
     }),
-  ).isRequired,
+  ),
   description: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   environmental_rating: PropTypes.number.isRequired,
@@ -127,12 +126,15 @@ Card.propTypes = {
   state: PropTypes.bool,
   children: PropTypes.node,
   delete: PropTypes.bool,
+  base64Image: PropTypes.string,
   id: PropTypes.number.isRequired,
 };
 Card.defaultProps = {
   children: null,
+  tags: null,
   state: false,
   delete: false,
+  base64Image: null,
 };
 
 export default Card;

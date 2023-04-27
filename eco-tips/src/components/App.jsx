@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // action creator
 import { setAuthToken, fetchProfileData } from '@/actions/user';
+
 // core components
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -16,20 +17,25 @@ import Home from '@/components/Home';
 
 // collection component
 import Collection from '@/components/Collection';
+import AddCard from '@/components/Collection/AddCard';
 // authentification component
 import SignIn from '@/components/Authentification/SignIn';
 import SignUp from '@/components/Authentification/SignUp';
 // spinner component
 import Spinner from '@/components/Spinner';
 
+// Admin components
+import ProposalValidation from '@/components/Admin/ProposalValidation';
+import FormValidation from '@/components/Admin/ProposalValidation/FormValidation';
+
 function App() {
-  const { logged, errorStatus } = useSelector((state) => ({
+  const { logged, errorStatus, roleId } = useSelector((state) => ({
     logged: state.user.logged,
+    roleId: state.user.roleId,
     errorStatus: state.error.errorStatus,
   }));
   const dispatch = useDispatch();
   const [hasTokenSent, setHasTokenSent] = useState(true);
-
   // checked if user is connected and update token to store
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -61,10 +67,13 @@ function App() {
             />
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
+            {logged && <Route path="/me/add-card" element={<AddCard />} />}
+            {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" element={<Home />} />
             <Route path="*" element={<NotFoundPage />} />
-            <Route path="/admin" element={<Admin />} />
           </Routes>
         )}
       </BodyStyle>
