@@ -16,6 +16,7 @@ import Admin from '@/components/Admin';
 
 // collection component
 import Collection from '@/components/Collection';
+import AddCard from '@/components/Collection/AddCard';
 // authentification component
 import SignIn from '@/components/Authentification/SignIn';
 import SignUp from '@/components/Authentification/SignUp';
@@ -65,6 +66,7 @@ function App() {
             />
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
+            {logged && <Route path="/me/add-card" element={<AddCard />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
