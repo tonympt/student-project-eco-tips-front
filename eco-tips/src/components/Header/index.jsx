@@ -20,7 +20,7 @@ function Header() {
   };
 
   return (
-    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40 bg-bottom bg-contain bg-[url('https://img.freepik.com/free-vector/grass-border-vector-illustration_433751-81.jpg?w=1800&t=st=1682429718~exp=1682430318~hmac=e98fed2459a09e00308040c4ba09aba5c81b3319f53855cba677b8ce5b3473a0')] ">
+    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40 bg-bottom ">
 
       <nav className="flex flex-wrap items-center space-x-2 ">
         {/* Burger button */}
