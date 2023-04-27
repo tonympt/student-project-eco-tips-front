@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import Button from '@/components/Tools/ButtonTemplate';
 
-function ButtonsStep1({ stateStep1 }) {
+function Buttons({ stateStep }) {
   const handleValidation = () => {
-    stateStep1(true);
+    stateStep(true);
   };
 
   const handleReset = () => {
-    stateStep1(false);
+    stateStep(false);
   };
   return (
     <div className="flex w-full content-center gap-3 place-content-evenly m-2">
@@ -16,8 +16,9 @@ function ButtonsStep1({ stateStep1 }) {
         type="button"
         color="green"
         onClick={handleValidation}
+        padding="py-1 px-2"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-5 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 font-bold">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </Button>
@@ -25,19 +26,19 @@ function ButtonsStep1({ stateStep1 }) {
         width="w-10"
         type="button"
         onClick={handleReset}
-        color="red"
+        color="blue"
+        padding="py-1 px-2"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-5 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 font-bold">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
         </svg>
-
       </Button>
     </div>
   );
 }
 
-ButtonsStep1.propTypes = {
-  stateStep1: PropTypes.func.isRequired,
+Buttons.propTypes = {
+  stateStep: PropTypes.func.isRequired,
 };
 
-export default ButtonsStep1;
+export default Buttons;

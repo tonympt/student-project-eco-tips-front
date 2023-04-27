@@ -36,7 +36,6 @@ function ProposalForm() {
   const [economyRating, setEconomyRating] = useState(0);
   const [ecologyRating, setEcologyRating] = useState(0);
   const [valueInput, setValueInput] = useState(0);
-  console.log(firstname, lastname);
   // Hooks
   const dispatch = useDispatch();
   const location = useLocation();
