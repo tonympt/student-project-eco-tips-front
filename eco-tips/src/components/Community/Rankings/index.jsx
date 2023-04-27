@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -52,7 +53,7 @@ function Rankings() {
         <span className="border-b-4 border-green-500 text-xl">Classements</span>
       </h1>
       <div className="flex flex-wrap gap-8">
-        {rankingScore ? (
+        {rankingScore.length > 0 ? (
           <div className="flex flex-col">
             <h2 className="inline-flex mb-1">
               <span className="text-sm italic">Classement par Score</span>
@@ -74,7 +75,7 @@ function Rankings() {
                 </thead>
                 <tbody>
                   {rankingScore.map((ranking, index) => (
-                    <tr className="bg-white border-b">
+                    <tr className="bg-white border-b" key={`ranking ${index}`}>
                       <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap text-center">
                         {getMedalEmoji(index)}
                       </th>
@@ -93,7 +94,7 @@ function Rankings() {
         ) : (
           <Spinner />
         )}
-        {rankingCreation ? (
+        {rankingCreation.length > 0 ? (
           <div className="flex flex-col">
             <h2 className="inline-flex mb-1">
               <span className="text-sm italic">Classement par nombre de cartes créées</span>
@@ -115,7 +116,7 @@ function Rankings() {
                 </thead>
                 <tbody>
                   {rankingCreation.map((ranking, index) => (
-                    <tr className="bg-white border-b">
+                    <tr className="bg-white border-b" key={`ranking ${ranking}`}>
                       <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap text-center">
                         {getMedalEmoji(index)}
                       </th>
