@@ -9,7 +9,7 @@ function ArticleList() {
   useEffect(() => {
     axios
       .get(
-        'http://sebastiendurand1-server.eddi.cloud:8080/https://www.actu-environnement.com/flux/rss/environnement/',
+        'https://cors-anywhere.herokuapp.com/https://www.actu-environnement.com/flux/rss/environnement/',
       )
       .catch((err) => {
         console.log(err);
@@ -69,7 +69,7 @@ function ArticleList() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 max-w-md ">
+    <div className="grid lg:grid-cols-2 sd:grid-cols-1  gap-4 max-w-md ">
       {articles.map((article) => (
         <div key={article.link} className="p-2 bg-white p-1 rounded-md shadow-md box-border h-100 w-60 border-4 ... ">
           <h2 className="font-bold text-start text-sm">{article.title}</h2>
