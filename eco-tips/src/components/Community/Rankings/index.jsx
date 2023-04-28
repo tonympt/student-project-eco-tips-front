@@ -49,7 +49,7 @@ function Rankings() {
   }, []);
   return (
     <div className="bg-white p-8 rounded-md shadow-md flex-col inline-flex">
-      <h1 className="text-l font-bold inline-flex mb-3">
+      <h1 className="text-l font-bold mb-3">
         <span className="border-b-4 border-green-500 text-xl">Classements</span>
       </h1>
       <div className="flex flex-wrap gap-8">

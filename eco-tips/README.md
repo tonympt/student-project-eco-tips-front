@@ -14,3 +14,6 @@ http://pauline-cauty.vpnuser.lan:3000
 
 VM cloud :
 http://paulinecty-server.eddi.cloud:8080
+
+VM cloud :
+http://tonympt-server.eddi.cloud:8080
