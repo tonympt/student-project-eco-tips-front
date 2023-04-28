@@ -29,8 +29,8 @@ const reducer = (state = initialState, action = {}) => {
       // the identifier must be equal to the key of its state
       return { ...state, [action.identifier]: action.newValue };
     case SAVE_AUTH_DATA: {
-      const { firstname, token, roleId } = action;
-      return { ...state, firstname, token, logged: true, roleId, email: '', password: '' };
+      const { firstname, token, roleId, ecocoins, score } = action;
+      return { ...state, firstname, token, ecocoins, score, logged: true, roleId, email: '', password: '' };
     }
     case STAY_CONNECTED_SESSION:
       return { ...state, token: action.token, logged: true };

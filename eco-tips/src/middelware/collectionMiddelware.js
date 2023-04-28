@@ -10,9 +10,7 @@ import {
   saveCollection,
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
-
-import { askRefresh } from '@/actions/ui';
-
+import { askRefresh, askRefreshProfileData } from '@/actions/ui';
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 
 const collectionMiddelware = (store) => (next) => (action) => {
@@ -84,6 +82,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {
           store.dispatch(askRefresh());
+          store.dispatch(askRefreshProfileData());
         });
     }
       break;
@@ -119,6 +118,7 @@ const collectionMiddelware = (store) => (next) => (action) => {
         })
         .finally(() => {
           store.dispatch(askRefresh());
+          store.dispatch(askRefreshProfileData());
         });
     }
       break;

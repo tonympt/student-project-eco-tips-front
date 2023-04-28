@@ -1,22 +1,44 @@
-import { useState } from 'react';
+// import hookds
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import { resetAllData } from '@/actions/user';
+// import action creator
+import { resetAllData, fetchProfileData } from '@/actions/user';
+import { askRefreshProfileData } from '@/actions/ui';
+// import components
+import Spinner from '@/components/Spinner';
+
 import icon from '@/assets/images/icon.svg';
 
 function Header() {
+  // state
+  const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { token, logged, firstname, roleId } = useSelector((state) => state.user);
+  // store
+  const { token, logged, firstname, roleId, score } = useSelector((state) => state.user);
+  const { refreshProfileData } = useSelector((state) => state.ui);
+  // hooks
   const dispatch = useDispatch();
-
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(resetAllData());
   };
+  // fetch datas for the sign-in
+  useEffect(() => {
+    if (logged && firstname && roleId && score) {
+      setLoading(false);
+    }
+  }, [logged]);
+
+  useEffect(() => {
+    if (refreshProfileData) {
+      dispatch(fetchProfileData());
+      dispatch(askRefreshProfileData());
+    }
+  }, [refreshProfileData]);
 
   return (
     <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40 bg-bottom ">
@@ -41,6 +63,22 @@ function Header() {
             <h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r to-green-500 from-green-900">eco-tips</h1>
           </div>
         </NavLink>
+        {logged && (
+          loading ? (
+            <Spinner />
+          ) : (
+            <div className="">
+              <span
+                aria-label="score"
+                className="text-sm bg-blue-100 text-blue-800 font-medium mr-2 px-2 py-2.5 rounded-md"
+              >
+                🏆
+                {' '}
+                {score}
+              </span>
+            </div>
+          )
+        )}
         {/* navbar link */}
         <div className={`absolute top-full left-0 ${menuOpen ? 'block bg-white border rounded-b-lg border-x-1 border-b-1' : 'hidden'}`}>
           <ul className="flex flex-col gap-2 py-2">

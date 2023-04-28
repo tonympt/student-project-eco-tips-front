@@ -28,7 +28,6 @@ function Collection() {
   const cardsNearestToExpiration = cardsAccordingToExpiration(collection, true);
   const cardsfarthestToExpiration = cardsAccordingToExpiration(collection, false);
   const [selectedFilter, setSelectedFilter] = useState('all');
-
   useEffect(() => {
     dispatch(getAllCollection());
     setLoading(false);
@@ -42,24 +41,15 @@ function Collection() {
     }
   }, [refresh, location]);
 
-  const addCardRequest = (confirm) => {
-    setAddCard(confirm);
-  };
-  const resetAddCard = (reset) => {
-    setAddCard(reset);
-  };
   return (
-    <div className="mx-auto bg-white p-8 rounded-md shadow-md bg-no-repeat ">
-      <IconsAdd addCardRequest={addCardRequest} />
+    <div className="mx-auto bg-white p-8 rounded-md shadow-md">
+      <IconsAdd />
       <SuccessNotifications />
       <ErrorNotifications />
       {loading ? (
         <Spinner />
       ) : (
         <div>
-          {addCard && (
-          <AddCard resetAddCard={resetAddCard} />
-          )}
           <div className="my-3">
             <label htmlFor="filter" className="block mb-2 text-sm font-medium text-gray-900" />
             <select

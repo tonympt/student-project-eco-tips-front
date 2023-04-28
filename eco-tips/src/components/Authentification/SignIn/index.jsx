@@ -42,6 +42,7 @@ function SignIn() {
           placeholder="nom@exemple.com"
           onChange={changeField}
           value={email}
+          autocomplete="email"
         />
         <Field
           name="password"
@@ -50,6 +51,7 @@ function SignIn() {
           placeholder="********"
           onChange={changeField}
           value={password}
+          autocomplete="password"
         />
         <button
           className="w-full py-1 font-bold green-button green-button:hover button-active active:animate-buttonAnimation"

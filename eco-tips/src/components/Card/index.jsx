@@ -15,8 +15,10 @@ import CardAuthor from './CardAuthor';
 import CardImg from './CardImg';
 import CheckIcon from './CheckIcon';
 import DeleteButton from './DeleteButton';
+import CostCard from './CostCard';
 
 function Card({ image,
+  value,
   base64Image,
   title,
   tags,
@@ -25,6 +27,7 @@ function Card({ image,
   environmental_rating,
   economic_rating,
   state,
+  displayValue,
   delete: isDeleteEnabled,
   id,
   children }) {
@@ -102,6 +105,7 @@ function Card({ image,
             <CardAuthor author={author} />
             {state && <CheckIcon />}
             {isDeleteEnabled && <DeleteButton cardId={id} />}
+            {displayValue && <CostCard cost={value} />}
           </div>
         </div>
         {children}
@@ -126,8 +130,10 @@ Card.propTypes = {
   state: PropTypes.bool,
   children: PropTypes.node,
   delete: PropTypes.bool,
+  displayValue: PropTypes.bool,
   base64Image: PropTypes.string,
   id: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 Card.defaultProps = {
   children: null,
@@ -135,6 +141,7 @@ Card.defaultProps = {
   state: false,
   delete: false,
   base64Image: null,
+  displayValue: false,
 };
 
 export default Card;

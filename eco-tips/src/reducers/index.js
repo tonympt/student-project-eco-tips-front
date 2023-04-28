@@ -8,6 +8,7 @@ import collectionReducer from './collection';
 import errorReducer from './error';
 import successReducer from './success';
 import adminReducer from './admin';
+import communityReducer from './community';
 
 // combine and name reducer
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   error: errorReducer,
   success: successReducer,
   admin: adminReducer,
+  community: communityReducer,
 });
 
 export default rootReducer;
