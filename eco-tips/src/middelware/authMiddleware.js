@@ -14,9 +14,9 @@ const authMiddleware = (store) => (next) => (action) => {
         .post(`${apiUrl}/sign-in`, { email, password })
         .then((res) => {
           // eslint-disable-next-line camelcase
-          const { firstname, accessToken: token, role_id } = res.data;
+          const { firstname, accessToken: token, role_id, ecocoins, score } = res.data;
           window.localStorage.setItem('token', token);
-          store.dispatch(saveAuthData(firstname, token, role_id));
+          store.dispatch(saveAuthData(firstname, token, role_id, ecocoins, score));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();
