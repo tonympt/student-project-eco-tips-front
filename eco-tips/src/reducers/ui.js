@@ -1,11 +1,12 @@
 /* eslint-disable default-param-last */
 // reducers/ui.js
-import { REDIRECT, REFRESH, ASK_REFRESH_PROFILE_DATA } from '@/actions/ui';
+import { REDIRECT, REFRESH, ASK_REFRESH_PROFILE_DATA, ASK_REFRESH_FINISHED } from '@/actions/ui';
 
 const initialState = {
   redirectTo: '',
   refresh: false,
   refreshProfileData: false,
+  requestFinished: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, refresh: !state.refresh };
     case ASK_REFRESH_PROFILE_DATA:
       return { ...state, refreshProfileData: !state.refreshProfileData };
+    case ASK_REFRESH_FINISHED:
+      return { ...state, requestFinished: !state.requestFinished };
     default:
       return state;
   }

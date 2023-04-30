@@ -75,7 +75,7 @@ function Collection() {
                   <div key={card.id} className="w-1/6">
                     <Card {...card} delete>
                       {!card.state && (
-                      <DisplayRemainingTime expirationDate={card.expiration_date} cardId={card.id} />
+                      <DisplayRemainingTime {...card} />
                       )}
                     </Card>
                   </div>
@@ -93,7 +93,7 @@ function Collection() {
                   <div key={card.id} className="w-1/6">
                     <Card {...card} delete>
                       {!card.state && (
-                      <DisplayRemainingTime expirationDate={card.expiration_date} cardId={card.id} />
+                      <DisplayRemainingTime {...card} />
                       )}
                     </Card>
                   </div>

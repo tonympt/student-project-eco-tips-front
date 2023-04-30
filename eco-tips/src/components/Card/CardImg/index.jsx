@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 function CardImg({ path, title, base64Image }) {
   const apiUrl = import.meta.env.VITE_API_URL;
   const url = base64Image ? base64Image : `${apiUrl}${path}`;
-  console.log(url);
   return (
     <img
       className="w-full h-32 object-cover"
