@@ -15,6 +15,7 @@ import ServerErrorPage from '@/components/ServerErrorPage';
 import Admin from '@/components/Admin';
 import Community from '@/components/Community';
 import Home from '@/components/Home';
+import AchievementValidation from '@/components/Admin/AchievementValidation';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -30,6 +31,7 @@ import Spinner from '@/components/Spinner';
 // Admin components
 import ProposalValidation from '@/components/Admin/ProposalValidation';
 import FormValidation from '@/components/Admin/ProposalValidation/FormValidation';
+import AchievementFormValidation from '@/components/Admin/AchievementValidation/FormValidation';
 
 function App() {
   const { logged, errorStatus, roleId } = useSelector((state) => ({
@@ -75,6 +77,8 @@ function App() {
             {logged && <Route path="/me/achievement/:slug" element={<AchievementForm />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
+            {logged && roleId === 1 && <Route path="/achievement/proposal/:slug" element={<AchievementFormValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin/achievements" element={<AchievementValidation />} />}
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" element={<Home />} />

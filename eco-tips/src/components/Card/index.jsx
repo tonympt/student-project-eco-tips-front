@@ -35,7 +35,7 @@ function Card({ image,
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
   const styleCardExpanded = isExpanded ? '' : 'overflow-y-auto h-96';
-  const styleContainerExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/3';
+  const styleContainerExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/5';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
     setIsExpanded(true);

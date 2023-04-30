@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
-function ProposalTitle({ author, title, onTitle }) {
-  const { firstname, lastname } = useSelector((state) => state.user);
-  const titleAchievement = `Accomplissement de ${firstname} ${lastname} de l'écogeste : ${title}`;
-  onTitle(titleAchievement);
+function ProposalTitle({ title }) {
   return (
     <div className="p-2 border border-opacity-50 border-gray-400 rounded">
       <div
@@ -13,15 +9,13 @@ function ProposalTitle({ author, title, onTitle }) {
         contentEditable={false}
       >
         <h2>
-          {titleAchievement}
+          {title}
         </h2>
       </div>
     </div>
   );
 }
 ProposalTitle.propTypes = {
-  onTitle: PropTypes.func.isRequired,
-  author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 export default ProposalTitle;

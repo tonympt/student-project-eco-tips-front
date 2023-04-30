@@ -6,7 +6,7 @@ function Admin() {
       <h1 className="m-6 place-self-center font-bold text-2xl">Espace administrateur</h1>
       <div className="m-6 place-self-center  ">
         <Link to="/#" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation  ">
-          Gérer mes cartes
+          Gérer les cartes
         </Link>
 
       </div>
@@ -19,6 +19,12 @@ function Admin() {
       <div className=" m-6 place-self-center   ">
         <Link to="/admin/proposals" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation  ">
           Gérer les propositions de nouvelles cartes
+        </Link>
+
+      </div>
+      <div className=" m-6 place-self-center   ">
+        <Link to="/admin/achievements" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation  ">
+          Gérer les accomplissements des utilisateurs
         </Link>
 
       </div>
