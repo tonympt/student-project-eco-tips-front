@@ -15,6 +15,7 @@ import Admin from '@/components/Admin';
 import Community from '@/components/Community';
 import Home from '@/components/Home';
 import AchievementValidation from '@/components/Admin/AchievementValidation';
+import Tags from '@/components/Admin/Tags';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -75,6 +76,7 @@ function App() {
             {logged && <Route path="/community" element={<Community />} />}
             {logged && <Route path="/me/achievement/:slug" element={<AchievementForm />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin/tags" element={<Tags />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
             {logged && roleId === 1 && <Route path="/achievement/proposal/:slug" element={<AchievementFormValidation />} />}
             {logged && roleId === 1 && <Route path="/admin/achievements" element={<AchievementValidation />} />}
