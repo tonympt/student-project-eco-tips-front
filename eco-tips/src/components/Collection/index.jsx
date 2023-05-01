@@ -21,7 +21,6 @@ function Collection() {
   const { collection } = useSelector((state) => state.collection);
   const { refresh } = useSelector((state) => state.ui);
   const [loading, setLoading] = useState(true);
-  const [addCard, setAddCard] = useState(false);
   const location = useLocation();
   const cardsChecked = filterChecked(collection);
   const cardsToValidate = filterToValidate(collection);
@@ -41,8 +40,10 @@ function Collection() {
     }
   }, [refresh, location]);
 
+  console.log(cardsNearestToExpiration);
+
   return (
-    <div className="mx-auto bg-white p-8 rounded-md shadow-md">
+    <div className="mx-48 bg-white p-8 rounded-md shadow-md">
       <IconsAdd />
       <SuccessNotifications />
       <ErrorNotifications />
@@ -64,54 +65,58 @@ function Collection() {
               <option value="toChecked">Par éco-gestes réalisés</option>
             </select>
           </div>
-          <div>
+          <div className="flex flex-col">
             {(selectedFilter === 'toDo' || selectedFilter === 'all') && (
             <>
-              <h2 className="text-l font-bold mb-1 inline-flex">
-                <span className="border-b-4 border-green-500">Eco-gestes à réaliser</span>
+              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+                <span className="inset-text-shadow">Eco-gestes à réaliser</span>
               </h2>
               <div className="inline-flex gap-3 my-2">
-                {cardsNearestToExpiration.map((card) => (
-                  <div key={card.id} className="w-1/6">
+                {cardsNearestToExpiration.length > 0 ? (cardsNearestToExpiration.map((card) => (
+                  <div key={card.id} className="w-1/5">
                     <Card {...card} delete>
                       {!card.state && (
                       <DisplayRemainingTime {...card} />
                       )}
                     </Card>
                   </div>
-                ))}
+                ))) : (<p> Aucune carte dans cette catégorie ...  </p>)}
               </div>
             </>
             )}
             {(selectedFilter === 'toCheck' || selectedFilter === 'all') && (
             <>
-              <h2 className="text-l font-bold mb-1 inline-flex">
-                <span className="border-b-4 border-green-500">Eco-gestes à valider</span>
+              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+                <span className="inset-text-shadow">Eco-gestes à valider</span>
               </h2>
               <div className="flex flex-wrap gap-3 my-2">
-                {cardsToValidate.map((card) => (
-                  <div key={card.id} className="w-1/6">
+                {cardsToValidate.length > 0 ? (cardsToValidate.map((card) => (
+                  <div key={card.id} className="w-1/5">
                     <Card {...card} delete>
                       {!card.state && (
                       <DisplayRemainingTime {...card} />
                       )}
                     </Card>
                   </div>
-                ))}
+                ))) : (<p> Aucune carte dans cette catégorie ...  </p>)}
               </div>
             </>
             )}
             {(selectedFilter === 'toChecked' || selectedFilter === 'all') && (
             <>
-              <h2 className="text-l font-bold mb-1 inline-flex">
-                <span className="border-b-4 border-green-500">Eco-gestes réalisés</span>
+              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+                <span className="inset-text-shadow">Eco-gestes réalisés</span>
               </h2>
               <div className="flex flex-wrap gap-3 my-2">
-                {cardsChecked.map((card) => (
-                  <div key={card.id} className="w-1/6">
-                    <Card {...card} delete />
+                {cardsChecked.length > 0 ? (cardsChecked.map((card) => (
+                  <div key={card.id} className="w-1/5">
+                    <Card {...card} delete>
+                      {!card.state && (
+                      <DisplayRemainingTime {...card} />
+                      )}
+                    </Card>
                   </div>
-                ))}
+                ))) : (<p> Aucune carte dans cette catégorie ...  </p>)}
               </div>
             </>
             )}

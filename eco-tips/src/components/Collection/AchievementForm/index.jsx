@@ -50,7 +50,7 @@ function AChievementForm() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-2 text-center my-8">Soumettre mon accomplissement</h1>
+      <h1 className="text-2xl font-bold mb-2 text-center">Soumettre mon accomplissement</h1>
       <div className="flex gap-5 justify-center mt-8">
         <form
           className="bg-white p-4 rounded-md shadow-md"

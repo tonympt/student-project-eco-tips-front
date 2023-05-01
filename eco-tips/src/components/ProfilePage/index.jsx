@@ -36,7 +36,7 @@ function ProfilePage() {
     }
   }, []);
   return (
-    <div className="relative w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md mt-16">
+    <div className="relative w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
       {loading ? (<Spinner />) : (
         <>
           <div className="absolute top-4 left-2">

@@ -50,13 +50,17 @@ function AchievementValidation() {
           <Spinner />
         ) : (
           <div className="flex flex-wrap gap-3 w-full">
-            {achievements.map((achievement) => (
-              <div key={achievement.id}>
-                <Achievement {...achievement}>
-                  <ButtonsControls achievement={achievement} />
-                </Achievement>
-              </div>
-            ))}
+            {achievements.length > 0 ? (
+              achievements.map((achievement) => (
+                <div key={achievement.id}>
+                  <Achievement {...achievement}>
+                    <ButtonsControls achievement={achievement} />
+                  </Achievement>
+                </div>
+              ))
+            ) : (
+              <p className="text-md">Aucune accomplissement n'est à valider pour l'instant...</p>
+            )}
           </div>
         )}
       </div>

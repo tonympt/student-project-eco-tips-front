@@ -28,15 +28,15 @@
     .button-active:active {
       @apply scale-95;
     }
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: #059669;
-      cursor: pointer;
-    }
     .inset-text-shadow {
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     }
     .oswald {
       font-family: 'Oswald', sans-serif;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      background-color: #059669;
+      cursor: pointer;
     }
 }
 

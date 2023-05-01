@@ -51,6 +51,6 @@ Achievement.propTypes = {
   description: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 export default Achievement;

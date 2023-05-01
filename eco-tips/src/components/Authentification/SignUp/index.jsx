@@ -28,7 +28,7 @@ function SignUp() {
   }, [redirectTo]);
 
   return (
-    <div className="py-8">
+    <div>
       <h1 className="text-2xl font-bold mb-6 text-center">Formulaire d'inscription</h1>
       <form
         autoComplete="off"

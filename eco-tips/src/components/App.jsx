@@ -6,7 +6,6 @@ import { setAuthToken, fetchProfileData } from '@/actions/user';
 
 // core components
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
@@ -86,7 +85,6 @@ function App() {
           </Routes>
         )}
       </BodyStyle>
-      <Footer />
     </div>
   );
 }
