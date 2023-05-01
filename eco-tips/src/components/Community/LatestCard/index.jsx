@@ -13,7 +13,7 @@ function LatestCard() {
   }, []);
 
   return (
-    <div className="bg-white p-8 rounded-md shadow-md flex-col w-1/4">
+    <div className="flex-col w-1/4">
       <h1 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
         <span className="inset-text-shadow">Dernière carte ajoutée</span>
       </h1>

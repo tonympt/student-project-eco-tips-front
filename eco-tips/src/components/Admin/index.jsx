@@ -4,7 +4,7 @@ function Admin() {
   return (
     <>
       <h1 className="text-2xl font-bold text-center">Espace administrateur</h1>
-      <div className="grid grid-cols-1 place-self-center mx-auto bg-white p-8 rounded-md shadow-md mt-8 max-w-lg">
+      <div className="grid grid-cols-1 place-self-center mx-auto p-8 max-w-lg">
         <div className="m-6 place-self-center  ">
           <Link to="/#" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation  ">
             Gérer les cartes
@@ -12,7 +12,7 @@ function Admin() {
 
         </div>
         <div className=" m-6 place-self-center ">
-          <Link to="/#" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation ">
+          <Link to="/admin/tags" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation ">
             Gérer les catégories
           </Link>
 

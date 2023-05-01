@@ -8,6 +8,9 @@ export const SEND_ALL_ACHIEVEMENTS = 'SEND_ALL_ACHIEVEMENTS';
 export const ADD_ACHIEVEMENT = 'ADD_ACHIEVEMENT';
 export const DELETE_ACHIEVEMENT = 'DELETE_ACHIEVEMENT';
 export const UPDATE_ACHIEVEMENT = 'UPDATE_ACHIEVEMENT';
+export const DELETE_TAG = 'DELETE_TAG';
+export const UPDATE_TAG = 'UPDATE_TAG';
+export const ADD_TAG = 'ADD_TAG';
 
 export const getAllProposals = () => ({
   type: GET_ALL_PROPOSALS,
@@ -57,4 +60,20 @@ export const updateAchievement = (formValues, achievementId) => ({
   type: UPDATE_ACHIEVEMENT,
   formValues,
   achievementId,
+});
+
+export const updateTag = (formValues, tagId) => ({
+  type: UPDATE_TAG,
+  formValues,
+  tagId,
+});
+
+export const deleteTag = (tagId) => ({
+  type: DELETE_TAG,
+  tagId,
+});
+
+export const addTag = (formValues) => ({
+  type: ADD_TAG,
+  formValues,
 });
