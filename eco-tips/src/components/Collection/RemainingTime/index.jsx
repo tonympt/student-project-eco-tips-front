@@ -10,7 +10,8 @@ import CheckedTipsButton from '@/components/Collection/CheckedTipsButton';
 
 // function to display the time left before validation of the card
 
-function DisplayRemainingTime({ expirationDate, cardId }) {
+function DisplayRemainingTime({ ...card }) {
+  const expirationDate = card.expiration_date;
   const [displayCheckedButton, setDisplayCheckedButton] = useState(false);
   const timeRemaining = () => {
     dayjs.extend(updateLocale);
@@ -57,7 +58,7 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
 
   return (
     displayCheckedButton ? (
-      <CheckedTipsButton cardId={cardId} />
+      <CheckedTipsButton {...card} />
     ) : (
       <div className="flex flex-row text-center mx-auto bg-white p-4 rounded-md shadow-md mt-3 ">
         <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -74,8 +75,10 @@ function DisplayRemainingTime({ expirationDate, cardId }) {
 }
 
 DisplayRemainingTime.propTypes = {
-  expirationDate: PropTypes.string.isRequired,
-  cardId: PropTypes.number.isRequired,
+  card: PropTypes.shape({
+    expirationDate: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default DisplayRemainingTime;

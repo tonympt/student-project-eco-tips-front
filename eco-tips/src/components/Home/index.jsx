@@ -1,15 +1,16 @@
-
-import ArticleList from './articles';
+import ArticleList from '@/components/Home/Articles';
+import HomeAchievement from '@/components/Home/HomeAchievement';
+import BilanAdeme from '@/components/Home/BilanAdeme';
 
 function Home() {
   // useEffect(() => {
   //   fetchArticles('https://www.actu-environnement.com/flux/rss/environnement/');
   // }, []);
   return (
-    <div className="max-w-lg">
-      <h1 className=" inline text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-900 to-green-500 m-4">Eco-Articles</h1>
-    
+    <div className="flex flex-wrap gap-10 mx-40">
       <ArticleList />
+      <HomeAchievement />
+      <BilanAdeme />
     </div>
   );
 }

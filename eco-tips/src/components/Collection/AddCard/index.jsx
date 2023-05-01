@@ -60,38 +60,41 @@ function AddCard() {
     setStep3(false);
   };
   return (
-    <div className="relative px-4 m-12 w-full max-w-sm bg-white mx-auto rounded-md shadow-md pt-8">
-      <DisplayEcocoins />
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold mb-2 mt-8 text-center">Ajouter une carte :</h1>
-        <SuccessNotifications />
-        <ErrorNotifications />
-        {loading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Card {...randomCard} displayValue>
-              {step2 ? (
-                <DelayButtons handleDate={handleDateStep2} />
-              ) : (
-                <Buttons stateStep={stateStep1} />
-              )}
-              {step3 && <Buttons stateStep={stateStep3} />}
-            </Card>
-            <div>
-              <Link to="/collection">
-                <div className="flex gap-1 text-sm hover:text-green-600 items-center pt-5 pb-1">
-                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                  </svg>
-                  <p>Retourner à ma collection</p>
-                </div>
-              </Link>
-            </div>
-          </>
-        )}
+    <>
+      <h1 className="text-2xl font-bold text-center">Ajouter une carte :</h1>
+      <div className="relative px-4 mt-8 w-full max-w-sm bg-white mx-auto rounded-md shadow-md pt-20">
+        <DisplayEcocoins />
+        <div className="flex flex-col gap-2">
+          <SuccessNotifications />
+          <ErrorNotifications />
+          {loading ? (
+            <Spinner />
+          ) : (
+            <>
+              <Card {...randomCard} displayValue>
+                {step2 ? (
+                  <DelayButtons handleDate={handleDateStep2} />
+                ) : (
+                  <Buttons stateStep={stateStep1} />
+                )}
+                {step3 && <Buttons stateStep={stateStep3} />}
+              </Card>
+              <div>
+                <Link to="/collection">
+                  <div className="flex gap-1 text-sm hover:text-green-600 items-center pt-5 pb-1">
+                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                    </svg>
+                    <p>Retourner à ma collection</p>
+                  </div>
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+
+    </>
   );
 }
 

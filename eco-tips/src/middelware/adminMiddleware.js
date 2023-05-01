@@ -4,7 +4,12 @@ import { GET_ALL_PROPOSALS,
   ADD_PROPOSAL_TO_COLLECTION,
   DELETE_PROPOSAL,
   UPDATE_PROPOSAL,
-  saveAllProposals } from '@/actions/admin';
+  GET_ALL_ACHIEVEMENTS,
+  ADD_ACHIEVEMENT,
+  DELETE_ACHIEVEMENT,
+  UPDATE_ACHIEVEMENT,
+  saveAllProposals,
+  sendAllAchievements } from '@/actions/admin';
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 import { askRefresh } from '@/actions/ui';
 
@@ -62,6 +67,65 @@ const adminMiddleware = (store) => (next) => (action) => {
         })
         .then((res) => {
           store.dispatch(loadRequestSuccess(res.statusText, res.status, 'La carte a bien été modifié ♻️ !!!'));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally(() => {
+          store.dispatch(askRefresh());
+        }); }
+      break;
+    case GET_ALL_ACHIEVEMENTS:
+      store.dispatch(loadApiRequest());
+      console.log('RENTRÉ DANS LE MDW');
+      axios
+        .get(`${apiUrl}/achievement/proposal`, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          console.log(res);
+          store.dispatch(sendAllAchievements(res.data));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally();
+      break;
+    case ADD_ACHIEVEMENT: {
+      const { achievementId } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .patch(`${apiUrl}/achievement/proposal/${achievementId}`, {}, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été ajouté dans la base de données 🥳 !!!\''));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally(() => {
+          store.dispatch(askRefresh());
+        }); }
+      break;
+    case DELETE_ACHIEVEMENT: {
+      const { achievementId } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .delete(`${apiUrl}/achievement/${achievementId}`, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été supprimé dans la base de données !!!\''));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally(() => {
+          store.dispatch(askRefresh());
+        }); }
+      break;
+    case UPDATE_ACHIEVEMENT: {
+      const { formValues, achievementId } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .patch(`${apiUrl}/achievement/${achievementId}`, formValues, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été modifié ♻️ !!!\''));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {

@@ -6,6 +6,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:import/errors',
+    'plugin:import/warnings',
   ],
   overrides: [
   ],
@@ -15,6 +17,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'import',
   ],
   rules: {
     'react/react-in-jsx-scope': 'off',
@@ -27,5 +30,13 @@ module.exports = {
     'jsx-a11y/label-has-for': 'off',
     'import/no-unresolved': 'off',
     'react/no-unescaped-entities': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
   },
 };

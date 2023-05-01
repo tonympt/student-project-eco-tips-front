@@ -6,7 +6,6 @@ import { setAuthToken, fetchProfileData } from '@/actions/user';
 
 // core components
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
@@ -15,10 +14,13 @@ import ServerErrorPage from '@/components/ServerErrorPage';
 import Admin from '@/components/Admin';
 import Community from '@/components/Community';
 import Home from '@/components/Home';
+import AchievementValidation from '@/components/Admin/AchievementValidation';
 
 // collection component
 import Collection from '@/components/Collection';
 import AddCard from '@/components/Collection/AddCard';
+// Achievement component
+import AchievementForm from '@/components/Collection/AchievementForm';
 // authentification component
 import SignIn from '@/components/Authentification/SignIn';
 import SignUp from '@/components/Authentification/SignUp';
@@ -28,6 +30,7 @@ import Spinner from '@/components/Spinner';
 // Admin components
 import ProposalValidation from '@/components/Admin/ProposalValidation';
 import FormValidation from '@/components/Admin/ProposalValidation/FormValidation';
+import AchievementFormValidation from '@/components/Admin/AchievementValidation/FormValidation';
 
 function App() {
   const { logged, errorStatus, roleId } = useSelector((state) => ({
@@ -70,8 +73,11 @@ function App() {
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && <Route path="/me/add-card" element={<AddCard />} />}
             {logged && <Route path="/community" element={<Community />} />}
+            {logged && <Route path="/me/achievement/:slug" element={<AchievementForm />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals/:slug" element={<FormValidation />} />}
+            {logged && roleId === 1 && <Route path="/achievement/proposal/:slug" element={<AchievementFormValidation />} />}
+            {logged && roleId === 1 && <Route path="/admin/achievements" element={<AchievementValidation />} />}
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" element={<Home />} />
@@ -79,7 +85,6 @@ function App() {
           </Routes>
         )}
       </BodyStyle>
-      <Footer />
     </div>
   );
 }

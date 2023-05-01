@@ -10,7 +10,7 @@ import {
   saveCollection,
   saveAllTags,
   saveRandomCard } from '@/actions/collection';
-import { askRefresh, askRefreshProfileData } from '@/actions/ui';
+import { askRefresh, askRefreshProfileData, askRequestFinished } from '@/actions/ui';
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 
 const collectionMiddelware = (store) => (next) => (action) => {
@@ -111,14 +111,15 @@ const collectionMiddelware = (store) => (next) => (action) => {
         })
         .then((res) => {
           store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Les 🦫 te remercient pour ton geste !!!'));
+          store.dispatch(askRequestFinished());
+          store.dispatch(askRefreshProfileData());
+          return true;
         })
         .catch((err) => {
           console.log(err);
           store.dispatch(loadTRequestError(err.response.data, err.response.status));
-        })
-        .finally(() => {
-          store.dispatch(askRefresh());
-          store.dispatch(askRefreshProfileData());
+          store.dispatch(askRequestFinished());
+          return false;
         });
     }
       break;

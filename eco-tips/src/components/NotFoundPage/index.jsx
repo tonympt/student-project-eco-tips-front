@@ -4,7 +4,7 @@ import image from '@/assets/images/404.svg';
 
 function NotFoundPage() {
   return (
-    <div className="mx-auto bg-white p-8 rounded-md shadow-md flex flex-col items-center justify-center gap-3">
+    <div className="mx-48 my-10 bg-white p-20 rounded-md shadow-md flex flex-col items-center justify-center gap-3">
       <img src={image} alt="Logo" className="w-1/5 h-1/5" />
       <div className="flex flex-col items-center justify-center">
         <div className="text-6xl font-bold text-gray-800">404</div>

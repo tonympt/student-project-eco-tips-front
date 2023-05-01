@@ -121,7 +121,7 @@ function ProposalForm() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-2 text-center">Proposer votre carte</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">Proposer votre carte</h1>
       <div className="flex gap-5 justify-center">
         <form
           className="w-full max-w-md bg-white p-4 rounded-md shadow-md"

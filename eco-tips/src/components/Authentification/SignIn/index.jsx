@@ -26,7 +26,7 @@ function SignIn() {
   }, [token]);
 
   return (
-    <div className="py-8">
+    <div>
       <h1 className="text-2xl font-bold mb-6 text-center">Connexion</h1>
       <form
         autoComplete="off"

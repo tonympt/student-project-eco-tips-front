@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Modal } from 'flowbite';
 import PropTypes from 'prop-types';
 
-function ModalTemplate({ textModal, textValidate, textCancel, colorButton, onShowModal, onModalClose, onValidate }) {
+function ModalTemplate({ textModal, textValidate, textCancel, colorButton, onShowModal, onModalClose, onValidate, mainSvg }) {
   // Exemple to props component
   //         <ModalTemplate
   //         textModal="Here Text Modal"
@@ -66,13 +66,19 @@ function ModalTemplate({ textModal, textValidate, textCancel, colorButton, onSho
             <span className="sr-only">Close modal</span>
           </button>
           <div className="p-6 text-center">
-            <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+
+            <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              {' '}
+              {mainSvg || (<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />)}
+              {' '}
+            </svg>
+
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{textModal}</h3>
             <button
               data-modal-hide="popup-modal"
               onClick={() => { onValidate(true); onClose(); }}
               type="button"
-              className={`text-white bg-${colorButton}-600 hover:bg-${colorButton}-800 focus:ring-4 focus:outline-none focus:ring-${colorButton}-300 dark:focus:ring-${colorButton}-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2`}
+              className={`text-white flex gap-1 bg-${colorButton}-600 hover:bg-${colorButton}-800 focus:ring-4 focus:outline-none focus:ring-${colorButton}-300 dark:focus:ring-${colorButton}-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2`}
             >
               {textValidate}
             </button>
@@ -92,6 +98,10 @@ ModalTemplate.propTypes = {
   onModalClose: PropTypes.func.isRequired,
   onValidate: PropTypes.func.isRequired,
   colorButton: PropTypes.string.isRequired,
+  mainSvg: PropTypes.node,
+};
+ModalTemplate.defaultProps = {
+  mainSvg: null,
 };
 
 export default ModalTemplate;

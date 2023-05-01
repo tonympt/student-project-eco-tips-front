@@ -34,7 +34,8 @@ function Card({ image,
   const [isExpanded, setIsExpanded] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
-  const styleCardExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 w-full animate-expand cursor-auto md:w-1/3';
+  const styleCardExpanded = isExpanded ? '' : 'overflow-y-auto h-96';
+  const styleContainerExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-1/5';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
     setIsExpanded(true);
@@ -66,13 +67,13 @@ function Card({ image,
         />
       )}
       <div
-        className={`${styleCardExpanded}`}
+        className={`${styleContainerExpanded}`}
         aria-label="Card container"
         id={`${id}`}
         ref={cardRef}
       >
         <div
-          className={`bg-white relative rounded shadow-lg hover:shadow-lg ${styleValidated}`}
+          className={`bg-white relative rounded ${styleCardExpanded} shadow-lg hover:shadow-lg ${styleValidated}`}
         >
           {isExpanded ? (
             <button
@@ -97,7 +98,7 @@ function Card({ image,
             </button>
           )}
           <CardImg path={image} title={title} base64Image={base64Image} />
-          <div className="p-4">
+          <div className="flex flex-col space-between px-4">
             <CardTitle title={title} isExpanded={isExpanded} />
             <CardTags tags={tags} isExpanded={isExpanded} />
             <CardRating environmental={environmental_rating} economic={economic_rating} />
