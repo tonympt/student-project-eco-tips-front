@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 function ProposalTitle({ author, title, onTitle }) {
   const { firstname, lastname } = useSelector((state) => state.user);
-  const titleAchievement = `Accomplissement de ${firstname} ${lastname} de l'écogeste : ${title}`;
+  const titleAchievement = `Accomplissement de ${firstname} ${lastname} : ${title}`;
   onTitle(titleAchievement);
   return (
     <div className="p-2 border border-opacity-50 border-gray-400 rounded">
