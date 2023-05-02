@@ -19,7 +19,7 @@ function HomeAchievement() {
   }, []);
 
   return (
-    <div className="bg-white flex-col self-start shadow-md ">
+    <div className="bg-white flex-col self-start shadow-md w-96 ">
       <h1 className="text-lg p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
         <span className="inset-text-shadow">Accomplissement d'un utilisateur</span>
       </h1>

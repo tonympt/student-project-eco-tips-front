@@ -21,7 +21,7 @@ function ArticleList() {
 
         const parsedArticles = [];
         items.forEach((el, index) => {
-          if (index < 4) { // on affiche seulement les quatre premiers éléments
+          if (index < 4) { // display only the 4 latests articles
             const article = {
               title: el
                 .querySelector('title')
