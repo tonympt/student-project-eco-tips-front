@@ -11,8 +11,8 @@ function ServerErrorPage() {
   }, []);
 
   return (
-    <div className="mx-auto bg-white p-8 rounded-md shadow-md flex flex-col items-center justify-center gap-3">
-      <img src={image} alt="Logo" className="w-1/5 h-1/5" />
+    <div className="mx-auto sm:w-[90%] lg:w-[80%] bg-white p-8 rounded-md shadow-md flex flex-col items-center justify-center gap-3">
+      <img src={image} alt="Logo" className="lg:w-1/5 lg:h-1/5 sm:w-1/3 sm:h-1/3" />
       <div className="flex flex-col items-center justify-center">
         <div className="text-6xl font-bold text-gray-800">500</div>
         <h1 className="text-gray-500">Cette page est temporairement indisponible...</h1>

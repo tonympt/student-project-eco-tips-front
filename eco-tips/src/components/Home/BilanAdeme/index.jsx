@@ -27,7 +27,7 @@ function BilanAdeme() {
     },
   ];
   return (
-    <AccordionTemplate items={items} />
+    <AccordionTemplate items={items} width="39rem" />
   );
 }
 export default BilanAdeme;

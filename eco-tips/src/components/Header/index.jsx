@@ -41,7 +41,7 @@ function Header() {
   }, [refreshProfileData]);
 
   return (
-    <header className="relative w-screen bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40 bg-bottom ">
+    <header className="relative w-full bg-white shadow-md p-2 flex flex-wrap justify-between items-center z-40 bg-bottom ">
 
       <nav className="flex flex-wrap items-center space-x-2 ">
         {/* Burger button */}

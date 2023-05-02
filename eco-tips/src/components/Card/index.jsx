@@ -35,7 +35,7 @@ function Card({ image,
   const [showBackground, setShowBackground] = useState(false);
   const cardRef = useRef();
   const styleCardExpanded = isExpanded ? '' : 'overflow-y-auto h-96';
-  const styleContainerExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-1/5';
+  const styleContainerExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto sm:w-full lg:w-1/3';
   const styleValidated = state && 'border-4 border-green-600';
   const handleClick = () => {
     setIsExpanded(true);
@@ -75,6 +75,15 @@ function Card({ image,
         <div
           className={`bg-white relative rounded ${styleCardExpanded} shadow-lg hover:shadow-lg ${styleValidated}`}
         >
+          <CardImg path={image} title={title} base64Image={base64Image} isExpanded={isExpanded}>
+            <CardTitle title={title} isExpanded={isExpanded} />
+          </CardImg>
+          <div className="flex flex-col pt-2 space-between px-4">
+            <CardTags tags={tags} isExpanded={isExpanded} />
+            <CardRating environmental={environmental_rating} economic={economic_rating} />
+            <CardDescription description={description} isExpanded={isExpanded} />
+            <CardAuthor author={author} />
+          </div>
           {isExpanded ? (
             <button
               type="button"
@@ -97,17 +106,9 @@ function Card({ image,
               </svg>
             </button>
           )}
-          <CardImg path={image} title={title} base64Image={base64Image} />
-          <div className="flex flex-col space-between px-4">
-            <CardTitle title={title} isExpanded={isExpanded} />
-            <CardTags tags={tags} isExpanded={isExpanded} />
-            <CardRating environmental={environmental_rating} economic={economic_rating} />
-            <CardDescription description={description} isExpanded={isExpanded} />
-            <CardAuthor author={author} />
-            {state && <CheckIcon />}
-            {isDeleteEnabled && <DeleteButton cardId={id} />}
-            {displayValue && <CostCard cost={value} />}
-          </div>
+          {state && <CheckIcon />}
+          {isDeleteEnabled && <DeleteButton cardId={id} />}
+          {displayValue && <CostCard cost={value} />}
         </div>
         {children}
       </div>

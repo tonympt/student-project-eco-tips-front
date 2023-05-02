@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
 function CardTitle({ title, isExpanded }) {
-  const styleTitleExpanded = isExpanded ? 'text-xl' : 'text-base';
+  const styleTitleExpanded = isExpanded ? 'text-xl' : 'text-[1.1rem]';
 
   return (
-    <h2 className={`font-bold mb-2 ${styleTitleExpanded}`}>
+    <h2 className={`font-bold mb-2 text-sm text-white inset-text-shadow ${styleTitleExpanded}`}>
       {title}
     </h2>
   );
