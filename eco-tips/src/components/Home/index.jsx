@@ -7,7 +7,7 @@ function Home() {
   //   fetchArticles('https://www.actu-environnement.com/flux/rss/environnement/');
   // }, []);
   return (
-    <div className="flex flex-wrap gap-10 mx-40">
+    <div className="flex flex-wrap gap-10 mx-auto w-[80%]">
       <ArticleList />
       <HomeAchievement />
       <BilanAdeme />
