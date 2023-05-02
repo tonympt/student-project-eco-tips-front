@@ -39,10 +39,10 @@ function AchievementValidation() {
       <div className="flex flex-col text-center my-3">
         <h1 className="text-2xl font-bold mb-6 text-center">Espace administrateur</h1>
       </div>
-      <div className="bg-white p-8 rounded-md shadow-md mx-48">
+      <div className="bg-white p-8 rounded-md shadow-md mx-auto lg:w-[80%] sm:w-[90%]">
         <SuccessNotifications />
         <div className="shadow-md">
-          <h2 className="text-lg mb-6 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+          <h2 className="text-lg mb-6 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
             <span className="inset-text-shadow">Gérer les accomplissements des utilisateurs avant publication</span>
           </h2>
         </div>
@@ -52,7 +52,7 @@ function AchievementValidation() {
           <div className="flex flex-wrap gap-3 w-full">
             {achievements.length > 0 ? (
               achievements.map((achievement) => (
-                <div key={achievement.id}>
+                <div key={achievement.id} className="lg:w-[40%] sm:w-full">
                   <Achievement {...achievement}>
                     <ButtonsControls achievement={achievement} />
                   </Achievement>

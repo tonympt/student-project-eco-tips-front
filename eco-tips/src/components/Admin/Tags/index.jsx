@@ -47,10 +47,10 @@ function Tags() {
       <div className="flex flex-col text-center">
         <h1 className="text-2xl font-bold mb-6 text-center">Espace administrateur</h1>
       </div>
-      <div className="flex flex-col gap-2 mx-auto w-1/2 bg-white p-8 rounded-md shadow-md">
+      <div className="flex flex-col gap-2 mx-auto lg:w-1/3 sm:1/2 bg-white p-8 rounded-md shadow-md">
         <SuccessNotifications />
         <ErrorNotifications />
-        <h2 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+        <h2 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
           <span className="inset-text-shadow">Gérer les catégories</span>
         </h2>
         {loading ? (
@@ -78,7 +78,7 @@ function Tags() {
             )}
           </div>
         )}
-        <h2 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+        <h2 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
           <span className="inset-text-shadow">Ajouter une catégorie</span>
         </h2>
         <FormAddTag />

@@ -39,8 +39,8 @@ function ProposalValidation() {
       <div className="flex flex-col text-center">
         <h1 className="text-2xl font-bold mb-6 text-center">Espace administrateur</h1>
       </div>
-      <div className="mx-48 bg-white p-8 rounded-md shadow-md">
-        <h2 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+      <div className="mx-auto sm:w-[90%] lg:w-[80%] bg-white p-8 rounded-md shadow-md">
+        <h2 className="text-lg my-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
           <span className="inset-text-shadow">Gérer les propositions des nouvelles cartes</span>
         </h2>
         <SuccessNotifications />
@@ -49,7 +49,7 @@ function ProposalValidation() {
         ) : (
           <div className="flex flex-wrap gap-3 m-6">
             {proposals.length > 0 ? (proposals.map((card) => (
-              <div key={card.id} className="w-1/6">
+              <div key={card.id} className="lg:w-1/5 md:w-1/3 sm:w-full">
                 <Card {...card}>
                   <ButtonsControls card={card} />
                 </Card>

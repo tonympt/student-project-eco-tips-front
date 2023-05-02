@@ -43,7 +43,7 @@ function Collection() {
   console.log(cardsNearestToExpiration);
 
   return (
-    <div className="mx-48 bg-white p-8 rounded-md shadow-md">
+    <div className="mx-auto lg:w-[80%] sm:w-[90%] bg-white p-8 rounded-md shadow-md">
       <IconsAdd />
       <SuccessNotifications />
       <ErrorNotifications />
@@ -68,12 +68,12 @@ function Collection() {
           <div className="flex flex-col">
             {(selectedFilter === 'toDo' || selectedFilter === 'all') && (
             <>
-              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
                 <span className="inset-text-shadow">Eco-gestes à réaliser</span>
               </h2>
-              <div className="inline-flex gap-3 my-2">
+              <div className="flex flex-wrap gap-3 my-2">
                 {cardsNearestToExpiration.length > 0 ? (cardsNearestToExpiration.map((card) => (
-                  <div key={card.id} className="w-1/5">
+                  <div key={card.id} className="lg:w-1/5 md:w-1/3 sm:w-full">
                     <Card {...card} delete>
                       {!card.state && (
                       <DisplayRemainingTime {...card} />
@@ -86,12 +86,12 @@ function Collection() {
             )}
             {(selectedFilter === 'toCheck' || selectedFilter === 'all') && (
             <>
-              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
                 <span className="inset-text-shadow">Eco-gestes à valider</span>
               </h2>
               <div className="flex flex-wrap gap-3 my-2">
                 {cardsToValidate.length > 0 ? (cardsToValidate.map((card) => (
-                  <div key={card.id} className="w-1/5">
+                  <div key={card.id} className="lg:w-1/5 md:w-1/3 sm:w-full">
                     <Card {...card} delete>
                       {!card.state && (
                       <DisplayRemainingTime {...card} />
@@ -104,12 +104,12 @@ function Collection() {
             )}
             {(selectedFilter === 'toChecked' || selectedFilter === 'all') && (
             <>
-              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
+              <h2 className="text-lg mb-2 mt-4 p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
                 <span className="inset-text-shadow">Eco-gestes réalisés</span>
               </h2>
               <div className="flex flex-wrap gap-3 my-2">
                 {cardsChecked.length > 0 ? (cardsChecked.map((card) => (
-                  <div key={card.id} className="w-1/5">
+                  <div key={card.id} className="lg:w-1/5 md:w-1/3 sm:w-full">
                     <Card {...card} delete>
                       {!card.state && (
                       <DisplayRemainingTime {...card} />
