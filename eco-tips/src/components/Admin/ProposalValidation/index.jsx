@@ -49,7 +49,7 @@ function ProposalValidation() {
         ) : (
           <div className="flex flex-wrap gap-3 m-6">
             {proposals.length > 0 ? (proposals.map((card) => (
-              <div key={card.id} className="lg:w-1/5 md:w-1/3 sm:w-full">
+              <div key={card.id} className="lg:w-1/5 md:w-1/3 w-full">
                 <Card {...card}>
                   <ButtonsControls card={card} />
                 </Card>

@@ -122,7 +122,7 @@ function ProposalForm() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-8 text-center">Proposer votre carte</h1>
-      <div className="flex gap-5 justify-center">
+      <div className="flex flex-col items-center gap-4 lg:flex-row lg:justify-center mx-auto w-[90%] ">
         <form
           className="w-full max-w-md bg-white p-4 rounded-md shadow-md"
           onSubmit={handleSubmit}
@@ -213,7 +213,7 @@ function ProposalForm() {
           </div>
 
         </form>
-        <div className="w-1/6 my-4">
+        <div className="w-1/2 lg:w-1/5">
           <Card title={title} base64Image={base64Image} tags={selectedTags} description={description} author={`${firstname} ${lastname}`} environmental_rating={ecologyRating} economic_rating={economyRating} />
         </div>
         {/* { base64Image && (

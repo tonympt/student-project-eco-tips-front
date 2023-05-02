@@ -26,7 +26,7 @@ function AccordionTemplate({ items, options, width }) {
     <div ref={accordionRef} id="accordion-collapse" data-accordion="collapse">
       {items.map((item) => (
         <>
-          <h2 id={item.id} className={`w-[${width}]`}>
+          <h2 id={item.id}>
             <button
               type="button"
               className="flex justify-between text-lg p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg w-full"

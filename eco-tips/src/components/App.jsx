@@ -16,6 +16,7 @@ import Community from '@/components/Community';
 import Home from '@/components/Home';
 import AchievementValidation from '@/components/Admin/AchievementValidation';
 import Tags from '@/components/Admin/Tags';
+import BilanAdeme from '@/components/Home/BilanAdeme';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -83,6 +84,7 @@ function App() {
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" element={<Home />} />
+            <Route path="/home/bilan-ademe" element={<BilanAdeme />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         )}
