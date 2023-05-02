@@ -74,7 +74,7 @@ function ArticleList() {
   }
 
   return (
-    <div className="grid-cols-2">
+    <div className="grid-cols-2 sm:place-content-center">
       <h1 className="text-lg p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
         <span className="inset-text-shadow">Eco-Articles</span>
       </h1>
