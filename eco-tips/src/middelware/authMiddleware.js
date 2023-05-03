@@ -5,11 +5,13 @@ import {
   SUBMIT_SIGNUP,
   FETCH_PROFILE_DATA,
   DELETE_ACCOUNT,
+  UPDATE_ACCOUNT,
   saveAuthData,
   resetAllData,
   saveProfileData } from '@/actions/user';
 import { redirect, askRefresh } from '@/actions/ui';
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
+import { UPDATE_PASSWORD } from '../actions/user';
 
 const authMiddleware = (store) => (next) => (action) => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -66,6 +68,36 @@ const authMiddleware = (store) => (next) => (action) => {
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(store.dispatch(redirect('/')));
+      break;
+    case UPDATE_PASSWORD: {
+      const { formValues } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .patch(`${apiUrl}/me/user/password`, formValues, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Votre mot de passe a bien été modifié 🔒'));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally();
+    }
+      break;
+    case UPDATE_ACCOUNT: {
+      const { formValues } = action;
+      store.dispatch(loadApiRequest());
+      axios
+        .patch(`${apiUrl}/me/user`, formValues, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Vos informations personnelles ont bien été modifiées 👤'));
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally(() => {
+          store.dispatch(askRefresh());
+        });
+    }
       break;
     default:
   }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // modules
 import moment from 'moment';
 // action creator
-import { fetchProfileData, deleteAccount } from '@/actions/user';
+import { fetchProfileData, deleteAccount, updateAccount } from '@/actions/user';
 import { askRefresh } from '@/actions/ui';
 // import utils component
 import InputField from '@/components/ProfilePage/InputField';
@@ -13,6 +13,7 @@ import Spinner from '@/components/Spinner';
 import Button from '@/components/Tools/ButtonTemplate';
 import ModalTemplate from '@/components/Tools/ModalTemplate';
 import ErrorNotifications from '@/components/ErrorNotifications';
+import SuccessNotifications from '@/components/SuccessNotifications';
 
 function ProfilePage() {
   // store
@@ -84,11 +85,10 @@ function ProfilePage() {
       email: emailState,
     };
     setOnEdit(false);
-    console.log(formValues);
+    dispatch(updateAccount(formValues));
   };
   return (
     <div className="relative w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
-      <ErrorNotifications />
       <ModalTemplate
         textModal="Êtes-vous sûr de vouloir supprimer votre profil?"
         colorButton="red"
@@ -100,15 +100,13 @@ function ProfilePage() {
       />
       {loading ? (<Spinner />) : (
         <>
-          <div className="absolute top-4 left-2">
+          <div className="flex justify-between mb-2">
             <span aria-label="score" className="text-sm bg-blue-100 text-blue-800 font-medium mr-2 px-2 py-2.5 rounded-md">
               {' '}
               🏆
               {' '}
               {score}
             </span>
-          </div>
-          <div className="absolute top-4 right-2">
             <span aria-label="coin" className="bg-yellow-100 text-yellow-800 font-medium mr-2 px-2 py-2.5 rounded-md text-sm">
               {' '}
               💰
@@ -116,7 +114,9 @@ function ProfilePage() {
               {ecocoins}
             </span>
           </div>
-          <div className="flex flex-col items-center gap-7 mt-9">
+          <ErrorNotifications />
+          <SuccessNotifications />
+          <div className="flex flex-col items-center gap-7 mt-2">
             <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
               <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
             </div>

@@ -1,7 +1,7 @@
 // import hookds
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 // import action creator
 import { resetAllData, fetchProfileData } from '@/actions/user';
 import { askRefreshProfileData } from '@/actions/ui';
@@ -19,12 +19,14 @@ function Header() {
   const { refreshProfileData } = useSelector((state) => state.ui);
   // hooks
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(resetAllData());
+    navigate('/');
   };
   // fetch datas for the sign-in
   useEffect(() => {

@@ -6,11 +6,14 @@ import PropTypes from 'prop-types';
 // import components
 import InputField from '@/components/ProfilePage/InputField';
 import ErrorNotifications from '@/components/ErrorNotifications';
+import SuccessNotifications from '@/components/SuccessNotifications';
 import ModalTemplate from '@/components/Tools/ModalTemplate';
+// action creator
+import { updatePassword } from '@/actions/user';
 
 function PasswordForm() {
   // state to datas form
-  const [password, setPassword] = useState('****************');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   // state to ux
   const [onShowModalState, setOnShowModalState] = useState(false);
@@ -21,7 +24,7 @@ function PasswordForm() {
 
   const handleReset = () => {
     setOnEdit(false);
-    setPassword('****************');
+    setPassword('');
     setConfirmPassword('');
   };
 
@@ -29,18 +32,17 @@ function PasswordForm() {
     if (validate) {
       const formValues = {
         password,
-        confirmPassword,
+        confirmpassword: confirmPassword,
       };
       setOnEdit(false);
-      setPassword('****************');
+      setPassword('');
       setConfirmPassword('');
-      console.log(formValues);
+      dispatch(updatePassword(formValues));
     }
   }, [validate]);
 
   return (
     <div className="relative w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
-      <ErrorNotifications />
       <Link to="/profile">
         <div className="flex gap-1 text-sm hover:text-green-600 items-center">
           <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -49,6 +51,8 @@ function PasswordForm() {
           <p>Retourner à mon profil</p>
         </div>
       </Link>
+      <SuccessNotifications />
+      <ErrorNotifications />
       <ModalTemplate
         textModal="Êtes-vous sûr de vouloir modifier votre mot de passe?"
         colorButton="green"
@@ -72,7 +76,7 @@ function PasswordForm() {
             inputType="password"
             name="password"
             value={onEdit ? password : ''}
-            placeholder="***********"
+            placeholder={onEdit ? 'nouveau mot de passe' : '***********'}
             disabled={!onEdit}
             onValueChange={(value) => setPassword(value)}
           />
