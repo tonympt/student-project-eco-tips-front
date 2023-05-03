@@ -18,6 +18,7 @@ import Home from '@/components/Home';
 import AchievementValidation from '@/components/Admin/AchievementValidation';
 import Tags from '@/components/Admin/Tags';
 import BilanAdeme from '@/components/Home/BilanAdeme';
+import MyCreations from '@/components/MyCreations';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -76,6 +77,7 @@ function App() {
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && <Route path="/me/add-card" element={<AddCard />} />}
+            {logged && <Route path="/my-creations" element={<MyCreations />} />}
             {logged && <Route path="/community" element={<Community />} />}
             {logged && <Route path="/me/achievement/:slug" element={<AchievementForm />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
