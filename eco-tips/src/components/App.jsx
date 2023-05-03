@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
+import PasswordForm from '@/components/ProfilePage/PasswordForm';
 import ProposalForm from '@/components/ProposalForm';
 import ServerErrorPage from '@/components/ServerErrorPage';
 import Admin from '@/components/Admin';
@@ -16,6 +17,8 @@ import Community from '@/components/Community';
 import Home from '@/components/Home';
 import AchievementValidation from '@/components/Admin/AchievementValidation';
 import Tags from '@/components/Admin/Tags';
+import BilanAdeme from '@/components/Home/BilanAdeme';
+import MyCreations from '@/components/MyCreations';
 
 // collection component
 import Collection from '@/components/Collection';
@@ -61,7 +64,6 @@ function App() {
           <Spinner />
         ) : (
           <Routes>
-            {logged && <Route path="/profile" element={<ProfilePage />} />}
             <Route
               path="/sign-in"
               element={logged ? <Navigate to="/" /> : <SignIn />}
@@ -70,9 +72,12 @@ function App() {
               path="/sign-up"
               element={logged ? <Navigate to="/" /> : <SignUp />}
             />
+            {logged && <Route path="/profile" element={<ProfilePage />} />}
+            {logged && <Route path="/profile/password" element={<PasswordForm />} />}
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && <Route path="/me/add-card" element={<AddCard />} />}
+            {logged && <Route path="/my-creations" element={<MyCreations />} />}
             {logged && <Route path="/community" element={<Community />} />}
             {logged && <Route path="/me/achievement/:slug" element={<AchievementForm />} />}
             {logged && roleId === 1 && <Route path="/admin/proposals" element={<ProposalValidation />} />}
@@ -83,6 +88,7 @@ function App() {
             {logged && roleId === 1 && <Route path="/admin" element={<Admin />} />}
             <Route path="/500" element={errorStatus === 500 && <ServerErrorPage />} />
             <Route path="/" element={<Home />} />
+            <Route path="/home/bilan-ademe" element={<BilanAdeme />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         )}

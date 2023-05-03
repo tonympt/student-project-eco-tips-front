@@ -16,18 +16,20 @@ function BilanAdeme() {
           <iframe
             title="Nos Gestes Climat Simulator"
             src="https://nosgestesclimat.fr/simulateur/bilan"
-            width="587"
-            height="850"
+            width="500"
+            height="1000"
             className="border-0"
             allowFullScreen
           />
         </div>
       ),
-      active: false,
+      active: true,
     },
   ];
   return (
-    <AccordionTemplate items={items} width="39rem" />
+    <div className="mx-auto w-[80%]">
+      <AccordionTemplate items={items} />
+    </div>
   );
 }
 export default BilanAdeme;

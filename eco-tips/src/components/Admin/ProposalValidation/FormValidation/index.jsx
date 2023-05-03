@@ -140,7 +140,7 @@ function FormValidation() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-2 text-center">Modifier la carte :</h1>
-      <div className="flex gap-5 justify-center">
+      <div className="flex flex-col items-center gap-4 lg:flex-row lg:justify-center mx-auto w-[90%] ">
         <form
           className="w-full max-w-md bg-white p-4 rounded-md shadow-md my-4"
           onSubmit={handleSubmit}
@@ -251,7 +251,7 @@ function FormValidation() {
           </div>
         )
       } */}
-        <div className="w-1/6 my-4">
+        <div className="w-1/2 lg:w-1/5">
           <Card title={title} image={firstImagePreview} tags={selectedTags} description={description} author={cardDatas.author} environmental_rating={ecologyRating} economic_rating={economyRating} />
         </div>
       </div>

@@ -73,11 +73,11 @@ function ArticleList() {
   }
 
   return (
-    <div className="grid-cols-2 sm:place-content-center">
+    <div className="grid-cols-2 place-content-center">
       <h1 className="text-lg p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 opacity-80 border-b-4 border-green-500 rounded-t-lg">
         <span className="inset-text-shadow">Eco-Articles</span>
       </h1>
-      <div className="grid lg:grid-cols-2 sd:grid-cols-1 self-start gap-4 max-w-lg mt-2">
+      <div className="grid grid-cols-2 self-start gap-4 max-w-lg mt-2">
         {articles.map((article) => (
           <div key={article.link} className="p-2 bg-white rounded-md drop-shadow-md hover:drop-shadow-xl box-border h-100 w-60 border-4 ... ">
             <h2 className="font-bold text-start text-sm ">{article.title}</h2>

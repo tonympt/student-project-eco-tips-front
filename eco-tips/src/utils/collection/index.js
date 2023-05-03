@@ -28,3 +28,5 @@ export const cardsAccordingToExpiration = (cards, ascending) => {
 
   return sortedCollection;
 };
+
+export const filteredToProposal = (cards, state) => cards.filter((card) => card.proposal === state);

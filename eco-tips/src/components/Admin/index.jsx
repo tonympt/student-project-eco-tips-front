@@ -9,13 +9,13 @@ function Admin() {
         </svg>
         <h1 className="text-2xl font-bold m-2 text-center">Espace administrateur</h1>
       </div>
-      <div className="grid grid-cols-1 place-self-center mx-auto p-8 max-w-lg">
-        <div className="m-6 place-self-center  ">
+      <div className="grid grid-cols-1 place-self-center mx-auto p-5 max-w-lg">
+        {/* <div className="m-6 place-self-center  ">
           <Link to="/#" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation  ">
             Gérer les cartes
           </Link>
 
-        </div>
+        </div> */}
         <div className=" m-6 place-self-center ">
           <Link to="/admin/tags" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation ">
             Gérer les catégories

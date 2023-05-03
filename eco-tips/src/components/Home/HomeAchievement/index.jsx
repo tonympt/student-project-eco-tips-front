@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Spinner from '@/components/Spinner';
 import Achievement from '@/components/Achievement';
 
 function HomeAchievement() {
@@ -19,16 +18,18 @@ function HomeAchievement() {
   }, []);
 
   return (
-    <div className="bg-white flex-col self-start shadow-md">
+    <div className="bg-white h-min shadow-md">
       <h1 className="text-lg p-2 shadow-md text-white font-extrabold bg-gradient-to-r to-green-400 from-emerald-600 border-b-4 border-green-500 rounded-t-lg">
         <span className="inset-text-shadow">Accomplissement d'un utilisateur</span>
       </h1>
       <div className="p-4">
-        {Object.keys(randomAchievement).length > 0 ? (<Achievement {...randomAchievement} />
+        {Object.keys(randomAchievement).length > 0 ? (
+          <Achievement {...randomAchievement} />
         ) : (
-          <Spinner />
+          <h3 className="text-cente">
+            Aucun accomplissement n'a encore été partagé ou validé
+          </h3>
         )}
-
       </div>
     </div>
   );
