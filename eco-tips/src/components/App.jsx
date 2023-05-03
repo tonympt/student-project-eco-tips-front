@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import BodyStyle from '@/components/BodyStyle';
 import NotFoundPage from '@/components/NotFoundPage';
 import ProfilePage from '@/components/ProfilePage';
+import PasswordForm from '@/components/ProfilePage/PasswordForm';
 import ProposalForm from '@/components/ProposalForm';
 import ServerErrorPage from '@/components/ServerErrorPage';
 import Admin from '@/components/Admin';
@@ -62,7 +63,6 @@ function App() {
           <Spinner />
         ) : (
           <Routes>
-            {logged && <Route path="/profile" element={<ProfilePage />} />}
             <Route
               path="/sign-in"
               element={logged ? <Navigate to="/" /> : <SignIn />}
@@ -71,6 +71,8 @@ function App() {
               path="/sign-up"
               element={logged ? <Navigate to="/" /> : <SignUp />}
             />
+            {logged && <Route path="/profile" element={<ProfilePage />} />}
+            {logged && <Route path="/profile/password" element={<PasswordForm />} />}
             {logged && <Route path="/collection" element={<Collection />} />}
             {logged && <Route path="/me/proposal" element={<ProposalForm />} />}
             {logged && <Route path="/me/add-card" element={<AddCard />} />}

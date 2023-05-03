@@ -1,7 +1,14 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import { SUBMIT_LOGIN, SUBMIT_SIGNUP, FETCH_PROFILE_DATA, saveAuthData, resetAllData, saveProfileData } from '@/actions/user';
-import { redirect } from '@/actions/ui';
+import {
+  SUBMIT_LOGIN,
+  SUBMIT_SIGNUP,
+  FETCH_PROFILE_DATA,
+  DELETE_ACCOUNT,
+  saveAuthData,
+  resetAllData,
+  saveProfileData } from '@/actions/user';
+import { redirect, askRefresh } from '@/actions/ui';
 import { loadApiRequest, loadTRequestError, loadRequestSuccess } from '@/actions/apiMessages';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -46,6 +53,19 @@ const authMiddleware = (store) => (next) => (action) => {
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally();
+      break;
+    case DELETE_ACCOUNT:
+      store.dispatch(loadApiRequest());
+      axios
+        .delete(`${apiUrl}/me/user`, {
+          headers: { Authorization: `Bearer ${store.getState().user.token}` },
+        })
+        .then((res) => {
+          store.dispatch(resetAllData());
+          store.dispatch(askRefresh());
+        })
+        .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
+        .finally(store.dispatch(redirect('/')));
       break;
     default:
   }

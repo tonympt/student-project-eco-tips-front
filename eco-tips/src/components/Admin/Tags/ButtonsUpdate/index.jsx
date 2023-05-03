@@ -62,7 +62,6 @@ function ButtonsUpdate({ id, color, name }) {
         onValidate={() => setValidate(true)}
       />
       <Button
-        width="w-10"
         type="button"
         color="green"
         padding="p-1"
@@ -74,7 +73,6 @@ function ButtonsUpdate({ id, color, name }) {
         </svg>
       </Button>
       <Button
-        width="w-10"
         type="button"
         color="red"
         padding="p-1"

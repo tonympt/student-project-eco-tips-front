@@ -9,7 +9,6 @@ import DisplayRemainingTime from '@/components/Collection/RemainingTime';
 // card component
 import Card from '@/components/Card';
 import Spinner from '@/components/Spinner';
-import AddCard from '@/components/Collection/AddCard';
 // Tools components
 import SuccessNotifications from '@/components/SuccessNotifications';
 import ErrorNotifications from '@/components/ErrorNotifications';
@@ -39,8 +38,6 @@ function Collection() {
       window.scroll(0, 0);
     }
   }, [refresh, location]);
-
-  console.log(cardsNearestToExpiration);
 
   return (
     <div className="mx-auto lg:w-[80%] sm:w-[90%] bg-white p-8 rounded-md shadow-md">
