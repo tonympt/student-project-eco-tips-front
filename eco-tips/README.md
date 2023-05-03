@@ -26,3 +26,17 @@ The way Eco Tips works is pretty simple :
 Of course ! If you are very involved in the ecological theme and like this application you can create and propose your own Eco-Tips !
 
 Its realy simple you just have to fill out a form and an admin will check this, if the card you created is great you will see it implemented to the  collection of Eco Tips
+
+Not enough ? Once the eco-tips is done you can share it with the other members of the site, and if you get lucky it will be displayed on the home page.
+
+## How to initialize the project
+
+Again its very simple :
+
+- create `.env` file with the `.env.example` to check how to fill it
+- open the terminal and go to the project folder
+- type : `yarn` to install all the dependencies
+- then type : `yarn dev` to launch the project
+- Enjoy
+
+last thing, if you want to have the full Eco-Tips experience and get the news on the homepage you cant just go to this link : <https://cors-anywhere.herokuapp.com> and click on the button `request a temporary acces to the demo server`
