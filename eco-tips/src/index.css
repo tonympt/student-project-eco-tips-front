@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    /* Green Button */
+    .green-button {
+      @apply rounded bg-green-600 text-white border border-l-2 border-b-4 border-green-800 shadow-lg;
+    }
+    .green-button:hover {
+      @apply bg-green-500;
+    }
+    /* Red Button */
+    .red-button {
+      @apply rounded bg-red-600 text-white border border-l-2 border-b-4 border-red-800 shadow-lg;
+    }
+    .red-button:hover {
+      @apply bg-red-500;
+    }
+    /* Blue Button */
+    .blue-button {
+      @apply rounded bg-blue-600 text-white border border-l-2 border-b-4 border-blue-800 shadow-lg;
+    }
+    .blue-button:hover {
+      @apply bg-blue-500;
+    }
+    .button-active:active {
+      @apply scale-95;
+    }
+    .inset-text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+    .oswald {
+      font-family: 'Oswald', sans-serif;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      background-color: #059669;
+      cursor: pointer;
+    }
+}
+
