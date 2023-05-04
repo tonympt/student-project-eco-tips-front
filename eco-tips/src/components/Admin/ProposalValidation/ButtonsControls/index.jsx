@@ -109,7 +109,7 @@ function ButtonsControls({ card }) {
 
 ButtonsControls.propTypes = {
   card: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired,
 };

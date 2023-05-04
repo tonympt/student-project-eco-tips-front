@@ -14,9 +14,6 @@ import { getAllProposals } from '@/actions/admin';
 
 function ProposalValidation() {
   const dispatch = useDispatch();
-  // Faire la vérification du role qui est = à 1 dans le useEffect
-  // const { role } = useSelector((state) => state.user);
-  // const { roleId } = useSelector((state) => state.user);
   const { proposals } = useSelector((state) => state.admin);
   const { refresh } = useSelector((state) => state.ui);
   const [loading, setLoading] = useState(true);

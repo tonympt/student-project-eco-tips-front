@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { HIDE_ERROR } from '@/actions/errorTypes';
 
 function ErrorNotification() {
+  // Loading error when api send an error notification
   const isOpen = useSelector((state) => state.error.isOpen);
   const error = useSelector((state) => state.error.error);
   const errorStatus = useSelector((state) => state.error.errorStatus);
@@ -11,7 +13,7 @@ function ErrorNotification() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  // when errorStatus = 500, navigate to ServerErrorPage otherwise display ErrorNotification component
   useEffect(() => {
     if (errorStatus === 500) {
       navigate('/500');
@@ -20,7 +22,7 @@ function ErrorNotification() {
       setErrorMessage(error);
     }
   }, [error]);
-
+  // Delete all datas error
   function handleClose() {
     dispatch({ type: HIDE_ERROR });
   }

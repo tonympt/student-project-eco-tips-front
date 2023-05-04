@@ -19,6 +19,7 @@ function SignIn() {
     event.preventDefault();
     dispatch(submitLogin());
   };
+  // when token save in store navigate to home page
   useEffect(() => {
     if (token) {
       navigate('/');

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { getLatestCard } from '@/actions/community';
+
 import Spinner from '@/components/Spinner';
 import Card from '@/components/Card';
 

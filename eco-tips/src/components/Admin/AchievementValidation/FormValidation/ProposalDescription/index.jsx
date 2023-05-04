@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 
 function ProposalDescription({ description, onChangeDescription }) {
-  const handleChange = (event) => {
-    onChangeDescription(event.target.value);
-  };
   return (
     <div className="p-2 border border-opacity-50 border-gray-400 rounded w-full flex flex-col">
       <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Description :</label>
@@ -13,7 +10,7 @@ function ProposalDescription({ description, onChangeDescription }) {
         maxLength="350"
         className="block p-2.5 w-full flex-grow text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
         value={description}
-        onChange={handleChange}
+        onChange={(event) => onChangeDescription(event.target.value)}
       />
     </div>
   );

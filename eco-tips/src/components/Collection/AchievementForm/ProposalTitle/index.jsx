@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-function ProposalTitle({ author, title, onTitle }) {
+function ProposalTitle({ title, onTitle }) {
   const { firstname, lastname } = useSelector((state) => state.user);
   const titleAchievement = `Accomplissement de ${firstname} ${lastname} : ${title}`;
-  onTitle(titleAchievement);
+
+  useEffect(() => {
+    onTitle(titleAchievement);
+  }, [onTitle, titleAchievement]); // Ajoutez les dépendances appropriées
+
   return (
     <div className="p-2 border border-opacity-50 border-gray-400 rounded">
       <div
@@ -19,9 +24,10 @@ function ProposalTitle({ author, title, onTitle }) {
     </div>
   );
 }
+
 ProposalTitle.propTypes = {
   onTitle: PropTypes.func.isRequired,
-  author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
+
 export default ProposalTitle;

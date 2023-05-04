@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ArticleList() {
@@ -11,7 +11,6 @@ function ArticleList() {
         'https://cors-anywhere.herokuapp.com/https://www.actu-environnement.com/flux/rss/environnement/',
       )
       .catch((err) => {
-        console.log(err);
         setError('Le news feed n\'est pas accessible.');
       })
       .then((data) => new window.DOMParser().parseFromString(data.data, 'text/xml'))

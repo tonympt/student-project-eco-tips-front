@@ -1,40 +1,44 @@
 /* eslint-disable max-len */
+// import Hooks
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { askRefresh } from '@/actions/ui';
-// Components
+// Main components
 import FormUpdateTags from '@/components/Admin/Tags/FormUpdateTags';
 import FormAddTag from '@/components/Admin/Tags/FormAddTag';
 // Tools component
 import Spinner from '@/components/Spinner';
 import SuccessNotifications from '@/components/SuccessNotifications';
 import ErrorNotifications from '@/components/ErrorNotifications';
-
 // Action creator
 import { getAllTags } from '@/actions/collection';
+import { askRefresh } from '@/actions/ui';
 
 function Tags() {
-  const dispatch = useDispatch();
-  const location = useLocation();
+  // Store
   const { tags } = useSelector((state) => state.collection);
   const { refresh } = useSelector((state) => state.ui);
+  // Local State
   const [loading, setLoading] = useState(true);
   const [selectedTags, setSelectedTags] = useState('');
   const [updateTag, setUpdateTag] = useState('');
+  // Hooks
+  const dispatch = useDispatch();
+  const location = useLocation();
+  // Fetch AllTags to component loading
+  useEffect(() => {
+    dispatch(getAllTags());
+    setLoading(false);
+  }, []);
 
+  // compare tags selected to allAlltags for loading local state
   const handleTags = (event) => {
     setSelectedTags(event.target.value);
     const findTagById = (id) => tags.find((tag) => tag.id === Number(id));
     const foundTag = findTagById(event.target.value);
     setUpdateTag(foundTag);
   };
-
-  useEffect(() => {
-    dispatch(getAllTags());
-    setLoading(false);
-  }, []);
-
+  // refresh component after change datas
   useEffect(() => {
     if (refresh) {
       dispatch(getAllTags());

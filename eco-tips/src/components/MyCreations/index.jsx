@@ -13,6 +13,7 @@ import { filteredToProposal } from '@/utils/collection';
 
 function MyCreations() {
   const { token } = useSelector((state) => state.user);
+
   const [creation, setCreation] = useState();
   const [cardsInProposals, setCardsInProposals] = useState([]);
   const [cardsNotInProposals, setCardsNotInProposals] = useState([]);
@@ -63,8 +64,8 @@ function MyCreations() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                 onChange={(e) => setSelectedFilter(e.target.value)}
               >
-                <option selected disabled>Tris</option>
-                <option value="all">Toutes mes créations</option>
+                <option disabled>Tris</option>
+                <option defaultValue value="all">Toutes mes créations</option>
                 <option value="beingValidated">Cartes en cours de validation</option>
                 <option value="validated">Cartes validées</option>
               </select>

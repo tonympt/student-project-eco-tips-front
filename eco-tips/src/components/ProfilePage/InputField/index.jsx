@@ -4,7 +4,7 @@ function InputField({ icon, inputType, value, placeholder, disabled, name, onVal
   return (
     <div className="flex items-center ">
       <div className="mr-2">{icon}</div>
-      <div className="flex w-full items-center bg-gray-100 border-b border-gray-200 py-2 px-2">
+      <div className="flex items-center bg-gray-100 border-b border-gray-200 py-2 px-2">
         <input
           className="bg-gray-100 focus:outline-none"
           name={name}

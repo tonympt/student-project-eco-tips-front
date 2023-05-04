@@ -1,36 +1,43 @@
 /* eslint-disable max-len */
+// Import Hooks
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import IconsAdd from '@/components/Collection/IconsAdd';
+// Action creator
 import { getAllCollection } from '@/actions/collection';
 import { askRefresh } from '@/actions/ui';
-import DisplayRemainingTime from '@/components/Collection/RemainingTime';
-// card component
+// Card components
 import Card from '@/components/Card';
-import Spinner from '@/components/Spinner';
+import IconsAdd from '@/components/Collection/IconsAdd';
+import DisplayRemainingTime from '@/components/Collection/RemainingTime';
 // Tools components
 import SuccessNotifications from '@/components/SuccessNotifications';
 import ErrorNotifications from '@/components/ErrorNotifications';
-// utils fonction
+import Spinner from '@/components/Spinner';
+// utils fonction to filtered cards and handle option on select input
 import { filterChecked, filterToValidate, cardsAccordingToExpiration } from '@/utils/collection';
 
 function Collection() {
-  const dispatch = useDispatch();
+  // Store
   const { collection } = useSelector((state) => state.collection);
   const { refresh } = useSelector((state) => state.ui);
+  // Local State
   const [loading, setLoading] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  // Hooks
+  const dispatch = useDispatch();
   const location = useLocation();
+  // Filtered cards
   const cardsChecked = filterChecked(collection);
   const cardsToValidate = filterToValidate(collection);
   const cardsNearestToExpiration = cardsAccordingToExpiration(collection, true);
-  const cardsfarthestToExpiration = cardsAccordingToExpiration(collection, false);
-  const [selectedFilter, setSelectedFilter] = useState('all');
+  // const cardsfarthestToExpiration = cardsAccordingToExpiration(collection, false);
+  // Fetch all collection lodaing component
   useEffect(() => {
     dispatch(getAllCollection());
     setLoading(false);
   }, []);
-
+  // component and component refresh when board state changes
   useEffect(() => {
     if (refresh) {
       dispatch(getAllCollection());
@@ -63,8 +70,8 @@ function Collection() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                 onChange={(e) => setSelectedFilter(e.target.value)}
               >
-                <option selected disabled>Tris</option>
-                <option value="all">Tous les éco-gestes</option>
+                <option disabled>Tris</option>
+                <option defaultValue value="all">Tous les éco-gestes</option>
                 <option value="toDo">Par éco-gestes à réaliser</option>
                 <option value="toCheck">Par éco-gestes à valider</option>
                 <option value="toChecked">Par éco-gestes réalisés</option>

@@ -20,7 +20,7 @@ function ButtonsControls({ achievement }) {
   const { id, title } = achievement;
   // datas to route /admin/proposals/:slug
   const allAchievementDatas = achievement;
-  console.log(achievement);
+
   // created slug for route /admin/proposals/:slug
   const urlParams = slugify(title);
   // === STATE ===
@@ -110,7 +110,7 @@ function ButtonsControls({ achievement }) {
 
 ButtonsControls.propTypes = {
   achievement: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired,
 };

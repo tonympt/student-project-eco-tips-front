@@ -69,7 +69,11 @@ function CheckedTipsButton({ ...card }) {
   );
 }
 CheckedTipsButton.propTypes = {
-  cardId: PropTypes.number.isRequired,
+  cardId: PropTypes.number,
+};
+
+CheckedTipsButton.defaultProps = {
+  cardId: null,
 };
 
 export default CheckedTipsButton;

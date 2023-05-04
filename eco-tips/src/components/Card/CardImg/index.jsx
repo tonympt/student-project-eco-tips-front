@@ -20,7 +20,7 @@ function CardImg({ path, title, base64Image, isExpanded, children }) {
 }
 
 CardImg.propTypes = {
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string,
   title: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool.isRequired,
   base64Image: PropTypes.string,
@@ -28,6 +28,7 @@ CardImg.propTypes = {
 };
 CardImg.defaultProps = {
   base64Image: '',
+  path: '',
   children: null,
 };
 

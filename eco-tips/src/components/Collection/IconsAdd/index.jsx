@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function IconsAdd({ addCardRequest }) {
-  const handleClick = () => {
-    addCardRequest(true);
-  };
+function IconsAdd() {
   return (
     <div className="flex flex-row gap-4 mb-4">
       <div className="flex flex-row gap-1 items-center ">
@@ -26,9 +23,5 @@ function IconsAdd({ addCardRequest }) {
     </div>
   );
 }
-
-IconsAdd.propTypes = {
-  addCardRequest: PropTypes.func.isRequired,
-};
 
 export default IconsAdd;
