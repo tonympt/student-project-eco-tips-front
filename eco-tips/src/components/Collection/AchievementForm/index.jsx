@@ -13,7 +13,7 @@ import SuccessNotifications from '@/components/SuccessNotifications';
 import ErrorNotifications from '@/components/ErrorNotifications';
 import { sendAchievement } from '@/actions/achievement';
 
-function AChievementForm() {
+function AchievementForm() {
   // hooks
   const dispatch = useDispatch();
   const location = useLocation();
@@ -51,12 +51,12 @@ function AChievementForm() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-2 text-center">Soumettre mon accomplissement</h1>
-      <div className="flex gap-5 justify-center mt-8">
+      <div className="flex flex-col items-center gap-4 lg:flex-row lg:justify-center mx-auto w-[90%] ">
         <form
           className="bg-white p-4 rounded-md shadow-md"
           onSubmit={handleSubmit}
         >
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex flex-col">
             <div className="flex flex-col my-2 gap-2">
               <Link to="/collection">
                 <div className="flex gap-1 text-sm hover:text-green-600 items-center">
@@ -84,7 +84,7 @@ function AChievementForm() {
             </div>
           </div>
         </form>
-        <div className="w-1/6 my-4">
+        <div className="w-1/2 lg:w-1/5">
           <Card {...cardDatas} />
         </div>
       </div>
@@ -92,4 +92,4 @@ function AChievementForm() {
   );
 }
 
-export default AChievementForm;
+export default AchievementForm;

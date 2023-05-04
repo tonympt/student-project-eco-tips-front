@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-
 // react and redux hooks
 import { useState, useEffect, useRef } from 'react';
 
 import PropTypes from 'prop-types';
-// components
+// Main components
 import CardTitle from './CardTitle';
 import CardTags from './CardTags';
 import CardRating from './CardRating';
@@ -14,6 +13,7 @@ import CardDescription from './CardDescription';
 import CardAuthor from './CardAuthor';
 import CardImg from './CardImg';
 import CheckIcon from './CheckIcon';
+// Optionals components
 import DeleteButton from './DeleteButton';
 import CostCard from './CostCard';
 
@@ -31,12 +31,18 @@ function Card({ image,
   delete: isDeleteEnabled,
   id,
   children }) {
+  // state to expanded value
   const [isExpanded, setIsExpanded] = useState(false);
+  // state to showBackground
   const [showBackground, setShowBackground] = useState(false);
+  // ref for handleOutsideClick while card expanded
   const cardRef = useRef();
+  // handle style of card while state isExpanded
   const styleCardExpanded = isExpanded ? '' : 'overflow-y-auto h-96';
   const styleContainerExpanded = isExpanded && 'z-40 fixed top-1/2 left-1/2 animate-expand cursor-auto w-full md:1/2 lg:w-1/3';
+  // style when card is validate (green border)
   const styleValidated = state && 'border-4 border-green-600';
+  // handle click on card
   const handleClick = () => {
     setIsExpanded(true);
     setShowBackground(true);
@@ -48,9 +54,8 @@ function Card({ image,
       setShowBackground(false);
     }
   };
-
+  // listen click on window when isExpanded=true
   useEffect(() => {
-    // listen click on window when isExpanded=true
     window.addEventListener('click', handleOutsideClick);
     return () => {
       window.removeEventListener('click', handleOutsideClick);
@@ -117,7 +122,7 @@ function Card({ image,
 }
 
 Card.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   title: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(
     PropTypes.shape({
@@ -134,10 +139,13 @@ Card.propTypes = {
   delete: PropTypes.bool,
   displayValue: PropTypes.bool,
   base64Image: PropTypes.string,
-  id: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  value: PropTypes.number,
 };
 Card.defaultProps = {
+  value: 0,
+  id: null,
+  image: null,
   children: null,
   tags: null,
   state: false,

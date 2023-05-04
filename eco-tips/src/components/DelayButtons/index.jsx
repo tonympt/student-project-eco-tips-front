@@ -7,7 +7,6 @@ function DelayButtons() {
     const today = dayjs();
     // today.add add the number of days to the date of the button value
     const targetDate = today.add(value, 'day');
-    console.log(targetDate);
   };
 
   return (

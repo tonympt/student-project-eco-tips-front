@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react/no-array-index-key */
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import Spinner from '@/components/Spinner';
 import AccordionTemplate from '@/components/Tools/AccordionTemplate';
 
 function BilanAdeme() {

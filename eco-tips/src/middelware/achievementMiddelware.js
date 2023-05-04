@@ -10,14 +10,12 @@ const achievementMiddelware = (store) => (next) => (action) => {
   switch (action.type) {
     case SEND_ACHIEVEMENT: {
       const { formValues } = action;
-      console.log(formValues);
       store.dispatch(loadApiRequest());
       axios
         .post(`${apiUrl}/me/achievement`, formValues, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          console.log(res);
           store.dispatch(loadRequestSuccess(res.statusText, res.status, "Votre accomplissement a bien été envoyé, nous l'avons soumis à un Admin 😀"));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))

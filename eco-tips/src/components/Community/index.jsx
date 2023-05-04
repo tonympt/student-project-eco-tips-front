@@ -13,9 +13,7 @@ function Community() {
       </div>
       <div className="flex flex-wrap gap-10 mx-auto w-[80%] sm:place-content-center ">
         <Rankings />
-
         <LatestCard />
-
       </div>
 
     </>

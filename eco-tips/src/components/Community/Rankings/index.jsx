@@ -1,14 +1,20 @@
 /* eslint-disable react/no-array-index-key */
+// Import Hooks
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
+// import axios to fetch rankings datas
+import axios from 'axios';
+// Tools components
 import Spinner from '@/components/Spinner';
 
 function Rankings() {
+  // Store
   const { token } = useSelector((state) => (state.user));
+  // Local State
   const [rankingScore, setRankingScore] = useState('');
   const [rankingCreation, setRankingCreation] = useState('');
   const apiUrl = import.meta.env.VITE_API_URL;
+  // handle emoji rankings
   const getMedalEmoji = (index) => {
     switch (index) {
       case 0:
@@ -21,6 +27,7 @@ function Rankings() {
         return index + 1;
     }
   };
+  // fetch rankings on components loading
   useEffect(() => {
     axios
       .get(`${apiUrl}/ranking/score`, {
@@ -40,7 +47,6 @@ function Rankings() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log(response);
         setRankingCreation(response.data);
       })
       .catch((error) => {

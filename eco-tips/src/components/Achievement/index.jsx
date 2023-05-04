@@ -1,4 +1,3 @@
-import { } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import background from '@/assets/images/background.png';
 
@@ -51,6 +50,9 @@ Achievement.propTypes = {
   description: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+Achievement.defaultProps = {
+  children: null,
 };
 export default Achievement;

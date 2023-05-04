@@ -10,10 +10,11 @@ import ProposalDescription from '@/components/Admin/AchievementValidation/FormVa
 // Tools components
 import SuccessNotifications from '@/components/SuccessNotifications';
 import ErrorNotifications from '@/components/ErrorNotifications';
+// Action creator
 import { updateAchievement } from '@/actions/admin';
 
 function FormValidation() {
-  // hooks
+  // Hooks
   const dispatch = useDispatch();
   const location = useLocation();
   // use hooks location to get datas
@@ -24,7 +25,7 @@ function FormValidation() {
   const { isOpen } = useSelector((state) => state.success);
   // State input form
   const [changeDescription, setChangeDescription] = useState(description);
-  // Created formValues for api
+  // Created formValues for fetch to api rest
   const handleSubmit = (event) => {
     event.preventDefault();
     const formValues = {
@@ -33,11 +34,10 @@ function FormValidation() {
     };
     dispatch(updateAchievement(formValues, id));
   };
-  // reset form with initial state and DOM element
+  // reset form with initial state
   const resetForm = () => {
     setChangeDescription(description);
   };
-  // Scroll on the top page
   useEffect(() => {
     if (isOpen) {
       window.scroll(0, 0);

@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
+// Hooks
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { askRefresh } from '@/actions/ui';
 // Achievement component
 import Achievement from '@/components/Achievement';
 // Tools component
@@ -11,21 +11,24 @@ import ButtonsControls from '@/components/Admin/AchievementValidation/ButtonsCon
 import SuccessNotifications from '@/components/SuccessNotifications';
 // Action creator
 import { getAllAchievements } from '@/actions/admin';
+import { askRefresh } from '@/actions/ui';
 
 function AchievementValidation() {
-  const dispatch = useDispatch();
-  // Faire la vérification du role qui est = à 1 dans le useEffect
-  // const { role } = useSelector((state) => state.user);
-  // const { roleId } = useSelector((state) => state.user);
+  // Store
   const { achievements } = useSelector((state) => state.admin);
   const { refresh } = useSelector((state) => state.ui);
+  // Local State
   const [loading, setLoading] = useState(true);
+  // Use Hooks
   const location = useLocation();
-
+  const dispatch = useDispatch();
+  // Fetch all Achievements on page loading
   useEffect(() => {
     dispatch(getAllAchievements());
     setLoading(false);
   }, []);
+
+  // refresh Achievementto the change achievements
   useEffect(() => {
     if (refresh) {
       dispatch(getAllAchievements());
@@ -59,7 +62,7 @@ function AchievementValidation() {
                 </div>
               ))
             ) : (
-              <p className="text-md">Aucune accomplissement n'est à valider pour l'instant...</p>
+              <p className="text-md">Aucun accomplissement n'est à valider pour l'instant...</p>
             )}
           </div>
         )}

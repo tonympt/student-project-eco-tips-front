@@ -21,6 +21,7 @@ function SignUp() {
     event.preventDefault();
     dispatch(submitSignup());
   };
+
   useEffect(() => {
     if (redirectTo) {
       navigate(redirectTo);
@@ -61,6 +62,7 @@ function SignUp() {
           value={birthdate}
           type="date"
           placeholder="JJ/MM/AAAA"
+          data-date-format="DD MMMM YYYY"
         />
 
         <Field
@@ -78,7 +80,6 @@ function SignUp() {
           labelName="Mot de passe"
           placeholder="********"
           onChange={changeField}
-          data-date-format="DD MMMM YYYY"
           value={password}
           type="password"
         />

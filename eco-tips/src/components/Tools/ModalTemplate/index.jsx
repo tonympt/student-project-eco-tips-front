@@ -97,11 +97,12 @@ ModalTemplate.propTypes = {
   onShowModal: PropTypes.bool.isRequired,
   onModalClose: PropTypes.func.isRequired,
   onValidate: PropTypes.func.isRequired,
-  colorButton: PropTypes.string.isRequired,
+  colorButton: PropTypes.string,
   mainSvg: PropTypes.node,
 };
 ModalTemplate.defaultProps = {
   mainSvg: null,
+  colorButton: 'green',
 };
 
 export default ModalTemplate;

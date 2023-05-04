@@ -116,7 +116,6 @@ const collectionMiddelware = (store) => (next) => (action) => {
           return true;
         })
         .catch((err) => {
-          console.log(err);
           store.dispatch(loadTRequestError(err.response.data, err.response.status));
           store.dispatch(askRequestFinished());
           return false;

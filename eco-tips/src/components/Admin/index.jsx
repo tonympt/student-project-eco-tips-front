@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Link } from 'react-router-dom';
 
 function Admin() {
@@ -11,10 +12,10 @@ function Admin() {
       </div>
       <div className="grid grid-cols-1 place-self-center mx-auto p-5 max-w-lg">
         {/* <div className="m-6 place-self-center  ">
+          // feature in development
           <Link to="/#" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation  ">
             Gérer les cartes
           </Link>
-
         </div> */}
         <div className=" m-6 place-self-center ">
           <Link to="/admin/tags" className="py-2 px-2 font-bold blue-button blue-button:hover button-active active:animate-buttonAnimation ">

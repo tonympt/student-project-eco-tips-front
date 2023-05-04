@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 function ProposalImg({ onImageChange, title, base64Image }) {
   const handleImageChange = (event) => {
@@ -24,7 +23,7 @@ function ProposalImg({ onImageChange, title, base64Image }) {
           </svg>
         ) : (
           <img
-            className="w-full h-32 object-contain"
+            className="w-full h-36 object-cover"
             src={base64Image}
             alt={title}
           />
@@ -35,9 +34,8 @@ function ProposalImg({ onImageChange, title, base64Image }) {
 }
 
 ProposalImg.propTypes = {
-  title: PropTypes.func.isRequired,
-  onImageChange: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   base64Image: PropTypes.string.isRequired,
+  onImageChange: PropTypes.func.isRequired,
 };
-
 export default ProposalImg;

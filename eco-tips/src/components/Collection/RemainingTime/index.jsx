@@ -76,9 +76,16 @@ function DisplayRemainingTime({ ...card }) {
 
 DisplayRemainingTime.propTypes = {
   card: PropTypes.shape({
-    expirationDate: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-  }).isRequired,
+    expiration_date: PropTypes.string,
+    id: PropTypes.number,
+  }),
+};
+
+DisplayRemainingTime.defaultProps = {
+  card: {
+    expiration_date: '',
+    id: null,
+  },
 };
 
 export default DisplayRemainingTime;

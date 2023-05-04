@@ -4,6 +4,7 @@ import imageFooter from '@/assets/images/footer.png';
 function Bodystyle({ children }) {
   const date = new Date().getFullYear();
   return (
+    // website background
     <div className="min-h-screen w-full relative overflow-hidden" style={{ backgroundColor: '#FBF5DF' }}>
       <div
         className="absolute inset-0 bottom-0 z-0"

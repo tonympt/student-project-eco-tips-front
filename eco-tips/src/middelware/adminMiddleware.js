@@ -78,13 +78,11 @@ const adminMiddleware = (store) => (next) => (action) => {
       break;
     case GET_ALL_ACHIEVEMENTS:
       store.dispatch(loadApiRequest());
-      console.log('RENTRÉ DANS LE MDW');
       axios
         .get(`${apiUrl}/achievement/proposal`, {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          console.log(res);
           store.dispatch(sendAllAchievements(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
@@ -98,7 +96,7 @@ const adminMiddleware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été ajouté dans la base de données 🥳 !!!\''));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été ajouté dans la base de données 🥳 !!!'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {
@@ -113,7 +111,7 @@ const adminMiddleware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été supprimé dans la base de données !!!\''));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été supprimé dans la base de données !!!'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {
@@ -128,7 +126,7 @@ const adminMiddleware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été modifié ♻️ !!!\''));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'L\'accomplissement a bien été modifié ♻️ !!!'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {
@@ -143,7 +141,7 @@ const adminMiddleware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Le tag a bien été modifié ♻️ !!!\''));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Le tag a bien été modifié ♻️ !!!'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {
@@ -158,7 +156,7 @@ const adminMiddleware = (store) => (next) => (action) => {
           headers: { Authorization: `Bearer ${store.getState().user.token}` },
         })
         .then((res) => {
-          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Le tag a bien été supprimé dans la base de données !!!\''));
+          store.dispatch(loadRequestSuccess(res.statusText, res.status, 'Le tag a bien été supprimé dans la base de données !!!'));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
         .finally(() => {
