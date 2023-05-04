@@ -3,19 +3,20 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchProfileData } from '@/actions/user';
-import { askRefreshProfileData } from '@/actions/ui';
+import { askRefresh } from '@/actions/ui';
 
 function DisplayEcocoins() {
   const { ecocoins } = useSelector((state) => state.user);
-  const { refreshProfileData } = useSelector((state) => state.ui);
+  const { refresh } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (refreshProfileData) {
+    if (refresh) {
       dispatch(fetchProfileData());
-      dispatch(askRefreshProfileData());
+      dispatch(askRefresh());
+      window.scroll(0, 0);
     }
-  }, [refreshProfileData]);
+  }, [refresh]);
 
   return (
     <div className="absolute top-4 right-2">
