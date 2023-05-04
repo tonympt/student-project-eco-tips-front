@@ -54,7 +54,7 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveProfileData(res.data));
         })
         .catch((err) => store.dispatch(loadTRequestError(err.response.data, err.response.status)))
-        .finally();
+        .finally(store.dispatch(askRefresh()));
       break;
     case DELETE_ACCOUNT:
       store.dispatch(loadApiRequest());
